@@ -58,7 +58,7 @@
 <h1> Hello, Spring Boot!</h1>
 
 <a href="register.do">레지스터 페이지</a>
-
+<a href="main.do">메인페이지 테스트</a>
 <table>	
 			<tr>
 				<th>아이디</th>

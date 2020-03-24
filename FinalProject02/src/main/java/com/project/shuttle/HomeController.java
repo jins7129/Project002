@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.project.shuttle.model.biz.TBUserBiz;
 import com.project.shuttle.model.dto.TBUserDto;
@@ -25,6 +26,12 @@ public class HomeController {
 	@RequestMapping("/")
 	public String index() {
 		return "index";
+	}
+	
+	@RequestMapping(value = "/main.do")
+	public ModelAndView Main(ModelAndView mav) {
+		mav.setViewName("main");
+		return mav;
 	}
 	
 	@RequestMapping("/register.do")
