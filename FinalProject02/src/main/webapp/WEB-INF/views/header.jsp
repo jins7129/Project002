@@ -67,7 +67,7 @@
 		</div>
 		
 		<div class="child3" id="searchBox">
-			<a rel="tooltip" title="hhhhhhhhhhhhhhhhh"><input type="text" name="inputSearch" id = "inputSearch" placeholder="type to search"/></a>
+			<a rel="tooltip" title=""><input type="text" name="inputSearch" id = "inputSearch" placeholder="type to search"/></a>
 			<img id="search" src="<c:url value = '/resources/images/icon_search.svg'/>" />&nbsp;&nbsp;<img id="search_image" src="<c:url value = '/resources/images/icon_search_image.svg'/>" />
 		</div>
 		
