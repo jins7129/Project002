@@ -8,22 +8,14 @@
 <meta charset="UTF-8">
 <title>Shuttle</title>
 
-<link rel="icon" href="#">
-<link href="/src/main/resources/css/main.css" rel="stylesheet">
-<link href="/main/resources/css/main.css" rel="stylesheet">
-<link href="/resources/css/main.css" rel="stylesheet">
-<link href="/css/main.css" rel="stylesheet">
+	<link rel="icon" href="#">
+	<link href="/resources/css/main.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Fira+Sans:300&display=swap" rel="stylesheet">
 
-<link href="/resources/css/main.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Fira+Sans:300&display=swap" rel="stylesheet">
-
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="/resources/js/main.js"></script>
-
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="/resources/js/main.js"></script>
 </head>
 <body>
-
-
 	<%@ include file="/WEB-INF/views/header.jsp" %>
 
 

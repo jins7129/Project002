@@ -37,13 +37,14 @@ public class HomeController {
 	
 	@RequestMapping("/signUp.do")
 	public ModelAndView SignUp(ModelAndView mav) {
-		mav.setViewName("register");
+		mav.setViewName("user_registration");
 		return mav;
 	}
 	
 	@RequestMapping(value = "/jusoPopup.do")
-	public String jusoPopup() {
-		return "jusoPopup";
+	public ModelAndView jusoPopup(ModelAndView mav) {
+		mav.setViewName("jusoPopup");
+		return mav;
 	}
 	
 	@RequestMapping(value = "/loginajax.do", method = RequestMethod.POST)
