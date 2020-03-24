@@ -79,7 +79,7 @@
 			<div class="child1"></div>
 
 			<div class="child2">
-				<a href="#"><img id="logo"
+				<a href="main.do"><img id="logo"
 					src="<c:url value = '/resources/images/icon_logo.svg'/>" /></a>&nbsp;&nbsp;&nbsp;
 			</div>
 
