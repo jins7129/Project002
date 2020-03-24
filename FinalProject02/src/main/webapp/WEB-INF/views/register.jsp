@@ -23,7 +23,7 @@
 				|| doc.value == "undefined") {
 			alert("아이디를 입력해주세요")
 		} else {
-			open("idchk?id=" + doc.value, "", "width=200, height=200")
+			open("idchk.do?id=" + doc.value, "", "width=200, height=200")
 		}
 	}
 
@@ -117,9 +117,8 @@
 		<!-- 도로명 주소 검색하기 -->
 		<div id="register_addrBox">
 			<label>Address : </label> 
-				<input id="registerAddr" type="text" value="">
+				<input id="registerAddr" type="text" value="" onclick="openPop_juso();">
 				<input id="registerAddr1" type="text" value=""> 
-				<input type="button" value="검색" onclick="openPop_juso();">
 			<hr id="addrLine">
 		</div>
 
