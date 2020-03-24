@@ -24,8 +24,9 @@ public class HomeController {
 	private TBUserBiz biz;
 	
 	@RequestMapping("/")
-	public String index() {
-		return "index";
+	public ModelAndView ScheduleManagementRoot() {
+		ModelAndView mav = new ModelAndView("redirect:main.do");
+		return mav;
 	}
 	
 	@RequestMapping(value = "/main.do")
@@ -34,10 +35,12 @@ public class HomeController {
 		return mav;
 	}
 	
-	@RequestMapping("/register.do")
-	public String register() {
-		return "register";
+	@RequestMapping("/signUp.do")
+	public ModelAndView SignUp(ModelAndView mav) {
+		mav.setViewName("register");
+		return mav;
 	}
+	
 	@RequestMapping(value = "/jusoPopup.do")
 	public String jusoPopup() {
 		return "jusoPopup";
