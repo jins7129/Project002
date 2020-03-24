@@ -71,7 +71,6 @@
 			
 			<tr>
 				<td colspan="2" align="right">
-					<input type="button" value="login" onclick="login();"/>
 					<input type="button" value="register"/>
 				</td>
 			</tr>
