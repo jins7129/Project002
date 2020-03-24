@@ -1,7 +1,5 @@
 $(function() {
 
-	
-	
 	// 검색 input 태그 호버
 	$("#searchBox").hover(function() {
 		$(this).css({

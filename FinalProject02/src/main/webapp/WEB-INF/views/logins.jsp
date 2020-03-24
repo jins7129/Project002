@@ -11,7 +11,6 @@
 <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300&display=swap" rel="stylesheet">
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<%-- <script type="text/javascript" src="<c:url value = 'resources/js/logins.js'/>"></script> --%>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -35,49 +34,92 @@
 <script src="<c:url value = '/resources/Login/vendor/daterangepicker/daterangepicker.js'/>"></script>
 <script src="<c:url value = '/resources/Login/vendor/countdowntime/countdowntime.js'/>"></script>
 <script src="<c:url value = '/resources/Login/js/main.js'/>"></script>
+<script type="text/javascript">
 
+	$(function(){
+		$("#loginChk").hide();
+	});
+	
+	function login(){
+		var userId=$("#userId").val().trim();
+		var userPw=$("#userPw").val().trim();
+		
+		console.log(userId+"/"+userPw);
+		
+		var loginVal = {
+				"userId":userId,
+				"userPw":userPw
+		};				// 자바스크립트 객체(오브젝트)
+		
+		if(userId==null||userId==""||userPw==""||userPw==null){
+			alert("아이디 및 패스워드를 확인해주세요");
+		} else{
+			$.ajax({
+				type:"post",
+				url: "loginajax.do",
+				data: JSON.stringify(loginVal),
+				contentType: "application/json",		// unsupport mediaType 오류가 남, 기본이 text/html 타입이기 때문에
+				dataType:"json",						// 명시해줘야함
+				success: function(msg){
+					if(msg.check == true){
+						location.href='main.do';
+					} else {
+						$("#loginChk").show();
+						$("#loginChk").html("아이디 혹은 패스워드가 잘못되었습니다.");
+					}
+				},
+				error : function(){
+					alert("통신 실패");
+				}
+			});
+			
+		}
+
+	}
+
+</script>
 </head>
 <body>
 
 
 	<!-- login * join을 ajax로 불러오는 부분 -->
-	<div style="background-color:#F7F7F7;"><button onclick="back();" id ="back" style="background-color:#F7F7F7;">back</button></div>
-	<div class="limiter">
+	<div class="limiter" style="background-color:#F7F7F7;">
+		<div><input type="button" onclick="back();" id="back" style="background-color:#F7F7F7;" value="back" /></div>
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" method="post" action="main.do">
-					<span class="login100-form-title p-b-43"> Login
+					<span class="login100-form-title p-b-43" > Login
 					</span>
 
 
 					<div class="wrap-input100 validate-input"
 						data-validate="Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="email"> <span
+						<input class="input100" id="userId" type="text" name="userId"> <span
 							class="focus-input100"></span> <span class="label-input100">User ID</span>
 					</div>
 
 
 					<div class="wrap-input100 validate-input"
 						data-validate="Password is required">
-						<input class="input100" type="password" name="pass"> <span
+						<input class="input100" id="userPw" type="password" name="userPw"> <span
 							class="focus-input100"></span> <span class="label-input100">Password</span>
 					</div>
 
 					<div class="flex-sb-m w-full p-t-3 p-b-32">
-						<div class="contact100-form-checkbox">
+						<!-- <div class="contact100-form-checkbox">
 							<input class="input-checkbox100" id="ckb1" type="checkbox"
 								name="remember-me"> <label class="label-checkbox100"
 								for="ckb1"> Remember me </label>
-						</div>
+						</div> -->
 
-						<div>
+						<div id="loginChk">
 							<a href="#" class="txt1"> Forgot Password? </a>
 						</div>
 					</div>
 
 
 					<div class="container-login100-form-btn">
-						<input type="submit" value="Login" class="login100-form-btn"/>
+						<input type="button" value="Login" class="login100-form-btn" onclick="login();"  />
 					</div>
 
 					<div class="text-center p-t-46 p-b-20">

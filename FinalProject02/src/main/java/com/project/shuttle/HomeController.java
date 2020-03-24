@@ -47,6 +47,21 @@ public class HomeController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/logins.do", method = RequestMethod.POST)
+	public void logins() {
+		
+	}
+	
+	@RequestMapping("/logout.do")
+	public ModelAndView logout(ModelAndView mav, HttpSession session) {
+//		session.invalidate();
+		// 세션에 존재하는 모든 정보 삭제
+		session.removeAttribute("loginInfo");
+		// 원하는 세션 정보만 삭제
+		mav.setViewName("main");
+		return mav;
+	}
+	
 	@RequestMapping(value = "/loginajax.do", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Boolean> loginAjax(HttpSession session, @RequestBody TBUserDto dto){
@@ -78,7 +93,7 @@ public class HomeController {
 		System.out.println(res.getUserId()+"testController biz 실행 후");
 		boolean check = false;
 		if(res!=null) {//로그인 정보가 있다면
-			session.setAttribute("login", res);
+			session.setAttribute("loginInfo", res);
 			check = true;
 		}
 		Map<String, Boolean> map = new HashMap<String, Boolean>();
