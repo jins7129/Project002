@@ -14,10 +14,14 @@
 <link href="/resources/css/main.css" rel="stylesheet">
 <link href="/css/main.css" rel="stylesheet">
 
+<<<<<<< HEAD
+=======
+<link href="/resources/css/main.css" rel="stylesheet">
+>>>>>>> 65a5d6159311989506e2b7b104aee28b52debc70
 <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300&display=swap" rel="stylesheet">
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="<c:url value = '/resources/js/main.js'/>"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
 
 </head>
 <body>
