@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -69,7 +68,6 @@ public class HomeController {
 		 * @RequestBody : request객체를 통해 넘어오는 데이터를 java 객체에 binding
 		 * @ResponseBody : java 객체를 response 객체에 binding해서 보내줌
 		 */
-		
 		/*
 		 * 1. 최초 json형태의 값이 들어오면 이를 jackson이 json형태로 변환해주고
 		 * 이를 @RequestBody가 받아서 작업을 해줌
