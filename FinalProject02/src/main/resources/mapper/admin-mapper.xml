@@ -13,7 +13,7 @@
 		<result property="reportCategory" column="REPORT_CATEGORY" />
 		<result property="reportStatus" column="REPORT_STATUS" />
 	</resultMap>
-	
+	<!--
 	<select id = "countReport">
 		SELECT COUNT(*) FROM TB_REPORT WHERE REPORT_STATUS = "?"
 	</select>
@@ -45,8 +45,8 @@
 	</select>
 	
 	<select id = "detail" resultMap = "reportDto">
-		SELECT REPORT_SEQ, USER_ID, REPORT_WRITER, REQUEST_SEQ, REPORT_BLOCK_DAT, REPORT_DATE, REPORT_CONTENT, REPORT_CATEGORY, REPORT_STATUS FROM
+		  SELECT REPORT_SEQ, USER_ID, REPORT_WRITER, REQUEST_SEQ, REPORT_BLOCK_DAT, REPORT_DATE, REPORT_CONTENT, REPORT_CATEGORY, REPORT_STATUS FROM
 		TB_REPORT WHERE REQUEST_SEQ = #{}
-	</select>
+	</select>-->
 	
 </mapper>
