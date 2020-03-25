@@ -1,5 +1,7 @@
 package com.project.shuttle.model.biz;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +25,7 @@ public class TBUserBizImpl implements TBUserBiz{
 
 
 	@Override
-	public TBJobDto getWrittenBoard(String name) {
+	public List<TBJobDto> getWrittenBoard(String name) {
 		return dao.getWrittenBoard(name);
 	}
 

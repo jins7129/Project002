@@ -1,6 +1,7 @@
 package com.project.shuttle;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -45,8 +46,8 @@ public class MypageController {
 		
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		
-		TBJobDto list = userBiz.getWrittenBoard(loginInfo.getUserId());
-		
+		List<TBJobDto> list = userBiz.getWrittenBoard(loginInfo.getUserId());
+		map.put("test","dummy");
 		map.put("list", list);
 		
 		return map;
