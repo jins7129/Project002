@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.shuttle.model.dao.TBUserDao;
+import com.project.shuttle.model.dto.TBJobDto;
 import com.project.shuttle.model.dto.TBUserDto;
 
 
@@ -18,6 +19,12 @@ public class TBUserBizImpl implements TBUserBiz{
 	@Override
 	public TBUserDto login(TBUserDto dto) {
 		return dao.login(dto);
+	}
+
+
+	@Override
+	public TBJobDto getWrittenBoard(String name) {
+		return dao.getWrittenBoard(name);
 	}
 
 

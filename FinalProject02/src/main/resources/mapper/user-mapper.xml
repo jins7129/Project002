@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.project.shuttle.model.dao.TBUserDao" >
+<mapper namespace="com.project.shuttle.model.dao.TBUserDao">
 
 	<resultMap type="com.project.shuttle.model.dto.TBUserDto" id="userDto">
 		<result property="userId" column="USER_ID" />
@@ -14,13 +14,35 @@
 		<result property="userAccount" column="USER_ACCOUNT" />
 		<result property="userBlockDate" column="USER_BLOCK_DATE" />
 	</resultMap>
-	
-	
-	<select id="login" parameterType="com.project.shuttle.model.dto.TBUserDto" resultMap="userDto" >
+
+	<resultMap type="com.project.shuttle.model.dto.TBJobDto" id="boardDto">
+		<result property="jobSeq" column="JOB_SEQ" />
+		<result property="userId" column="USER_ID" />
+		<result property="jobTitle" column="JOB_TITLE" />
+		<result property="jobContent" column="JOB_CONTENT" />
+		<result property="jobReward" column="JOB_REWARD" />
+		<result property="jobAddr" column="JOB_ADDR" />
+		<result property="jobCategory" column="JOB_CATEGORY" />
+		<result property="jobComplete" column="JOB_COMPLETE" />
+		<result property="jobDate" column="JOB_DATE" />
+		<result property="jobStart" column="JOB_START" />
+		<result property="jobDone" column="JOB_DONE" />
+		<result property="jobView" column="JOB_VIEW" />
+	</resultMap>
+
+
+	<select id="login" parameterType="com.project.shuttle.model.dto.TBUserDto" resultMap="userDto">
 		SELECT *
 		FROM TB_USER
 		WHERE USER_ID = #{userId}
-		AND USER_PW = #{userPw}
+		AND
+		USER_PW =
+		#{userPw}
 	</select>
-	
+
+	<select id="getWrittenBoard" parameterType="String" resultMap="boardDto">
+		SELECT * FROM TB_JOB
+		WHERE USER_ID = #{userId}
+	</select>
+
 </mapper>

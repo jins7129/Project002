@@ -4,36 +4,38 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>유저 메인 페이지</title>
+<title>내 정보 수정</title>
 </head>
 <body>
 
 	<%@ include file="/WEB-INF/views/header.jsp"%>
 
-	<div align="center" >
+	<div align="center">
 		<img src="resources/file/testFile.PNG" />
 		<table>
 			<tr>
-				<td>이름 : </td>
+				<td>이름 :</td>
 				<td>${loginInfo.userName }</td>
 			</tr>
 			<tr>
-				<td>아이디 : </td>
+				<td>아이디 :</td>
 				<td>${loginInfo.userId }</td>
 			</tr>
 			<tr>
-				<td>전화번호 </td>
+				<td>전화번호</td>
 				<td>${loginInfo.userPhone }</td>
 			</tr>
 			<tr>
-				<td>주소 </td>
+				<td>주소</td>
 				<td>${loginInfo.userAddr }</td>
 			</tr>
 
 		</table>
 	</div>
-	<hr/>
+
+
 
 	<%@ include file="/WEB-INF/views/footer.jsp"%>
+
 </body>
 </html>

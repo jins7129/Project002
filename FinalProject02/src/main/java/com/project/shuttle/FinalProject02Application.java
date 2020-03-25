@@ -22,7 +22,9 @@ public class FinalProject02Application implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginSessionIntercepter)
                 .addPathPatterns("/mypage_main.do")
-                .addPathPatterns("/signUp.do");
+                .addPathPatterns("/mypage_update.do")
+                .addPathPatterns("/signUp.do")
+                ;
     }
 	
 	/*
