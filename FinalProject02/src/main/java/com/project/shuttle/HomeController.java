@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.project.shuttle.model.biz.TBUserBiz;
 import com.project.shuttle.model.dto.TBUserDto;
@@ -23,17 +24,42 @@ public class HomeController {
 	private TBUserBiz biz;
 	
 	@RequestMapping("/")
-	public String index() {
-		return "index";
+	public ModelAndView ScheduleManagementRoot() {
+		ModelAndView mav = new ModelAndView("redirect:main.do");
+		return mav;
 	}
 	
-	@RequestMapping("/register.do")
-	public String register() {
-		return "register";
+	@RequestMapping(value = "/main.do")
+	public ModelAndView Main(ModelAndView mav) {
+		mav.setViewName("main");
+		return mav;
 	}
+	
+	@RequestMapping("/signUp.do")
+	public ModelAndView SignUp(ModelAndView mav) {
+		mav.setViewName("user_registration");
+		return mav;
+	}
+	
 	@RequestMapping(value = "/jusoPopup.do")
-	public String jusoPopup() {
-		return "jusoPopup";
+	public ModelAndView jusoPopup(ModelAndView mav) {
+		mav.setViewName("jusoPopup");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/logins.do", method = RequestMethod.POST)
+	public void logins() {
+		
+	}
+	
+	@RequestMapping("/logout.do")
+	public ModelAndView logout(ModelAndView mav, HttpSession session) {
+//		session.invalidate();
+		// 세션에 존재하는 모든 정보 삭제
+		session.removeAttribute("loginInfo");
+		// 원하는 세션 정보만 삭제
+		mav.setViewName("main");
+		return mav;
 	}
 	
 	@RequestMapping(value = "/loginajax.do", method = RequestMethod.POST)
@@ -67,7 +93,7 @@ public class HomeController {
 		System.out.println(res.getUserId()+"testController biz 실행 후");
 		boolean check = false;
 		if(res!=null) {//로그인 정보가 있다면
-			session.setAttribute("login", res);
+			session.setAttribute("loginInfo", res);
 			check = true;
 		}
 		Map<String, Boolean> map = new HashMap<String, Boolean>();

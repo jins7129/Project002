@@ -59,6 +59,7 @@
 
 <a href="register.do">레지스터 페이지</a>
 <a href="report_admin.do">관리자 페이지</a>
+<a href="main.do">메인페이지 테스트</a>
 <table>	
 			<tr>
 				<th>아이디</th>
@@ -71,7 +72,6 @@
 			
 			<tr>
 				<td colspan="2" align="right">
-					<input type="button" value="login" onclick="login();"/>
 					<input type="button" value="register"/>
 				</td>
 			</tr>

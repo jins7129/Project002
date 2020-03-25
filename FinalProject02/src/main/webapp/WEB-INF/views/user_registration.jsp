@@ -5,6 +5,17 @@
 <head>
 <meta charset="UTF-8">
 <title>REGISTER</title>
+<style>
+.img_profile {
+   width: 160px;
+   height: 170px;
+   border-radius: 150px;
+   box-shadow: 5px 10px 30px 10px black;
+   margin-left: 28%;
+}
+
+
+</style>
 
 <script>
 	//ID 유효성 검사
@@ -23,7 +34,7 @@
 				|| doc.value == "undefined") {
 			alert("아이디를 입력해주세요")
 		} else {
-			open("idchk?id=" + doc.value, "", "width=200, height=200")
+			open("idchk.do?id=" + doc.value, "", "width=200, height=200")
 		}
 	}
 
@@ -74,18 +85,45 @@
 			}
 		});
 	}
+
+	//웹 알림 Function
+	function notifyMe() {
+		  if (!"Notification" in window) {
+		    alert("This browser does not support desktop notification");
+		  }
+		  else if (Notification.permission === "granted") {
+		    var notification = new Notification("Hi there!");
+		  }
+		  else if (Notification.permission !== 'denied') {
+		    Notification.requestPermission(function (permission) {
+		      if(!('permission' in Notification)) {
+		        Notification.permission = permission;
+		      }
+		      if (permission === "granted") {
+		        var notification = new Notification("Hi there!");
+		      }
+		    });
+		  }
+		}
+	
 </script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 
 <body>
+
+<%@ include file="/WEB-INF/views/header.jsp" %>
+
 	<h1>register</h1>
 	<hr id="registerLine" />
-	
+		
 	<!-- 프로필 사진 넣기 -->
+	<div>
 	profile<br>
-	<img alt="error" src=""><br>
+	<img id="img_profile" class="img_profile" src="" onError="this.src='/resources/images/imgSample.png'" alt="">
+	<br>
 		<input type="button" onclick="" value="이미지 삽입하기" >
+	</div>
 	<hr>
 	
 	<form action="insert" method="post" id="frm">
@@ -117,9 +155,8 @@
 		<!-- 도로명 주소 검색하기 -->
 		<div id="register_addrBox">
 			<label>Address : </label> 
-				<input id="registerAddr" type="text" value="">
+				<input id="registerAddr" type="text" value="" onclick="openPop_juso();">
 				<input id="registerAddr1" type="text" value=""> 
-				<input type="button" value="검색" onclick="openPop_juso();">
 			<hr id="addrLine">
 		</div>
 
@@ -133,6 +170,7 @@
 		<!-- register 아래 button -->
 		<div id="register_long_btn">
 			<input type="submit" value="register" id="register_longBtn" style="float: right;">
+			<input type="button" value="CANCEL" onclick="location.href='main.do'">
 		</div>
 	</form>
 	
@@ -162,6 +200,11 @@
 
 	<label></label>
 	<input type="text" value="" placeholder=""><br>
+	
+	<input type="button" value="웹 알림 테스트" onclick="notifyMe();">
+	
+	<div id = "footer"><%@ include file="/WEB-INF/views/footer.jsp" %></div>
+	
 		
 	
 </body>
