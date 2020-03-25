@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "com.project.shuttle.model.dao.TBReportDao">
+
+	<resultMap type="com.project.shuttle.model.dto.TBReportDto" id="reportDto">
+		<result property="reportSeq" column="REPORT_SEQ" />
+		<result property="userId" column="USER_ID" />
+		<result property="reportWriter" column="REPORT_WRITER" />
+		<result property="requestSeq" column="REQUEST_SEQ" />
+		<result property="reportBlockDat" column="REPORT_BLOCK_DAT" />
+		<result property="reportDate" column="REPORT_DATE" />
+		<result property="reportContent" column="REPORT_CONTENT" />
+		<result property="reportCategory" column="REPORT_CATEGORY" />
+		<result property="reportStatus" column="REPORT_STATUS" />
+	</resultMap>
+	
+	<select id = "countReport">
+		SELECT COUNT(*) FROM TB_REPORT WHERE REPORT_STATUS = "?"
+	</select>
+	
+	<select id = "countUserIdReport" parameterType = "String">
+		SELECT COUNT(*) FROM TB_REPORT WHERE USER_ID = #{} AND REPORT_STATUS = "?"
+	</select>
+	
+	<select id = "countWriterReport" parameterType = "String">
+		SELECT COUNT(*) FROM TB_REPORT WHERE REPORT_WRITER = #{} AND REPORT_STATUS = "?"
+	</select>
+	
+	<select id = "selectPaging" parameterType = "map" resultMap = "reportDto">
+		SELECT REPORT_SEQ, USER_ID, REPORT_WRITER, REQUEST_SEQ, REPORT_BLOCK_DAT, REPORT_DATE, REPORT_CONTENT, REPORT_CATEGORY, REPORT_STATUS FROM
+		(SELECT ROWNUM RN, A.* FROM
+		(SELECT * FROM TB_REPORT WHERE REPORT_STATUS = "?" ORDER BY REPORT_SEQ DESC)A) WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id = "selectUserIdPaging" parameterType = "map" resultMap = "reportDto">
+		SELECT REPORT_SEQ, USER_ID, REPORT_WRITER, REQUEST_SEQ, REPORT_BLOCK_DAT, REPORT_DATE, REPORT_CONTENT, REPORT_CATEGORY, REPORT_STATUS FROM
+		(SELECT ROWNUM RN, A.* FROM
+		(SELECT * FROM TB_REPORT WHERE USER_ID = #{} AND REPORT_STATUS = "?" ORDER BY REPORT_SEQ DESC)A) WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id = "selectWriterPaging" parameterType = "map" resultMap = "reportDto">
+		SELECT REPORT_SEQ, USER_ID, REPORT_WRITER, REQUEST_SEQ, REPORT_BLOCK_DAT, REPORT_DATE, REPORT_CONTENT, REPORT_CATEGORY, REPORT_STATUS FROM
+		(SELECT ROWNUM RN, A.* FROM
+		(SELECT * FROM TB_REPORT WHERE REPORT_WRITER = #{} AND REPORT_STATUS = "?" ORDER BY REPORT_SEQ DESC)A) WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id = "detail" resultMap = "reportDto">
+		SELECT REPORT_SEQ, USER_ID, REPORT_WRITER, REQUEST_SEQ, REPORT_BLOCK_DAT, REPORT_DATE, REPORT_CONTENT, REPORT_CATEGORY, REPORT_STATUS FROM
+		TB_REPORT WHERE REQUEST_SEQ = #{}
+	</select>
+	
+</mapper>
