@@ -90,7 +90,6 @@ public class HomeController {
 		
 		
 		TBUserDto res = biz.login(dto);
-		System.out.println(res.getUserId()+"testController biz 실행 후");
 		boolean check = false;
 		if(res!=null) {//로그인 정보가 있다면
 			session.setAttribute("loginInfo", res);
