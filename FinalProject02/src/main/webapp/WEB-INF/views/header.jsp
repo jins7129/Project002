@@ -50,7 +50,7 @@
 			<div class="child2" id="mypage_mybag">
 				<div class="parent">
 					<div class="container1">
-						<a href="#" id="mypageTxt"><img id="mypage"
+						<a href="mypage_main.do" id="mypageTxt"><img id="mypage"
 							src="<c:url value = '/resources/images/icon_rabit.svg'/>" />&nbsp;My
 							Page</a>
 						<div class="overlay">
