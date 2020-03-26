@@ -51,39 +51,39 @@
 		$("#registerAddr1").val(addrDetail + " " + zipNo);
 	}
 	
+	var EmailCode = "";
 	
-	
-	//이메일 인증 API
-	var emailCode = "";
-	function fnEmailValidation() {
-		var email = $("#Email_id").val();
-		if ($.trim(email).length < 1) {
-			return;
-		}
+	//이메일 인증 SMTP
+	function verifyEmail(){
 
 		$.ajax({
-			url : "emailValidation",
-			type : "post",
-			dataType : "json",
-			data : {
-				"email" : $("#Email_id").val()
-			},
+			url : "sendMail.do?to="+$("#Email_id").val(),
+			type: "post",
+			contentType:"application/json",
+			dataType : 'json',
 			success : function(data) {
-				console.log(data);
-				if (data.resultCode == "1002") {
-					return alert("이미 가입되어 있는 이메일 주소입니다.");
-				} else if (data.resultCode == "1001") {
-					return alert("메일 발송중 에러가 발생했습니다.\n메일을 발송하지 못했습니다.");
-				}
-
-				emailCode = data.emailValidationCode;
-				alert("메일이 발송 되었습니다.\n메일에 포함된 인증코드를 입력 후 인증 버튼을 눌러주세요.");
+				alert("인증코드가 발급되었습니다.");
+				EmailCode = data;
+				console.log(EmailCode);
 			},
 			error : function(err) {
 				alert("에러가 발생했습니다.\n브라우저 콘솔의 내용을 확인하세요.");
 				console.log(err);
 			}
 		});
+	}
+	
+	//인증코드 확인 함수
+	function emailChk(){
+	
+		if($("#VerifyNum").val() == ""){
+			alert("인증코드를 써주세요.");
+		}else if($("#VerifyNum").val() != EmailCode){
+			alert("인증코드가 일치하지 않습니다.");
+		}else if ($("#VerifyNum").val() == EmailCode){
+			alert("인증코드가 일치합니다.");
+			$("#verifyBox").prop("checked", true);
+		}
 	}
 
 	//웹 알림 Function
@@ -111,12 +111,11 @@
 </head>
 
 <body>
-
-
-	<h1>register</h1>
+	<h1>REGISTER</h1>
 	<hr id="registerLine" />
 		
 	<!-- 프로필 사진 넣기 -->
+	<form action="insert.do" method="post">
 	<div>
 	profile<br>
 	<img id="img_profile" class="img_profile" src="" onError="this.src='/resources/images/imgSample.png'" alt="">
@@ -125,7 +124,6 @@
 	</div>
 	<hr>
 	
-	<form action="insert" method="post" id="frm">
 		<input type="hidden" id="tg_YN" name="tgYn" value="N">
 
 		<!-- 로그인하기 -->
@@ -162,17 +160,24 @@
 		<!-- 이메일 인증하기 -->
 		<div>
 		<label>Email Verify</label>
-			<input type="button" value="Verify" onclick="fnEmailValidation();"><br>
-			Verify<input type="checkbox" value="Completed" disabled="disabled">
+			<input type="button" value="Verify" onclick="verifyEmail();"><br>
+			Verify<input type="checkbox" value="Completed" disabled="disabled" id="verifyBox"  >
+			인증번호: 
+			<input type="text" value="" id="VerifyNum" >	
+			<input type="button" value="확인" onclick="emailChk();" id="verifyChk">
+			
 		</div>
 
 		<!-- register 아래 button -->
 		<div id="register_long_btn">
-			<input type="submit" value="register" id="register_longBtn" style="float: right;">
-			<input type="button" value="CANCEL" onclick="location.href='main.do'">
+			<input type="submit" value="REGISTER" id="register_longBtn" style="float: left; ;">
+			<input type="button" value="CANCEL" onclick="location.href='main.do'" style="float: left;;">
 		</div>
 	</form>
-	
+
+
+<!-- 결제페이지 더미코드 -->
+<!-- 	
 	<hr>
 	<h1>결제페이지</h1>
 	<label>결제금액을 선택하세요</label>
@@ -196,23 +201,29 @@
 
 	<label>비밀번호</label>
 	<input type="text" value="" placeholder="비밀번호를 입력하세요"><br>
+ -->
 
+<!-- 알림테스트 코드 -->
+<!-- 
 <hr>
 	<h2>웰 알림 테스트</h2>
 	<input type="button" value="웹 알림 테스트" onclick="notifyMe();">
-	
-	
+	 -->
+
+	 <!-- 이메일 인증 테스트  -->
+		<!--
+ 
 	<hr>
 	<h2>메일 보내기 테스트</h2>
 	<form action="sendMail.do" method="post">
 		<input type="text" placeholder="이메일을 입력해주세요 " name="to">
-		<input type="submit" value="보내기">
+		<input type="button" value="보내기" onclick="">
 	</form>
 		
 		<label>인증번호</label>
 		<input type="text" value="" id="VerifyNum">
 		<input type="hidden" value="난수값" id="VerifyNumChk" >	
-	
+	 -->
 	
 	
 	

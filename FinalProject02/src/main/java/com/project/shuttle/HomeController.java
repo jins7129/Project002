@@ -11,6 +11,7 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -67,7 +68,7 @@ public class HomeController {
 		// 원하는 세션 정보만 삭제
 		RedirectView review = new RedirectView("/main.do");
 		// redirectView 타입이 있길래 써봄
-		
+
 		return review;
 	}
 
@@ -106,28 +107,25 @@ public class HomeController {
 		return map;
 	}
 
-	@RequestMapping(value = "/sendMail.do")
-	public ModelAndView ssendMail(ModelAndView mav, String to) {
-			SimpleMailMessage message = new SimpleMailMessage();
-			System.out.println("1");
-			message.setTo(to);
-			System.out.println("2");
-			message.setSubject("Shuttle Email Verify");
-			int[] ranV = new int[6];
-			System.out.println("3");
-			String test = "" ;
-			for (int i = 0; i < ranV.length; i++) {
-				ranV[i] = (int) (Math.random() * 9);
-				test += ranV[i]+"";
-			}
-			System.out.println("4");
-			System.out.println(test);
-			System.out.println("5");
-			message.setText("회원가입을 위한 이메일 인증 메일입니다.\n인증번호 : " );
-			System.out.println("6");
-			emailSender.send(message);
-		
-		mav.setViewName("main");
-		return mav;
+	@RequestMapping(value = "/sendMail.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String sendMail(Model model, String to) {
+		System.out.println(to);
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo(to);
+		message.setSubject("Shuttle Email Verify");
+		int[] ranV = new int[6];
+		String verifyNum = "";
+		for (int i = 0; i < ranV.length; i++) {
+			ranV[i] = (int) (Math.random() * 9);
+			verifyNum += ranV[i] + "";
+		}
+		message.setText("회원가입을 위한 이메일 인증 메일입니다.\n인증번호 : " + verifyNum);
+		emailSender.send(message);
+		model.addAttribute(verifyNum, "verifyNum");
+		return verifyNum;
 	}
+	
+	
+	
 }
