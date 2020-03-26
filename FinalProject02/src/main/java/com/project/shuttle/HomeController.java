@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -65,7 +66,7 @@ public class HomeController {
 		// 원하는 세션 정보만 삭제
 		RedirectView review = new RedirectView("/main.do");
 		// redirectView 타입이 있길래 써봄
-		
+
 		return review;
 	}
 
@@ -127,5 +128,25 @@ public class HomeController {
 		
 		mav.setViewName("main");
 		return mav;
+	@RequestMapping(value = "/sendMail.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String sendMail(Model model, String to) {
+		System.out.println(to);
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo(to);
+		message.setSubject("Shuttle Email Verify");
+		int[] ranV = new int[6];
+		String verifyNum = "";
+		for (int i = 0; i < ranV.length; i++) {
+			ranV[i] = (int) (Math.random() * 9);
+			verifyNum += ranV[i] + "";
+		}
+		message.setText("회원가입을 위한 이메일 인증 메일입니다.\n인증번호 : " + verifyNum);
+		emailSender.send(message);
+		model.addAttribute(verifyNum, "verifyNum");
+		return verifyNum;
 	}
+	
+	
+	
 }
