@@ -1,13 +1,11 @@
 package com.project.shuttle;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
@@ -111,7 +109,7 @@ public class HomeController {
 			SimpleMailMessage message = new SimpleMailMessage();
 			System.out.println("1");
 			message.setTo(to);
-			System.out.println("2");
+			System.out.println(to);
 			message.setSubject("Shuttle Email Verify");
 			int[] ranV = new int[6];
 			System.out.println("3");

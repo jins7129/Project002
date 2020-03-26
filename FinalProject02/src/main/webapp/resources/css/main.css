@@ -18,50 +18,6 @@ body {
 				color: white;
 			}
 
-/* 부모태그 display: flex; */
-.div {
-	display: flex;
-	width: 100%;
-	height: 50px;
-	line-height: 50px;
-	vertical-align: middle;
-	border-bottom: 1px solid #d9d9d9;
-	background-color: white;
-}
-
-/* 자식태그 class = "child1" */
-.child1 {
-	flex: 1;
-}
-
-/* 자식태그 class = "child2" */
-.child2 {
-	flex: 2;
-}
-
-/* 자식태그 class = "child3" */
-.child3 {
-	flex: 3;
-	text-align: center;
-}
-
-
-/* 메뉴 */
-.smallList {
-	width: 100%;
-	color: white;
-	background-color: black;
-}
-
-.smallAll {
-	height: 170px;
-}
-
-/* 메뉴 div class = "menu" */
-.menu {
-	text-align: center;
-	font-size: 11.5pt;
-}
 
 /* 스크롤할때 헤더 효과 */
 /* header {
@@ -142,14 +98,4 @@ h3{
 	line-height: 30px;
 	vertical-align: middle;
 	letter-spacing: 2.5px;
-}
-
-.menuList:link {
-	color: black;
-	text-decoration: none;
-}
-
-.menuList:visited {
-	color: black;
-	text-decoration: none;
 }

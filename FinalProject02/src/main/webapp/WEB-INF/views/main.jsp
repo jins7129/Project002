@@ -19,53 +19,7 @@
 	<%@ include file="/WEB-INF/views/header.jsp" %>
 
 
-	<!-- 메뉴 -->
-	<div class="div">
-		<div class="child1">
-			<div class="menu">
-				<a>&nbsp;</a>
-				<div class="smallAll"></div>
-			</div>
-		</div>
-
-
-		<div class="child2">
-			<div class="menu">
-				<a href="#" class="menuList">Offer</a>
-				<div class="smallAll">
-					<div>
-						<a href="#" class="smallList">모아보기</a>
-					</div>
-					<div>
-						<a href="#" class="smallList">지원하기</a>
-					</div>
-					<div>
-						<a href="#" class="smallList">등록하기</a>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-		<div class="child2">
-			<div class="menu">
-				<a href="#" class="menuList">Customize</a>
-				<div class="smallAll">
-					<div>
-						<a href="#" class="smallList">그림그리기</a>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-		<div class="child1">
-			<div class="menu">
-				<a>&nbsp;</a>
-				<div class="smallAll"></div>
-			</div>
-		</div>
-	</div>
+	
 
 
 

@@ -62,7 +62,6 @@ public class MypageController {
 		List<TBJobDto> boardList = userBiz.getWrittenBoard(cri.getPage(),cri.getPageCount(),userId);
 		// 해당 아이디가 썼던 글을 불러옴(의뢰글)	(보여질 페이지수, 전체게시글 갯수, 유저아이디)
 		
-		
 		map.put("list", boardList);	// 사용자가 작성했던 의뢰글(리스트) 맵에 넣어줌
 		map.put("pageMaker", pageMaker);
 		return map;	//값을 담고 있는 맵 객체 리턴
