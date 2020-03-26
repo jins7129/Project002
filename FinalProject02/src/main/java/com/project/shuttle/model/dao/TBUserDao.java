@@ -9,7 +9,7 @@ public interface TBUserDao {
 	
 	public TBUserDto login(TBUserDto dto);
 	
-	public List<TBJobDto> getWrittenBoard(int pageNum, int pageCount, String id);
+	public List<TBJobDto> getWrittenBoard(int pageNum, int pageCount, String userId);
 	
 	public int countBoard(String id);
 

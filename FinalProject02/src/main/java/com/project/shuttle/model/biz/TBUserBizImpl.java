@@ -25,8 +25,8 @@ public class TBUserBizImpl implements TBUserBiz{
 
 
 	@Override
-	public List<TBJobDto> getWrittenBoard(int pageNum, int pageCount, String id) {
-		return userDao.getWrittenBoard(pageNum, pageCount, id);
+	public List<TBJobDto> getWrittenBoard(int pageNum, int pageCount, String userId) {
+		return userDao.getWrittenBoard(pageNum, pageCount, userId);
 	}
 
 

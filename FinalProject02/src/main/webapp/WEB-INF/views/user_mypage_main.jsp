@@ -41,25 +41,31 @@
 <script type="text/javascript">
 
 	$(function(){
+		var pageNum = 1;
 		$("#writtenBoard").click(function(){
 			$.ajax({
 				type: "post",
 				contentType:"application/json",
-				url:"testBoard.do",
+				url:"testBoard.do?pageNum="+pageNum,
 				//data: ,
 				dataType: 'json',
 				success:function(data){
-					var list = data.list;
-					var board = $("#writtenBoard");	
-					board.children().remove();	// 게시판 기존 내용 삭제
-					console.log(data.list);	// 들어온 json 값 확인
+					var list = data.list; // 글 목록을 담음
+					var pageMaker = data.pageMaker;	// 페이징 정보를 담음
+					var writtenBoard = $("#writtenBoard");
+					var writtenPaging = $("#writtenBoardPaging");
+					writtenBoard.children().remove();	// 게시판 기존 내용 삭제
+					console.log(data);	// 들어온 json 값 확인
 					alert("통신 성공"+list.jobSeq);
-					board.append("<tr><th>번호</th><th>제목</th><th>보상</th><th>작성일</th><th>완료여부</th></tr>");
+					writtenBoard.append("<tr><th>번호</th><th>제목</th><th>보상</th><th>작성일</th><th>완료여부</th></tr>");
 					
 					for(var i = 0 ; i < list.length; i++){
 						var val = list[i];
-						board.append("<tr><td>"+val.jobSeq+"</td><td>"+val.jobTitle+"</td><td>"+val.jobReward+"</td></tr>");
+						writtenBoard.append("<tr><td>"+val.jobSeq+"</td><td>"+val.jobTitle+"</td><td>"+val.jobReward+"</td><td>"+val.jobDate+"</td></tr>");
 					}
+					
+					writtenPaging.append("<tr><td><a href='#' >"+pageMaker.startPage+"</a></td></tr>");
+					
 					
 				},
 				error:function(){
@@ -115,6 +121,7 @@
 		<table id="writtenBoard" border="1">
 
 		</table>
+		<div id="writtenBoardPaging" ></div>
 	</div>
 
 	<%@ include file="/WEB-INF/views/footer.jsp"%>

@@ -1,5 +1,6 @@
 package com.project.shuttle;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,8 +43,8 @@ public class MypageController {
 	
 	@RequestMapping(value="/testBoard.do", method = RequestMethod.POST )
 	@ResponseBody
-	public Map<Object,Object> testBoard(HttpSession session, int pageNum){
-
+	public Map<Object,Object> getWrittenBoard(HttpSession session, int pageNum){
+		
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		// 리턴 값으로 보낼 맵 객체 선언
 		TBUserDto loginInfo = (TBUserDto) session.getAttribute("loginInfo");
@@ -57,15 +58,13 @@ public class MypageController {
 		PageMaker pageMaker = new PageMaker();	// 페이지 번호를 생성해줄 객체
 		pageMaker.setCri(cri);	// 위의 페이지 번호를 설정해줌
 		pageMaker.setTotalCount(userBiz.countBoard(userId));	// 해당 아이디로 작성한 글들의 총 갯수를 반환
-		
 
-		List<TBJobDto> list = userBiz.getWrittenBoard(1,1,userId);
-		// 해당 아이디가 썼던 글을 불러옴(의뢰글)
+		List<TBJobDto> boardList = userBiz.getWrittenBoard(cri.getPage(),cri.getPageCount(),userId);
+		// 해당 아이디가 썼던 글을 불러옴(의뢰글)	(보여질 페이지수, 전체게시글 갯수, 유저아이디)
 		
 		
-//		map.put("test","dummy");
-		map.put("list", list);	// 사용자가 작성했던 의뢰글(리스트) 맵에 넣어줌
-		
+		map.put("list", boardList);	// 사용자가 작성했던 의뢰글(리스트) 맵에 넣어줌
+		map.put("pageMaker", pageMaker);
 		return map;	//값을 담고 있는 맵 객체 리턴
 	}
 	
