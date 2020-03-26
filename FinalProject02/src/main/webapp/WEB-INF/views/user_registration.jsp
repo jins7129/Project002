@@ -112,7 +112,6 @@
 
 <body>
 
-<%@ include file="/WEB-INF/views/header.jsp" %>
 
 	<h1>register</h1>
 	<hr id="registerLine" />
@@ -198,14 +197,24 @@
 	<label>비밀번호</label>
 	<input type="text" value="" placeholder="비밀번호를 입력하세요"><br>
 
-	<label></label>
-	<input type="text" value="" placeholder=""><br>
-	
+<hr>
+	<h2>웰 알림 테스트</h2>
 	<input type="button" value="웹 알림 테스트" onclick="notifyMe();">
 	
-	<div id = "footer"><%@ include file="/WEB-INF/views/footer.jsp" %></div>
 	
+	<hr>
+	<h2>메일 보내기 테스트</h2>
+	<form action="sendMail.do" method="post">
+		<input type="text" placeholder="이메일을 입력해주세요 " name="to">
+		<input type="submit" value="보내기">
+	</form>
 		
+		<label>인증번호</label>
+		<input type="text" value="" id="VerifyNum">
+		<input type="hidden" value="난수값" id="VerifyNumChk" >	
+	
+	
+	
 	
 </body>
 </html>
