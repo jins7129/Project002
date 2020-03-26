@@ -50,19 +50,15 @@
 				dataType: 'json',
 				success:function(data){
 					var list = data.list;
-					var board = $("#writtenBoard");
-					board.children().remove();
-					console.log(data.list);
+					var board = $("#writtenBoard");	
+					board.children().remove();	// 게시판 기존 내용 삭제
+					console.log(data.list);	// 들어온 json 값 확인
 					alert("통신 성공"+list.jobSeq);
 					board.append("<tr><th>번호</th><th>제목</th><th>보상</th><th>작성일</th><th>완료여부</th></tr>");
 					
-					// $.each(list,function(i,val){
-					//		board.append("<tr><th>번호</th><th>제목</th><th>보상</th><th>작성일</th><th>완료여부</th></tr>");
-					//		board.append("<tr><td>"+val.jobSeq+"</td></tr>");
-					// });
 					for(var i = 0 ; i < list.length; i++){
-						board.append("<tr><td>"+list[i].jobSeq+"</td></tr>");
-						console.log(list.jobTitle);
+						var val = list[i];
+						board.append("<tr><td>"+val.jobSeq+"</td><td>"+val.jobTitle+"</td><td>"+val.jobReward+"</td></tr>");
 					}
 					
 				},
@@ -114,7 +110,7 @@
 		</table>
 	</div>
 
-	<div>
+	<div align="center" >
 		<h2>내가 작성한 글</h2>
 		<table id="writtenBoard" border="1">
 

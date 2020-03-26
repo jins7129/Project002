@@ -15,18 +15,24 @@ import com.project.shuttle.model.dto.TBUserDto;
 public class TBUserBizImpl implements TBUserBiz{
 	
 	@Autowired
-	private TBUserDao dao;
+	private TBUserDao userDao;
 
 
 	@Override
 	public TBUserDto login(TBUserDto dto) {
-		return dao.login(dto);
+		return userDao.login(dto);
 	}
 
 
 	@Override
-	public List<TBJobDto> getWrittenBoard(String name) {
-		return dao.getWrittenBoard(name);
+	public List<TBJobDto> getWrittenBoard(int pageNum, int pageCount, String id) {
+		return userDao.getWrittenBoard(pageNum, pageCount, id);
+	}
+
+
+	@Override
+	public int countBoard(String id) {
+		return userDao.countBoard(id);
 	}
 
 

@@ -9,6 +9,8 @@ public interface TBUserBiz {
 	
 	public TBUserDto login(TBUserDto dto);
 	
-	public List<TBJobDto> getWrittenBoard(String name);
+	public List<TBJobDto> getWrittenBoard(int pageNum, int pageCount, String id);
+	
+	public int countBoard(String id);
 
 }

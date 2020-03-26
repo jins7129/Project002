@@ -40,8 +40,19 @@
 		#{userPw}
 	</select>
 
-	<select id="getWrittenBoard" parameterType="String" resultMap="boardDto">
+	<select id="getWrittenBoard" resultMap="boardDto">
 		SELECT * FROM TB_JOB
+		WHERE USER_ID = #{userId}
+	</select>
+	<![CDATA[
+		SELECT * FROM (
+		SELECT * FROM (
+		SELECT ROWNUM RNM,USER_ID,BOARD_GENDER,BOARD_NUM,BOARD_GROUP_NUM,BOARD_GROUP_ORDER,BOARD_TAB,BOARD_DELETE_CHECK,BOARD_TITLE,BOARD_CONTENT,BOARD_VIEW_COUNT,BOARD_DATE,BOARD_TYPE,BOARD_FLAG,BOARD_FLAG_TYPE
+		FROM (SELECT * FROM TB_BOARD ORDER BY BOARD_GROUP_NUM DESC, BOARD_GROUP_ORDER)) WHERE RNM <=#{pageCount}) WHERE RNM >=#{page}
+	]]>	
+	
+	<select id="countBoard" parameterType="String" resultType="int" >
+		SELECT COUNT(*) FROM TB_JOB
 		WHERE USER_ID = #{userId}
 	</select>
 
