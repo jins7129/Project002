@@ -37,7 +37,7 @@
 
 		<!-- 맨 위 추천 순위 1 ~ 10 -->
 		<div id="ranking">
-			<a href="#" id="ranking">ranking 1 ~ 10</a>
+			<a href="#">ranking 1 ~ 10</a>
 		</div>
 
 
@@ -106,10 +106,8 @@
 			</c:choose>
 			<div class="child1"></div>
 		</div>
-
-	</header>
-	
-	<!-- 메뉴 -->
+		
+		<!-- 메뉴 -->
 	<div class="div">
 		<div class="child1">
 			<div class="menu">
@@ -156,6 +154,10 @@
 			</div>
 		</div>
 	</div>
+
+	</header>
+	
+	
 
 </body>
 </html>

@@ -128,6 +128,7 @@ public class HomeController {
 		
 		mav.setViewName("main");
 		return mav;
+	}
 	@RequestMapping(value = "/sendMail.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String sendMail(Model model, String to) {
