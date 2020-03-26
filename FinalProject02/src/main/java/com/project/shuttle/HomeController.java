@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.project.shuttle.model.biz.TBUserBiz;
 import com.project.shuttle.model.dto.TBUserDto;
@@ -59,13 +60,15 @@ public class HomeController {
 	}
 
 	@RequestMapping("/logout.do")
-	public ModelAndView logout(ModelAndView mav, HttpSession session) {
+	public RedirectView logout(ModelAndView mav, HttpSession session) {
 //		session.invalidate();
 		// 세션에 존재하는 모든 정보 삭제
 		session.removeAttribute("loginInfo");
 		// 원하는 세션 정보만 삭제
-		mav.setViewName("main");
-		return mav;
+		RedirectView review = new RedirectView("/main.do");
+		// redirectView 타입이 있길래 써봄
+		
+		return review;
 	}
 
 	@RequestMapping(value = "/loginajax.do", method = RequestMethod.POST)
