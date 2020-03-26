@@ -59,7 +59,7 @@ public class MypageController {
 		pageMaker.setTotalCount(userBiz.countBoard(userId));	// 해당 아이디로 작성한 글들의 총 갯수를 반환
 		
 
-		List<TBJobDto> list = userBiz.getWrittenBoard(userId);
+		List<TBJobDto> list = userBiz.getWrittenBoard(1,1,userId);
 		// 해당 아이디가 썼던 글을 불러옴(의뢰글)
 		
 		
