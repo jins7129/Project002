@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -25,7 +25,8 @@ public class HomeController {
 
 	@Autowired
 	public JavaMailSender emailSender;
-
+	
+	
 	@Autowired
 	private TBUserBiz biz;
 
@@ -149,7 +150,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/insert.do")
 	public String insertBoard() {
-
+		
 		return "";
 	}
 
