@@ -91,12 +91,12 @@ public class HomeController {
 		 * 
 		 * dto.setMemberid("김진성"); dto.setMemberpw("1234");
 		 */
-		System.out.println(dto.getUserId() + "//" + dto.getUserPw() + " //testController");
 
 		TBUserDto res = biz.login(dto);
 		boolean check = false;
 		if (res != null) {// 로그인 정보가 있다면
 			session.setAttribute("loginInfo", res);
+			System.out.println(res.getUserImgpath()+"imgPath");
 			check = true;
 		}
 		Map<String, Boolean> map = new HashMap<String, Boolean>();

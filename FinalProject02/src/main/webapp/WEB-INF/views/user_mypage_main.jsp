@@ -38,14 +38,25 @@
 	background: black;
 }
 
-.writtenBoardNum{
+
+.writtenBoardNum, .applyBoardNum{
+	/* 내가 쓴 게시물 페이징 css */
 	cursor:pointer;
 	background: white;
+	color:black;
+	font: bold;
+	font-size: 12pt;
+}
+
+.writtenBoardNum:hover, .applyBoardNum:hover{
+	/* 내가 쓴 게시물 페이징 호버 */
 	color:rgb(248, 112, 97);
 }
 
-.writtenBoardNum:hover{
-	color:black;
+.writtenBoardTitle:hover{
+	/* 내가 쓴 게시물 제목 호버 */	
+	color: rgb(248, 112, 97);
+	cursor: pointer;
 }
 </style>
 <script type="text/javascript">
@@ -60,8 +71,12 @@
 						// 동적으로 생성된 태그들도 함수 걸기 $(document).on('click','태그',function(){})
 						pageNum = this.value;
 						writtenBoard();
-				});
-		});
+			});
+		$(document).on('click','.writtenBoardTitle', function() {
+			// 동적으로 생성된 태그들도 함수 걸기 $(document).on('click','태그',function(){})
+			alert("흐럅");
+});
+	});
 	
 	function writtenBoard(){
 		$.ajax({
@@ -82,7 +97,7 @@
 					var val = list[i];
 					writtenBoard.append("<tr><td align='center'>"
 							+ val.jobSeq
-								+ "</td><td align='center'>"
+								+ "</td><td align='center' class='writtenBoardTitle' >"
 							+ val.jobTitle
 								+ "</td><td align='center'>"
 							+ val.jobReward
@@ -106,12 +121,10 @@
 
 </head>
 <body>
-
 	<%@ include file="/WEB-INF/views/header.jsp"%>
 
 	<div align="center">
-		<img
-			src="resources/file/profilePhoto/${loginInfo.userId}.${loginInfo.userImgpath}" />
+		<img src="resources/file/profilePhoto/${loginInfo.userImgpath}.png" />
 		<table>
 			<tr>
 				<td>이름 :</td>
@@ -141,19 +154,31 @@
 	<div align="center">
 		<h3>내가 작성한 글</h3>
 		<table id="writtenBoard">
-			<tr><th width="100px" >번호</th><th width="150px">제목</th><th width="100px">보상</th><th width="150px">작성일</th><th width="100px">완료여부</th></tr>
 		</table>
-		
 		<div>
 			<table>
 				<tr>
 					<td id="writtenBoardPaging"><input style="width:30px; float: none;"type="button" name='writtenBoardPaging' class="writtenBoardNum" value="1" />
 					</td>
 				</tr>
-			
+			</table>
+		</div>
+	</div>
+	
+	<div align="center" >
+		<h3>아르바이트 신청 목록</h3>
+			<table id="applyBoard">
 			</table>
 		
+			<div>
+				<table>
+					<tr>
+						<td id="applyBoardPaging"><input style="width:30px; float: none;"type="button" name='applyBoardPaging' class="applyBoardNum" value="1" />
+						</td>
+					</tr>
+				</table>
 		</div>
+	
 	</div>
 
 	<%@ include file="/WEB-INF/views/footer.jsp"%>
