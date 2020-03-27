@@ -25,8 +25,8 @@ CREATE TABLE TB_JOB
 
 
 
-
-
+INSERT INTO TB_APPLY VALUES('user2@naver.com','user@naver.com',14);
+SELECT * FROM TB_APPLY;
 
 SELECT * FROM TB_USER
 
