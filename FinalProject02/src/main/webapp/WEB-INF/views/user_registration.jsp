@@ -18,6 +18,7 @@
 </style>
 
 <script>
+
 	//ID 유효성 검사
 	function idChkConfirm() {
 		var chk = document.getElementsByName('id')[0].title
@@ -28,13 +29,31 @@
 		}
 	}
 
+	//ID 중복 검사
+	var idkChk="N";  //REGISTER에서 검사할 항목
 	function idChked() {
 		var doc = document.getElementsByName("id")[0];
 		if (doc.value.trim() == "" || doc.value == null
 				|| doc.value == "undefined") {
-			alert("아이디를 입력해주세요")
+			alert("아이디를 입력해주세요");
 		} else {
-			open("idchk.do?id=" + doc.value, "", "width=200, height=200")
+			$.ajax({
+				url : "idchk.do?id=" + $("#Email_id").val(),
+				type : "post",
+				success : function(data) {
+					if(data == true){
+					alert("이 아이디는 중복입니다.");
+					idkChk="N";
+					}
+				},
+				error : function(err) {
+					var res = confirm("이 아이디를 사용하실수 있습니다.");
+					if(res == true){
+						$("#Email_id").prop("disabled",true);
+					}
+					idkChk="Y";
+				}
+			});
 		}
 	}
 
@@ -50,83 +69,91 @@
 		$("#registerAddr").val(roadAddrPart1);
 		$("#registerAddr1").val(addrDetail + " " + zipNo);
 	}
-	
-	
-	
-	//이메일 인증 API
-	var emailCode = "";
-	function fnEmailValidation() {
-		var email = $("#Email_id").val();
-		if ($.trim(email).length < 1) {
-			return;
-		}
 
+	//이메일 인증 SMTP
+	var EmailCode = "";
+	function verifyEmail() {
+		$("#verifyBtn").prop("disabled", true);
 		$.ajax({
-			url : "emailValidation",
+			url : "sendMail.do?to=" + $("#Email_id").val(),
 			type : "post",
-			dataType : "json",
-			data : {
-				"email" : $("#Email_id").val()
-			},
+			contentType : "application/json",
+			dataType : 'json',
 			success : function(data) {
-				console.log(data);
-				if (data.resultCode == "1002") {
-					return alert("이미 가입되어 있는 이메일 주소입니다.");
-				} else if (data.resultCode == "1001") {
-					return alert("메일 발송중 에러가 발생했습니다.\n메일을 발송하지 못했습니다.");
-				}
-
-				emailCode = data.emailValidationCode;
-				alert("메일이 발송 되었습니다.\n메일에 포함된 인증코드를 입력 후 인증 버튼을 눌러주세요.");
+				alert("인증코드가 발급되었습니다.");
+				EmailCode = data;
+				console.log(EmailCode);
+				$("#verifyBtn").prop("disabled", false);
 			},
 			error : function(err) {
 				alert("에러가 발생했습니다.\n브라우저 콘솔의 내용을 확인하세요.");
 				console.log(err);
+				$("#verifyBtn").prop("disabled", false);
 			}
 		});
+
+	}
+
+	//인증코드 확인 함수
+	var emailChk1 = "N";
+	function emailChk() {
+		if ($("#VerifyNum").val() == "" || $("#VerifyNum").val() == null) {
+			alert("인증코드를 써주세요.");
+		} else if ($("#VerifyNum").val() != EmailCode) {
+			alert("인증코드가 일치하지 않습니다.");
+		} else if ($("#VerifyNum").val() == EmailCode) {
+			alert("인증코드가 일치합니다.");
+			emailChk1 ="Y";	
+		}
 	}
 
 	//웹 알림 Function
 	function notifyMe() {
-		  if (!"Notification" in window) {
-		    alert("This browser does not support desktop notification");
-		  }
-		  else if (Notification.permission === "granted") {
-		    var notification = new Notification("Hi there!");
-		  }
-		  else if (Notification.permission !== 'denied') {
-		    Notification.requestPermission(function (permission) {
-		      if(!('permission' in Notification)) {
-		        Notification.permission = permission;
-		      }
-		      if (permission === "granted") {
-		        var notification = new Notification("Hi there!");
-		      }
-		    });
-		  }
+		if (!"Notification" in window) {
+			alert("This browser does not support desktop notification");
+		} else if (Notification.permission === "granted") {
+			var notification = new Notification("Hi there!");
+		} else if (Notification.permission !== 'denied') {
+			Notification.requestPermission(function(permission) {
+				if (!('permission' in Notification)) {
+					Notification.permission = permission;
+				}
+				if (permission === "granted") {
+					var notification = new Notification("Hi there!");
+				}
+			});
 		}
-	
+	}
+
+	function register() {
+			if(idkChk=="N" || emailChk1 =="N"){
+				alert("아이디 중복 체크 및 이메일 인증을 해주세요");
+				console.log(idkChk + emailChk1);
+		}else{
+			
+			$("#insertForm").submit();
+			
+		}
+	}
 </script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 
 <body>
-
-<%@ include file="/WEB-INF/views/header.jsp" %>
-
-	<h1>register</h1>
+	<h1>REGISTER</h1>
 	<hr id="registerLine" />
 		
 	<!-- 프로필 사진 넣기 -->
+	<form action="insert.do" method="post" id="insertForm">
+	
 	<div>
 	profile<br>
-	<img id="img_profile" class="img_profile" src="" onError="this.src='/resources/images/imgSample.png'" alt="">
+	<img id="img_profile" class="img_profile" src="" onError="this.src='/resources/images/imgSample.png'" alt="" name="userImgpath">
 	<br>
 		<input type="button" onclick="" value="이미지 삽입하기" >
 	</div>
 	<hr>
 	
-	<form action="insert" method="post" id="frm">
 		<input type="hidden" id="tg_YN" name="tgYn" value="N">
 
 		<!-- 로그인하기 -->
@@ -155,25 +182,31 @@
 		<!-- 도로명 주소 검색하기 -->
 		<div id="register_addrBox">
 			<label>Address : </label> 
-				<input id="registerAddr" type="text" value="" onclick="openPop_juso();">
-				<input id="registerAddr1" type="text" value=""> 
+				<input id="registerAddr" type="text" value="" onclick="openPop_juso();" required="required" >
+				<input id="registerAddr1" type="text" value="" required="required" > 
 			<hr id="addrLine">
 		</div>
 
 		<!-- 이메일 인증하기 -->
 		<div>
 		<label>Email Verify</label>
-			<input type="button" value="Verify" onclick="fnEmailValidation();"><br>
-			Verify<input type="checkbox" value="Completed" disabled="disabled">
+			<input type="button" value="Verify" onclick="verifyEmail();" id="verifyBtn"><br>
+			인증번호: 
+			<input type="text" value="" id="VerifyNum" >	
+			<input type="button" value="확인" onclick="emailChk();" id="verifyChk">
+			
 		</div>
-
+		<hr>
 		<!-- register 아래 button -->
 		<div id="register_long_btn">
-			<input type="submit" value="register" id="register_longBtn" style="float: right;">
-			<input type="button" value="CANCEL" onclick="location.href='main.do'">
+			<input type="button" value="REGISTER" id="register_longBtn" onclick="register();" style="float: left; ;">
+			<input type="button" value="CANCEL" onclick="location.href='main.do'" style="float: left;;">
 		</div>
 	</form>
-	
+
+
+<!-- 결제페이지 더미코드 -->
+<!-- 	
 	<hr>
 	<h1>결제페이지</h1>
 	<label>결제금액을 선택하세요</label>
@@ -197,15 +230,31 @@
 
 	<label>비밀번호</label>
 	<input type="text" value="" placeholder="비밀번호를 입력하세요"><br>
+ -->
 
-	<label></label>
-	<input type="text" value="" placeholder=""><br>
-	
+<!-- 알림테스트 코드 -->
+<!-- 
+<hr>
+	<h2>웰 알림 테스트</h2>
 	<input type="button" value="웹 알림 테스트" onclick="notifyMe();">
-	
-	<div id = "footer"><%@ include file="/WEB-INF/views/footer.jsp" %></div>
-	
+	 -->
+
+	 <!-- 이메일 인증 테스트  -->
+		<!--
+ 
+	<hr>
+	<h2>메일 보내기 테스트</h2>
+	<form action="sendMail.do" method="post">
+		<input type="text" placeholder="이메일을 입력해주세요 " name="to">
+		<input type="button" value="보내기" onclick="">
+	</form>
 		
+		<label>인증번호</label>
+		<input type="text" value="" id="VerifyNum">
+		<input type="hidden" value="난수값" id="VerifyNumChk" >	
+	 -->
+	
+	
 	
 </body>
 </html>

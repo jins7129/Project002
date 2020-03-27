@@ -37,7 +37,7 @@
 
 		<!-- 맨 위 추천 순위 1 ~ 10 -->
 		<div id="ranking">
-			<a href="#" id="ranking">ranking 1 ~ 10</a>
+			<a href="#">ranking 1 ~ 10</a>
 		</div>
 
 
@@ -50,7 +50,7 @@
 			<div class="child2" id="mypage_mybag">
 				<div class="parent">
 					<div class="container1">
-						<a href="#" id="mypageTxt"><img id="mypage"
+						<a href="mypage_main.do" id="mypageTxt"><img id="mypage"
 							src="<c:url value = '/resources/images/icon_rabit.svg'/>" />&nbsp;My
 							Page</a>
 						<div class="overlay">
@@ -106,8 +106,58 @@
 			</c:choose>
 			<div class="child1"></div>
 		</div>
+		
+		<!-- 메뉴 -->
+	<div class="div">
+		<div class="child1">
+			<div class="menu">
+				<a>&nbsp;</a>
+				<div class="smallAll"></div>
+			</div>
+		</div>
+
+
+		<div class="child2">
+			<div class="menu">
+				<a href="#" class="menuList">Offer</a>
+				<div class="smallAll">
+					<div>
+						<a href="#" class="smallList">모아보기</a>
+					</div>
+					<div>
+						<a href="#" class="smallList">지원하기</a>
+					</div>
+					<div>
+						<a href="#" class="smallList">등록하기</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="child2">
+			<div class="menu">
+				<a href="#" class="menuList">Customize</a>
+				<div class="smallAll">
+					<div>
+						<a href="#" class="smallList">그림그리기</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="child1">
+			<div class="menu">
+				<a>&nbsp;</a>
+				<div class="smallAll"></div>
+			</div>
+		</div>
+	</div>
 
 	</header>
+	
+	
 
 </body>
 </html>
