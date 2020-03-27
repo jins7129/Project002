@@ -16,13 +16,36 @@
 
 
 </style>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-<script>
+<script type="text/javascript">
+
+$(function() {
+    $("#imgFile").change(function() {
+    	alert($("#imgFile").val());
+       if ($(this).val() == null || $(this).val().length == 0) {
+          readURL(false, this);
+       } else {
+          readURL(true, this);
+       }
+    });
+ });
+
+function readURL(flag, input) {
+    if (flag) {
+       if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+             $('#img_profile').attr('src', e.target.result);
+          }
+          reader.readAsDataURL(input.files[0]);
+       }
+    } 
+ }
 
 	//ID 유효성 검사
 	function idChkConfirm() {
-		var chk = document.getElementsByName('id')[0].title
-		if (chk == "n") {
+		if (idkChk == "N") {
 			alert("아이디 중복체크를 먼저해주세요");
 			document.getElementsByName("id")[0].focus();
 		} else {
@@ -125,6 +148,7 @@
 		}
 	}
 
+	//레지스터 유효성검사
 	function register() {
 			if(idkChk=="N" || emailChk1 =="N"){
 				alert("아이디 중복 체크 및 이메일 인증을 해주세요");
@@ -132,25 +156,31 @@
 		}else{
 			
 			$("#insertForm").submit();
-			
 		}
 	}
+	
+	
+	
 </script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 
+
 <body>
+	<%@ include file="/WEB-INF/views/header.jsp" %>
+
+	
+
 	<h1>REGISTER</h1>
 	<hr id="registerLine" />
 		
 	<!-- 프로필 사진 넣기 -->
-	<form action="insert.do" method="post" id="insertForm">
+	<form action="insert.do" method="post" id="insertForm" enctype="multipart/form-data" modelAttribute="uploadFile">
 	
 	<div>
 	profile<br>
 	<img id="img_profile" class="img_profile" src="" onError="this.src='/resources/images/imgSample.png'" alt="" name="userImgpath">
 	<br>
-		<input type="button" onclick="" value="이미지 삽입하기" >
+		<input type="file" id="imgFile" >
 	</div>
 	<hr>
 	
@@ -159,7 +189,7 @@
 		<!-- 로그인하기 -->
 		<div id="register_IdBox">
 			<label id="registerID"> user id : </label> 
-				<input type="text" placeholder="please insert your id" name="id" id="Email_id" required="required" title="n" /> 
+				<input type="text" placeholder="please insert your id" name="id" id="Email_id" required="required" /> 
 				<input type="button" value="id-check" onclick="idChked();" id="idChk">
 			<hr id="idLine" />
 		</div>
@@ -239,22 +269,7 @@
 	<input type="button" value="웹 알림 테스트" onclick="notifyMe();">
 	 -->
 
-	 <!-- 이메일 인증 테스트  -->
-		<!--
- 
-	<hr>
-	<h2>메일 보내기 테스트</h2>
-	<form action="sendMail.do" method="post">
-		<input type="text" placeholder="이메일을 입력해주세요 " name="to">
-		<input type="button" value="보내기" onclick="">
-	</form>
-		
-		<label>인증번호</label>
-		<input type="text" value="" id="VerifyNum">
-		<input type="hidden" value="난수값" id="VerifyNumChk" >	
-	 -->
 	
-	
-	
+	<div id = "footer"><%@ include file="/WEB-INF/views/footer.jsp" %></div>
 </body>
 </html>
