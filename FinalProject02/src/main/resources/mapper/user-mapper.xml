@@ -57,5 +57,14 @@
 		SELECT COUNT(*) FROM TB_JOB
 		WHERE USER_ID = #{userId}
 	</select>
+	
+	<select id="idchk" parameterType="com.project.shuttle.model.dto.TBUserDto" resultType="String" >
+		SELECT USER_ID FROM TB_USER 
+		WHERE USER_ID = #{userId}
+	</select>
+	
+	<insert id="insertUser" parameterType="com.project.shuttle.model.dto.TBUserDto">
+	INSERT INTO VALUES()
+	</insert>
 
 </mapper>

@@ -66,4 +66,17 @@ public class TBUserBizImpl implements TBUserBiz{
 	}
 
 
+	@Override
+	public int insertUser(TBUserDto dto) {
+		// TODO Auto-generated method stub
+		return userDao.insertUser(dto);
+	}
+
+
+	@Override
+	public String idchk(String id) {
+		return userDao.idchk(id);
+	}
+
+
 }

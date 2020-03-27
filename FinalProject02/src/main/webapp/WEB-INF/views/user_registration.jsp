@@ -18,6 +18,7 @@
 </style>
 
 <script>
+
 	//ID 유효성 검사
 	function idChkConfirm() {
 		var chk = document.getElementsByName('id')[0].title
@@ -28,13 +29,31 @@
 		}
 	}
 
+	//ID 중복 검사
+	var idkChk="N";  //REGISTER에서 검사할 항목
 	function idChked() {
 		var doc = document.getElementsByName("id")[0];
 		if (doc.value.trim() == "" || doc.value == null
 				|| doc.value == "undefined") {
-			alert("아이디를 입력해주세요")
+			alert("아이디를 입력해주세요");
 		} else {
-			open("idchk.do?id=" + doc.value, "", "width=200, height=200")
+			$.ajax({
+				url : "idchk.do?id=" + $("#Email_id").val(),
+				type : "post",
+				success : function(data) {
+					if(data == true){
+					alert("이 아이디는 중복입니다.");
+					idkChk="N";
+					}
+				},
+				error : function(err) {
+					var res = confirm("이 아이디를 사용하실수 있습니다.");
+					if(res == true){
+						$("#Email_id").prop("disabled",true);
+					}
+					idkChk="Y";
+				}
+			});
 		}
 	}
 
@@ -51,9 +70,8 @@
 		$("#registerAddr1").val(addrDetail + " " + zipNo);
 	}
 
-	var EmailCode = "";
-
 	//이메일 인증 SMTP
+	var EmailCode = "";
 	function verifyEmail() {
 		$("#verifyBtn").prop("disabled", true);
 		$.ajax({
@@ -77,14 +95,15 @@
 	}
 
 	//인증코드 확인 함수
+	var emailChk1 = "N";
 	function emailChk() {
-		if ($("#VerifyNum").val() == "") {
+		if ($("#VerifyNum").val() == "" || $("#VerifyNum").val() == null) {
 			alert("인증코드를 써주세요.");
 		} else if ($("#VerifyNum").val() != EmailCode) {
 			alert("인증코드가 일치하지 않습니다.");
 		} else if ($("#VerifyNum").val() == EmailCode) {
 			alert("인증코드가 일치합니다.");
-			$("#verifyBox").prop("checked", true);
+			emailChk1 ="Y";	
 		}
 	}
 
@@ -107,17 +126,13 @@
 	}
 
 	function register() {
-		if ($("#verifyBox").is(":checked") == false) {
-			alert("이메일 인증을 해주세요.")
-		} else if ($("#verifyBox").is(":checked") == true) {
-			/* 	for(int i = 0; $(".chk").length; i++){
-					console.log($(".chk").eq(i).val());
-			 */
-			//if($(".chk").eq(i).val() == "" ){
-			//}else{
-			//$("#insertForm").submit();
-			//}
-			//}
+			if(idkChk=="N" || emailChk1 =="N"){
+				alert("아이디 중복 체크 및 이메일 인증을 해주세요");
+				console.log(idkChk + emailChk1);
+		}else{
+			
+			$("#insertForm").submit();
+			
 		}
 	}
 </script>
@@ -133,7 +148,7 @@
 	
 	<div>
 	profile<br>
-	<img id="img_profile" class="img_profile" src="" onError="this.src='/resources/images/imgSample.png'" alt="">
+	<img id="img_profile" class="img_profile" src="" onError="this.src='/resources/images/imgSample.png'" alt="" name="userImgpath">
 	<br>
 		<input type="button" onclick="" value="이미지 삽입하기" >
 	</div>
@@ -176,13 +191,12 @@
 		<div>
 		<label>Email Verify</label>
 			<input type="button" value="Verify" onclick="verifyEmail();" id="verifyBtn"><br>
-			Verify<input type="checkbox" value="Completed" disabled="disabled" id="verifyBox" >
 			인증번호: 
 			<input type="text" value="" id="VerifyNum" >	
 			<input type="button" value="확인" onclick="emailChk();" id="verifyChk">
 			
 		</div>
-
+		<hr>
 		<!-- register 아래 button -->
 		<div id="register_long_btn">
 			<input type="button" value="REGISTER" id="register_longBtn" onclick="register();" style="float: left; ;">

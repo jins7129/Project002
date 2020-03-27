@@ -13,4 +13,7 @@ public interface TBUserBiz {
 	
 	public int countBoard(String id);
 
+	public int insertUser(TBUserDto dto);
+	
+	public String idchk(String id);
 }

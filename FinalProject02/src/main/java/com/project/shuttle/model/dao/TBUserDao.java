@@ -12,5 +12,9 @@ public interface TBUserDao {
 	public List<TBJobDto> getWrittenBoard(int pageNum, int pageCount, String userId);
 	
 	public int countBoard(String id);
+	
+	public int insertUser(TBUserDto dto);
+
+	public String idchk(String id);
 
 }

@@ -107,32 +107,32 @@ public class HomeController {
 
 	@RequestMapping(value = "/sendMail.do")
 	public ModelAndView ssendMail(ModelAndView mav, String to) {
-			SimpleMailMessage message = new SimpleMailMessage();
-			System.out.println("1");
-			message.setTo(to);
-			System.out.println(to);
-			message.setSubject("Shuttle Email Verify");
-			int[] ranV = new int[6];
-			System.out.println("3");
-			String test = "" ;
-			for (int i = 0; i < ranV.length; i++) {
-				ranV[i] = (int) (Math.random() * 9);
-				test += ranV[i]+"";
-			}
-			System.out.println("4");
-			System.out.println(test);
-			System.out.println("5");
-			message.setText("회원가입을 위한 이메일 인증 메일입니다.\n인증번호 : " );
-			System.out.println("6");
-			emailSender.send(message);
-		
+		SimpleMailMessage message = new SimpleMailMessage();
+		System.out.println("1");
+		message.setTo(to);
+		System.out.println(to);
+		message.setSubject("Shuttle Email Verify");
+		int[] ranV = new int[6];
+		System.out.println("3");
+		String test = "";
+		for (int i = 0; i < ranV.length; i++) {
+			ranV[i] = (int) (Math.random() * 9);
+			test += ranV[i] + "";
+		}
+		System.out.println("4");
+		System.out.println(test);
+		System.out.println("5");
+		message.setText("회원가입을 위한 이메일 인증 메일입니다.\n인증번호 : ");
+		System.out.println("6");
+		emailSender.send(message);
+
 		mav.setViewName("main");
 		return mav;
 	}
+
 	@RequestMapping(value = "/sendMail.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String sendMail(Model model, String to) {
-		System.out.println(to);
+	public String sendMail(String to) {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo(to);
 		message.setSubject("Shuttle Email Verify");
@@ -144,7 +144,22 @@ public class HomeController {
 		}
 		message.setText("회원가입을 위한 이메일 인증 메일입니다.\n인증번호 : " + verifyNum);
 		emailSender.send(message);
-		model.addAttribute(verifyNum, "verifyNum");
 		return verifyNum;
+	}
+
+	@RequestMapping(value = "/insert.do")
+	public String insertBoard() {
+
+		return "";
+	}
+
+	@RequestMapping(value = "/idchk.do")
+	@ResponseBody
+	public Boolean idChk(String id) {
+		boolean chkRes = false;
+		if (biz.idchk(id).equals(id)) {
+			chkRes = true;
+		}
+		return chkRes;
 	}
 }
