@@ -50,37 +50,39 @@
 		$("#registerAddr").val(roadAddrPart1);
 		$("#registerAddr1").val(addrDetail + " " + zipNo);
 	}
-	
-	var EmailCode = "";
-	
-	//이메일 인증 SMTP
-	function verifyEmail(){
 
+	var EmailCode = "";
+
+	//이메일 인증 SMTP
+	function verifyEmail() {
+		$("#verifyBtn").prop("disabled", true);
 		$.ajax({
-			url : "sendMail.do?to="+$("#Email_id").val(),
-			type: "post",
-			contentType:"application/json",
+			url : "sendMail.do?to=" + $("#Email_id").val(),
+			type : "post",
+			contentType : "application/json",
 			dataType : 'json',
 			success : function(data) {
 				alert("인증코드가 발급되었습니다.");
 				EmailCode = data;
 				console.log(EmailCode);
+				$("#verifyBtn").prop("disabled", false);
 			},
 			error : function(err) {
 				alert("에러가 발생했습니다.\n브라우저 콘솔의 내용을 확인하세요.");
 				console.log(err);
+				$("#verifyBtn").prop("disabled", false);
 			}
 		});
+
 	}
-	
+
 	//인증코드 확인 함수
-	function emailChk(){
-	
-		if($("#VerifyNum").val() == ""){
+	function emailChk() {
+		if ($("#VerifyNum").val() == "") {
 			alert("인증코드를 써주세요.");
-		}else if($("#VerifyNum").val() != EmailCode){
+		} else if ($("#VerifyNum").val() != EmailCode) {
 			alert("인증코드가 일치하지 않습니다.");
-		}else if ($("#VerifyNum").val() == EmailCode){
+		} else if ($("#VerifyNum").val() == EmailCode) {
 			alert("인증코드가 일치합니다.");
 			$("#verifyBox").prop("checked", true);
 		}
@@ -88,24 +90,36 @@
 
 	//웹 알림 Function
 	function notifyMe() {
-		  if (!"Notification" in window) {
-		    alert("This browser does not support desktop notification");
-		  }
-		  else if (Notification.permission === "granted") {
-		    var notification = new Notification("Hi there!");
-		  }
-		  else if (Notification.permission !== 'denied') {
-		    Notification.requestPermission(function (permission) {
-		      if(!('permission' in Notification)) {
-		        Notification.permission = permission;
-		      }
-		      if (permission === "granted") {
-		        var notification = new Notification("Hi there!");
-		      }
-		    });
-		  }
+		if (!"Notification" in window) {
+			alert("This browser does not support desktop notification");
+		} else if (Notification.permission === "granted") {
+			var notification = new Notification("Hi there!");
+		} else if (Notification.permission !== 'denied') {
+			Notification.requestPermission(function(permission) {
+				if (!('permission' in Notification)) {
+					Notification.permission = permission;
+				}
+				if (permission === "granted") {
+					var notification = new Notification("Hi there!");
+				}
+			});
 		}
-	
+	}
+
+	function register() {
+		if ($("#verifyBox").is(":checked") == false) {
+			alert("이메일 인증을 해주세요.")
+		} else if ($("#verifyBox").is(":checked") == true) {
+			/* 	for(int i = 0; $(".chk").length; i++){
+					console.log($(".chk").eq(i).val());
+			 */
+			//if($(".chk").eq(i).val() == "" ){
+			//}else{
+			//$("#insertForm").submit();
+			//}
+			//}
+		}
+	}
 </script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
@@ -115,7 +129,8 @@
 	<hr id="registerLine" />
 		
 	<!-- 프로필 사진 넣기 -->
-	<form action="insert.do" method="post">
+	<form action="insert.do" method="post" id="insertForm">
+	
 	<div>
 	profile<br>
 	<img id="img_profile" class="img_profile" src="" onError="this.src='/resources/images/imgSample.png'" alt="">
@@ -152,16 +167,16 @@
 		<!-- 도로명 주소 검색하기 -->
 		<div id="register_addrBox">
 			<label>Address : </label> 
-				<input id="registerAddr" type="text" value="" onclick="openPop_juso();">
-				<input id="registerAddr1" type="text" value=""> 
+				<input id="registerAddr" type="text" value="" onclick="openPop_juso();" required="required" >
+				<input id="registerAddr1" type="text" value="" required="required" > 
 			<hr id="addrLine">
 		</div>
 
 		<!-- 이메일 인증하기 -->
 		<div>
 		<label>Email Verify</label>
-			<input type="button" value="Verify" onclick="verifyEmail();"><br>
-			Verify<input type="checkbox" value="Completed" disabled="disabled" id="verifyBox"  >
+			<input type="button" value="Verify" onclick="verifyEmail();" id="verifyBtn"><br>
+			Verify<input type="checkbox" value="Completed" disabled="disabled" id="verifyBox" >
 			인증번호: 
 			<input type="text" value="" id="VerifyNum" >	
 			<input type="button" value="확인" onclick="emailChk();" id="verifyChk">
@@ -170,7 +185,7 @@
 
 		<!-- register 아래 button -->
 		<div id="register_long_btn">
-			<input type="submit" value="REGISTER" id="register_longBtn" style="float: left; ;">
+			<input type="button" value="REGISTER" id="register_longBtn" onclick="register();" style="float: left; ;">
 			<input type="button" value="CANCEL" onclick="location.href='main.do'" style="float: left;;">
 		</div>
 	</form>

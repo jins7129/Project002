@@ -125,7 +125,4 @@ public class HomeController {
 		model.addAttribute(verifyNum, "verifyNum");
 		return verifyNum;
 	}
-	
-	
-	
 }
