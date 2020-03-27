@@ -26,14 +26,14 @@ public class TBUserBizImpl implements TBUserBiz{
 
 	@Override
 	public List<TBJobDto> getWrittenBoard(int pageNum, int pageCount, String userId) {
-		
+		// 내가 쓴 글 불러오기
 		int page = 0;
 		int pageCountAfter = 0;
 
 		pageCountAfter = pageNum*pageCount; 
 		page = ((pageNum-1)*10)+1;
 		
-		System.out.println(pageCountAfter+"pageCountAfter//"+page+"page");
+//		System.out.println(pageCountAfter+"pageCountAfter//"+page+"page");
 		return  userDao.getWrittenBoard(page, pageCountAfter, userId);
 //		select *
 //		from (SELECT *
@@ -55,14 +55,30 @@ public class TBUserBizImpl implements TBUserBiz{
 //		        where rnum <= 20 30 40 50
 //		    )
 //		where rnum >= 11; 21 31 41
+	}
+	
+	@Override
+	public List<TBJobDto> getApplyBoard(int pageNum, int pageCount, String userId) {
+		// 내가 신청한 아르바이트 글 불러오기
+		int page = 0;
+		int pageCountAfter = 0;
+
+		pageCountAfter = pageNum*pageCount; 
+		page = ((pageNum-1)*10)+1;
 		
-		
+		return  userDao.getApplyBoard(page, pageCountAfter, userId);
 	}
 
 
+
 	@Override
-	public int countBoard(String id) {
-		return userDao.countBoard(id);
+	public int countBoard(String userId) {
+		return userDao.countBoard(userId);
+	}
+	
+	@Override
+	public int countApplyBoard(String userId) {
+		return userDao.countApplyBoard(userId);
 	}
 
 
@@ -77,6 +93,5 @@ public class TBUserBizImpl implements TBUserBiz{
 	public String idchk(String id) {
 		return userDao.idchk(id);
 	}
-
 
 }
