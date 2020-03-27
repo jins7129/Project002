@@ -1,6 +1,7 @@
 $(function() {
 
 	// 검색 input 태그 호버
+	/*
 	$("#searchBox").hover(function() {
 		$(this).css({
 			"border-right" : "none",
@@ -26,6 +27,7 @@ $(function() {
 	
 
 	// 검색 호버했을때 팝업으로 띄우는거
+	
 	$("a[rel='tooltip']").mouseover(
 			function(e) {
 				var tip = $(this).attr('title');
@@ -42,17 +44,14 @@ $(function() {
 		$(this).attr('title', $('.tipBody').html());
 		$(this).children('div#tooltip').remove();
 	});
+	*/
 	
-	
-
 	// 토끼 호버
 	$(".container1").hover(function() {
 		$("#mypage").css("display", "none");
-
 	}, function() {
 		$("#mypage").fadeIn();
 	});
-
 
 	// header 해더 스크롤
 	$(window).scroll(function() {
@@ -60,66 +59,47 @@ $(function() {
 		console.log(navbar);
 		alert("asdf");
 		$(".div").eq(1).css("border-bottom", "none");
-		
 	}, function(){
 		$(".div").eq(1).css("border-bottom", "1px solid #d9d9d9");
-		
 	});
-	
-	
 
 	// 로그인 ajax 불러오기
 	$("#loginPage").css("display", "none");
 	var loginPageCnt = 1;
 	$("#login").click(function(){
-		
 		if (loginPageCnt == 1) {
-
 			$("#loginPage").show();
 			$("#loginPage").animate({
 				'left' : "+=61%"
 			});
-			
-
 			$.ajax({
-
 				type : "post",
 				url : "logins.do",
 				dataType : "text",
 				success : function(data) {
-
 					$("#loginPage").html(data);
-
 				},
 				error : function() {
 					alert("통신 실패");
 				}
-
 			});
-
 			loginPageCnt++;
-
 		} else {
 			$("#loginPage").show();
 
 			$('#loginPage').animate({
 				'left' : "+=122%"
 			});
-
 			$.ajax({
-
 				type : "post",
 				url : "logins.do",
 				dataType : "text",
 				success : function(data) {
-
 					$("#loginPage").html(data);
-
 				},
 				error : function() {
 					alert("통신 실패");
 				}
-
 			});
 
 			loginPageCnt++;

@@ -67,6 +67,7 @@ h3{
 #goDown{
 	width: 13px;
 	height: 13px;
+	cursor: pointer;
 }
 .goDownImg{
 	display: flex;
