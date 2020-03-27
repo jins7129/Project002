@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
 	function dayshow(){
@@ -15,38 +15,42 @@
 	
 	function reportres(seq,id){
 		var day = document.getElementById('day').value;
-		alert("¾ÆÀÌµğ : " + id + "³¯Â¥ : " + day + "¹øÈ£ : " + seq)
+		alert("ì•„ì´ë”” : " + id + "ë‚ ì§œ : " + day + "ë²ˆí˜¸ : " + seq)
 		location.href = "/report_done.do?day=" + day +"&seq=" + seq + "&id=" + id;
 	}
 </script>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/header.jsp"%>
+
 	<table>
 		<tr>
-			<td>½Å°í¹øÈ£ : ${dto.reportSeq }</td>
+			<td>ì‹ ê³ ë²ˆí˜¸ : ${dto.reportSeq }</td>
 		</tr>
 		<tr>
-			<td>±Û ¹øÈ£ : ${dto.jobSeq }</td>
+			<td>ê¸€ ë²ˆí˜¸ : ${dto.jobSeq }</td>
 		</tr>
 		<tr>
-			<td>À¯Àú¾ÆÀÌµğ : ${dto.userId }</td>
+			<td>ìœ ì €ì•„ì´ë”” : ${dto.userId }</td>
 		</tr>
 		<tr>
-			<td>½Å°íÀÛ¼ºÀÚ : ${dto.reportWriter }</td>
+			<td>ì‹ ê³ ì‘ì„±ì : ${dto.reportWriter }</td>
 		</tr>
 		<tr>	
-			<td>½Å°í³¯Â¥ : ${dto.reportDate }</td>
+			<td>ì‹ ê³ ë‚ ì§œ : ${dto.reportDate }</td>
 		</tr>
 		<tr>	
-			<td>³»¿ë : ${dto.reportContent }</td>
+			<td>ë‚´ìš© : ${dto.reportContent }</td>
 		</tr>
 		
 	</table>
 	
-	<input type = "button" value = "µÚ·Î°¡±â" onclick = "location.href = '/report_admin.do'"/>
-	<input type = "button" value = "Á¢¼öÇÏ±â" onclick = "dayshow();"/>
+	<input type = "button" value = "ë’¤ë¡œê°€ê¸°" onclick = "location.href = '/report_admin.do'"/>
+	<input type = "button" value = "ì ‘ìˆ˜í•˜ê¸°" onclick = "dayshow();"/>
 	<br/>
 	<input type = "text" id = "day" style = "display: none"/>
-	<input type = "button" id = "report" value = "È®ÀÎ" style = "display: none" onclick = "reportres('${dto.jobSeq }','${dto.userId }');"/>
+	<input type = "button" id = "report" value = "í™•ì¸" style = "display: none" onclick = "reportres('${dto.jobSeq }','${dto.userId }');"/>
+
+<%@ include file="/WEB-INF/views/footer.jsp"%>
 </body>
 </html>

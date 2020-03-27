@@ -50,9 +50,18 @@
 			<div class="child2" id="mypage_mybag">
 				<div class="parent">
 					<div class="container1">
-						<a href="mypage_main.do" id="mypageTxt"><img id="mypage"
-							src="<c:url value = '/resources/images/icon_rabit.svg'/>" />&nbsp;My
+						<c:choose>
+							<c:when test="${loginInfo.userStatus == 'ADMIN'}">
+								<a href="report_admin.do" id="mypageTxt"><img id="mypage"
+								src="<c:url value = '/resources/images/icon_rabit.svg'/>" />&nbsp;ADMIN
 							Page</a>
+							</c:when>
+							<c:when test="${loginInfo.userStatus == 'USER'}">
+								<a href="mypage_main.do" id="mypageTxt"><img id="mypage"
+								src="<c:url value = '/resources/images/icon_rabit.svg'/>" />&nbsp;My
+							Page</a>
+							</c:when>
+						</c:choose>
 						<div class="overlay">
 							<div class="rabitRunning">
 								<img id="rabitRunning"
