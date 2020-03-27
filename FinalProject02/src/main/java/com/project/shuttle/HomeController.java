@@ -1,13 +1,11 @@
 package com.project.shuttle;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
@@ -107,6 +105,30 @@ public class HomeController {
 		return map;
 	}
 
+	@RequestMapping(value = "/sendMail.do")
+	public ModelAndView ssendMail(ModelAndView mav, String to) {
+			SimpleMailMessage message = new SimpleMailMessage();
+			System.out.println("1");
+			message.setTo(to);
+			System.out.println(to);
+			message.setSubject("Shuttle Email Verify");
+			int[] ranV = new int[6];
+			System.out.println("3");
+			String test = "" ;
+			for (int i = 0; i < ranV.length; i++) {
+				ranV[i] = (int) (Math.random() * 9);
+				test += ranV[i]+"";
+			}
+			System.out.println("4");
+			System.out.println(test);
+			System.out.println("5");
+			message.setText("회원가입을 위한 이메일 인증 메일입니다.\n인증번호 : " );
+			System.out.println("6");
+			emailSender.send(message);
+		
+		mav.setViewName("main");
+		return mav;
+	}
 	@RequestMapping(value = "/sendMail.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String sendMail(Model model, String to) {

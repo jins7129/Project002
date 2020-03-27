@@ -26,7 +26,37 @@ public class TBUserBizImpl implements TBUserBiz{
 
 	@Override
 	public List<TBJobDto> getWrittenBoard(int pageNum, int pageCount, String userId) {
-		return userDao.getWrittenBoard(pageNum, pageCount, userId);
+		
+		int page = 0;
+		int pageCountAfter = 0;
+
+		pageCountAfter = pageNum*pageCount; 
+		page = ((pageNum-1)*10)+1;
+		
+		System.out.println(pageCountAfter+"pageCountAfter//"+page+"page");
+		return  userDao.getWrittenBoard(page, pageCountAfter, userId);
+//		select *
+//		from (SELECT *
+//		        FROM (
+//		            SELECT rownum rnum, id, title, content
+//		            FROM page_table
+//		            ) pagetable
+//		        where rnum <= 10
+//		    )
+//		where rnum >= 1;
+				// ((page-1)*10)+1
+//		-- 2페이지
+//		select *
+//		from (SELECT *
+//		        FROM (
+//		            SELECT rownum rnum, id, title, content
+//		            FROM page_table
+//		            ) pagetable
+//		        where rnum <= 20 30 40 50
+//		    )
+//		where rnum >= 11; 21 31 41
+		
+		
 	}
 
 
