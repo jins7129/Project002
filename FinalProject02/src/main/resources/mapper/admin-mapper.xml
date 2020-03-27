@@ -6,47 +6,69 @@
 		<result property="reportSeq" column="REPORT_SEQ" />
 		<result property="userId" column="USER_ID" />
 		<result property="reportWriter" column="REPORT_WRITER" />
-		<result property="requestSeq" column="REQUEST_SEQ" />
-		<result property="reportBlockDat" column="REPORT_BLOCK_DAT" />
+		<result property="jobSeq" column="JOB_SEQ" />
+		<result property="reportBlockDate" column="REPORT_BLOCK_DATE" />
 		<result property="reportDate" column="REPORT_DATE" />
 		<result property="reportContent" column="REPORT_CONTENT" />
 		<result property="reportCategory" column="REPORT_CATEGORY" />
 		<result property="reportStatus" column="REPORT_STATUS" />
 	</resultMap>
-	<!--
-	<select id = "countReport">
-		SELECT COUNT(*) FROM TB_REPORT WHERE REPORT_STATUS = "?"
+	
+	<resultMap type="com.project.shuttle.model.dto.TBUserDto" id="userDto">
+		<result property="userId" column="USER_ID" />
+		<result property="userBlockDate" column="USER_BLOCK_DATE" />
+	</resultMap>
+	
+	<select id = "countReport" resultType = "int">
+		SELECT COUNT(*) FROM TB_REPORT WHERE REPORT_STATUS = 'N'
 	</select>
 	
-	<select id = "countUserIdReport" parameterType = "String">
-		SELECT COUNT(*) FROM TB_REPORT WHERE USER_ID = #{} AND REPORT_STATUS = "?"
+	<select id = "countUserIdReport" parameterType = "map" resultType = "int">
+		SELECT COUNT(*) FROM (SELECT * FROM TB_REPORT WHERE USER_ID LIKE #{content_1} OR USER_ID LIKE #{content_2} OR USER_ID LIKE #{content_3} OR USER_ID LIKE #{content_4}) WHERE REPORT_STATUS = 'N'
 	</select>
 	
-	<select id = "countWriterReport" parameterType = "String">
-		SELECT COUNT(*) FROM TB_REPORT WHERE REPORT_WRITER = #{} AND REPORT_STATUS = "?"
+	<select id = "countWriterReport" parameterType = "map" resultType = "int">
+		SELECT COUNT(*) FROM (SELECT * FROM TB_REPORT WHERE REPORT_WRITER LIKE #{content_1} OR REPORT_WRITER LIKE #{content_2} OR REPORT_WRITER LIKE #{content_3} OR REPORT_WRITER LIKE #{content_4}) WHERE REPORT_STATUS = 'N'
 	</select>
-	
+	 
 	<select id = "selectPaging" parameterType = "map" resultMap = "reportDto">
-		SELECT REPORT_SEQ, USER_ID, REPORT_WRITER, REQUEST_SEQ, REPORT_BLOCK_DAT, REPORT_DATE, REPORT_CONTENT, REPORT_CATEGORY, REPORT_STATUS FROM
+		SELECT REPORT_SEQ, USER_ID, REPORT_WRITER, JOB_SEQ, REPORT_BLOCK_DATE, REPORT_DATE, REPORT_CONTENT, REPORT_CATEGORY, REPORT_STATUS FROM
 		(SELECT ROWNUM RN, A.* FROM
-		(SELECT * FROM TB_REPORT WHERE REPORT_STATUS = "?" ORDER BY REPORT_SEQ DESC)A) WHERE RN BETWEEN #{start} AND #{end}
+		(SELECT * FROM TB_REPORT WHERE REPORT_STATUS = 'N' ORDER BY REPORT_SEQ DESC)A) WHERE RN BETWEEN #{start} AND #{end}
 	</select>
-	
+	 
 	<select id = "selectUserIdPaging" parameterType = "map" resultMap = "reportDto">
-		SELECT REPORT_SEQ, USER_ID, REPORT_WRITER, REQUEST_SEQ, REPORT_BLOCK_DAT, REPORT_DATE, REPORT_CONTENT, REPORT_CATEGORY, REPORT_STATUS FROM
+		SELECT REPORT_SEQ, USER_ID, REPORT_WRITER, JOB_SEQ, REPORT_BLOCK_DATE, REPORT_DATE, REPORT_CONTENT, REPORT_CATEGORY, REPORT_STATUS FROM
 		(SELECT ROWNUM RN, A.* FROM
-		(SELECT * FROM TB_REPORT WHERE USER_ID = #{} AND REPORT_STATUS = "?" ORDER BY REPORT_SEQ DESC)A) WHERE RN BETWEEN #{start} AND #{end}
+		(SELECT * FROM (SELECT * FROM TB_REPORT WHERE USER_ID LIKE #{content_1} OR USER_ID LIKE #{content_2} OR USER_ID LIKE #{content_3} OR USER_ID LIKE #{content_4} ) WHERE REPORT_STATUS = 'N' ORDER BY REPORT_SEQ DESC)A) WHERE RN BETWEEN #{start} AND #{end}
 	</select>
 	
 	<select id = "selectWriterPaging" parameterType = "map" resultMap = "reportDto">
-		SELECT REPORT_SEQ, USER_ID, REPORT_WRITER, REQUEST_SEQ, REPORT_BLOCK_DAT, REPORT_DATE, REPORT_CONTENT, REPORT_CATEGORY, REPORT_STATUS FROM
-		(SELECT ROWNUM RN, A.* FROM
-		(SELECT * FROM TB_REPORT WHERE REPORT_WRITER = #{} AND REPORT_STATUS = "?" ORDER BY REPORT_SEQ DESC)A) WHERE RN BETWEEN #{start} AND #{end}
+		SELECT REPORT_SEQ, USER_ID, REPORT_WRITER, JOB_SEQ, REPORT_BLOCK_DATE, REPORT_DATE, REPORT_CONTENT, REPORT_CATEGORY, REPORT_STATUS FROM
+		(SELECT ROWNUM RN, A.* FROM   
+		(SELECT * FROM (SELECT * FROM TB_REPORT WHERE REPORT_WRITER LIKE #{content_1} OR REPORT_WRITER LIKE #{content_2} OR REPORT_WRITER LIKE #{content_3} OR REPORT_WRITER LIKE #{content_4} ) WHERE REPORT_STATUS = 'N' ORDER BY REPORT_SEQ DESC)A) WHERE RN BETWEEN #{start} AND #{end}
 	</select>
 	
-	<select id = "detail" resultMap = "reportDto">
-		  SELECT REPORT_SEQ, USER_ID, REPORT_WRITER, REQUEST_SEQ, REPORT_BLOCK_DAT, REPORT_DATE, REPORT_CONTENT, REPORT_CATEGORY, REPORT_STATUS FROM
-		TB_REPORT WHERE REQUEST_SEQ = #{}
-	</select>-->
+	<select id = "report_detail" parameterType = "int" resultMap = "reportDto">
+		SELECT REPORT_SEQ, USER_ID, REPORT_WRITER, JOB_SEQ, REPORT_BLOCK_DATE, REPORT_DATE, REPORT_CONTENT, REPORT_CATEGORY, REPORT_STATUS FROM
+		TB_REPORT WHERE JOB_SEQ = #{seq}
+	</select>
 	
+	<update id = "report_1st_done" parameterType = "int">
+		UPDATE TB_REPORT
+		SET REPORT_STATUS = 'Y'
+		WHERE REPORT_SEQ = #{seq}
+	</update>
+	
+	<update id = "report_2nd_done" parameterType = "map">
+		UPDATE TB_USER
+		SET USER_BLOCK_DATE = #{day}
+		WHERE USER_ID = #{id}
+	</update>
+	
+	<select id = "search_Repory_Day" parameterType = "String" resultType = "int">
+		SELECT USER_BLOCK_DATE
+		FROM TB_USER
+		WHERE USER_ID = #{id}
+	</select>
 </mapper>

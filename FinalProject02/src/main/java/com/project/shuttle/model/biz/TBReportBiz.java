@@ -7,11 +7,11 @@ import com.project.shuttle.model.dto.TBReportDto;
 
 public interface TBReportBiz {
 
-public int countReport();
+	public int countReport();
 	
-	public int countUserIdReport(String userId);
+	public int countUserIdReport(Map<String, String> map);
 	
-	public int countWriterReport(String writer);
+	public int countWriterReport(Map<String, String> map);
 	
 	public List<TBReportDto> selectPaging(Map<String, Integer> map);
 	
@@ -19,5 +19,11 @@ public int countReport();
 	
 	public List<TBReportDto> selectWriterPaging(Map<String, String> map);
 
-	public TBReportDto detail(int seq);
+	public TBReportDto report_detail(int seq);
+	
+	public int report_1st_done(int seq);
+	
+	public int report_2nd_done(Map<String, String> map);
+	
+	public int search_Repory_Day(String id);
 }
