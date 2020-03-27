@@ -53,9 +53,6 @@ $(function() {
 		$("#mypage").fadeIn();
 	});
 
-	// 실시간
-	
-	
 
 	// header 해더 스크롤
 	$(window).scroll(function() {
