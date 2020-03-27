@@ -49,51 +49,60 @@
 }
 </style>
 <script type="text/javascript">
-	$(function() {
-		$(document).on('click','input[name=paging]', function() {
-					console.log(this.value);
-						var pageNum = this.value;
-						
-								$.ajax({
-									type : "post",
-									contentType : "application/json",	// json 형태이기에 꼭 써줘야함
-									url : "testBoard.do?pageNum=" + pageNum,
-									dataType : 'json',
-									success : function(data) {
-										var list = data.list; // 글 목록을 담음
-										var pageMaker = data.pageMaker; // 페이징 정보를 담음
-										var writtenBoard = $("#writtenBoard");
-										var writtenPaging = $("#writtenBoardPaging");
-										writtenBoard.children().remove(); // 게시판 기존 내용 삭제
-										writtenPaging.children().remove(); // 페이징 삭제
-										//console.log(data); // 들어온 json 값 확인
-										writtenBoard.append("<tr><th width='100px'>번호</th><th width='150px'>제목</th><th width='100px'>보상</th><th width='150px'>작성일</th><th width='100px'>완료여부</th></tr>");
-										for (var i = 0; i < list.length; i++) {
-											var val = list[i];
-											writtenBoard.append("<tr><td align='center'>"
-													+ val.jobSeq
-														+ "</td><td align='center'>"
-													+ val.jobTitle
-														+ "</td><td align='center'>"
-													+ val.jobReward
-													+ "</td><td align='center'>"
-													+ val.jobDate
-													+ "</td><td align='center'>"
-													+ val.jobComplete+"</td></tr>");
-										}
-										var pageCount = (pageMaker.endPage - pageMaker.startPage) + 1;
-										for (var i = 1; i < pageCount + 1; i++) {
-											writtenPaging.append("<input style='width:30px; float:none;'  type='button' name='paging' class='writtenBoardNum' value='"+i+"'> ");
-										}
-									},
-									error : function() {
-										alert("통신 실패");
-									}
-								});
-					});
-	});
-</script>
 
+	var pageNum = 1;	// 받을 페이지 번호(전역변수)
+
+	$(function() {
+		
+		writtenBoard();	// 페이지 로드시 바로 불러올 목록
+		
+		$(document).on('click','input[name=writtenBoardPaging]', function() {
+						// 동적으로 생성된 태그들도 함수 걸기 $(document).on('click','태그',function(){})
+						pageNum = this.value;
+						writtenBoard();
+				});
+		});
+	
+	function writtenBoard(){
+		$.ajax({
+			type : "post",
+			contentType : "application/json",	// json 형태이기에 꼭 써줘야함
+			url : "testBoard.do?pageNum=" + pageNum,
+			dataType : 'json',
+			success : function(data) {
+				var list = data.list; // 글 목록을 담음
+				var pageMaker = data.pageMaker; // 페이징 정보를 담음
+				var writtenBoard = $("#writtenBoard");	// 페이지뿌려줄 테이블 태그
+				var writtenPaging = $("#writtenBoardPaging");	// 페이징 뿌려줄 테이블 태그
+				writtenBoard.children().remove(); // 게시판 기존 내용 삭제
+				writtenPaging.children().remove(); // 페이징 삭제
+				//console.log(data); // 들어온 json 값 확인
+				writtenBoard.append("<tr><th width='100px'>번호</th><th width='150px'>제목</th><th width='100px'>보상</th><th width='150px'>작성일</th><th width='100px'>완료여부</th></tr>");
+				for (var i = 0; i < list.length; i++) {
+					var val = list[i];
+					writtenBoard.append("<tr><td align='center'>"
+							+ val.jobSeq
+								+ "</td><td align='center'>"
+							+ val.jobTitle
+								+ "</td><td align='center'>"
+							+ val.jobReward
+							+ "</td><td align='center'>"
+							+ val.jobDate
+							+ "</td><td align='center'>"
+							+ val.jobComplete+"</td></tr>");
+				}
+				var pageCount = (pageMaker.endPage - pageMaker.startPage) + 1;
+				for (var i = 1; i < pageCount + 1; i++) {
+					writtenPaging.append("<input style='width:30px; float:none;'  type='button' name='writtenBoardPaging' class='writtenBoardNum' value='"+i+"'> ");
+				}
+			},
+			error : function() {
+				alert("통신 실패");
+			}
+		});
+	}
+	
+</script>
 
 </head>
 <body>
@@ -138,7 +147,7 @@
 		<div>
 			<table>
 				<tr>
-					<td id="writtenBoardPaging"><input style="width:30px; float: none;"type="button" name='paging' class="writtenBoardNum" value="1" />
+					<td id="writtenBoardPaging"><input style="width:30px; float: none;"type="button" name='writtenBoardPaging' class="writtenBoardNum" value="1" />
 					</td>
 				</tr>
 			
