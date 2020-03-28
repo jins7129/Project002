@@ -135,7 +135,7 @@ public class HomeController {
 	@ResponseBody
 	public String sendMail(String to) {
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setTo(to);
+		message.setTo("<"+to+">");
 		message.setSubject("Shuttle Email Verify");
 		int[] ranV = new int[6];
 		String verifyNum = "";
@@ -144,7 +144,9 @@ public class HomeController {
 			verifyNum += ranV[i] + "";
 		}
 		message.setText("회원가입을 위한 이메일 인증 메일입니다.\n인증번호 : " + verifyNum);
+		System.out.println(message);
 		emailSender.send(message);
+		
 		return verifyNum;
 	}
 
