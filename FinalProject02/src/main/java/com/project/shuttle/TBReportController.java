@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +25,13 @@ public class TBReportController {
 
 	private static final Logger logger = LoggerFactory.getLogger(TBReportController.class);
 	
+	
+	
 	@Autowired
 	private TBReportBiz biz;
 	
 	@RequestMapping(value = "/report_admin.do", method = RequestMethod.GET)
-	public String report_admin(Paging paging, Model model
+	public String report_admin(HttpSession session, Paging paging, Model model
 		, @RequestParam(value="nowPage", required=false)String nowPage
 		, @RequestParam(value="cntPerPage", required=false)String cntPerPage){
 		

@@ -1,42 +1,53 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+</style>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 	function search(){
 		var obj = document.getElementById('type');
 		var search_type = obj.options[obj.selectedIndex].value;
-		var search_content = document.getElementById('search').value;
+		var search_content = document.getElementById('search_text').value;
 		
 		location.href = "/report_search_admin.do?type=" + search_type + "&search_content=" + search_content;
 	}
 </script>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/header.jsp"%>
+
+
+<br/><br/><br/><br/><br/><br/>
+
+
+<div align="center">
 <select id = "type">
 	<option></option>
-	<option value = "reportWriter">½Å°íÇÑ ¾ÆÀÌµğ</option>
-	<option value = "userId">½Å°í¹ŞÀº ¾ÆÀÌµğ</option>
+	<option value = "reportWriter">ì‹ ê³ í•œ ì•„ì´ë””</option>
+	<option value = "userId">ì‹ ê³ ë°›ì€ ì•„ì´ë””</option>
 </select>
-<input type = "text" id = "search" placeholder="°Ë»ö ÈÄ ¿£ÅÍ" onkeypress = "if(event.keyCode == 13){search();}">
-
-<table border = "1">
+	<input type = "text" id = "search_text" placeholder="ê²€ìƒ‰ í›„ ì—”í„°" onkeypress = "if(event.keyCode == 13){search();}">
+</div>
+<div align="center">
+<table border = "1" >
 		<col width = "100">
 		<col width = "100">
 		<col width = "100">
 		<col width = "100">
 		<col width = "100">
 	<tr>
-		<th>½Å°í¹øÈ£</th>
-		<th>±Û¹øÈ£</th>
-		<th>À¯Àú¾ÆÀÌµğ</th>
-		<th>½Å°íÀÛ¼ºÀÚ</th>
-		<th>½Å°í³¯Â¥</th>
+		<th>ì‹ ê³ ë²ˆí˜¸</th>
+		<th>ê¸€ë²ˆí˜¸</th>
+		<th>ìœ ì €ì•„ì´ë””</th>
+		<th>ì‹ ê³ ì‘ì„±ì</th>
+		<th>ì‹ ê³ ë‚ ì§œ</th>
 	</tr>
 	<c:forEach items = "${viewAll }" var = "list">
 		<tr>
@@ -48,6 +59,7 @@
 		</tr>
 	</c:forEach>
 </table>
+</div>
 <br/><br/><br/>
 <div style="display: block; text-align: center;">
 
@@ -73,10 +85,6 @@
 		</c:if>
 		</c:when>
 			
-			
-			
-			
-			
 		<c:when test = "${content == null}">
 			<c:if test="${paging.startPage != 1 }">
 			<a href="/report_admin.do?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
@@ -97,5 +105,9 @@
 		</c:when>
 	</c:choose>
 	</div>
+	
+	
+<%@ include file="/WEB-INF/views/footer.jsp"%>
+
 </body>
 </html>

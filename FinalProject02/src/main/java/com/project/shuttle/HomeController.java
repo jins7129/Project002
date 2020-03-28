@@ -135,7 +135,12 @@ public class HomeController {
 	@ResponseBody
 	public String sendMail(String to) {
 		SimpleMailMessage message = new SimpleMailMessage();
+<<<<<<< HEAD
 		message.setTo("<"+to+">");
+=======
+		System.out.println("<"+to+">");
+		message.setTo(to);
+>>>>>>> fdc473db7a3e39616b6e7f8fabdbdac970869d6f
 		message.setSubject("Shuttle Email Verify");
 		int[] ranV = new int[6];
 		String verifyNum = "";
