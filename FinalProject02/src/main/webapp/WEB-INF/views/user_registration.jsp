@@ -200,6 +200,12 @@ function readURL(flag, input) {
 				<input type="password" placeholder="please insert your password" name="pw" onclick="idChkConfirm();" required="required" />
 			<hr id="pwLine" />
 		</div>
+		
+		<!-- 이름 하기 -->
+		<div id="register_NameBox">
+			<label id="registerName">name : </label>
+			<input type="text" placeholder="please insert your name" name="name" required="required" onclick="idChkConfirm();">
+		</div>
 
 		<!-- 모바일하기 -->
 		<div id="register_mobileBox">
@@ -212,8 +218,8 @@ function readURL(flag, input) {
 		<!-- 도로명 주소 검색하기 -->
 		<div id="register_addrBox">
 			<label>Address : </label> 
-				<input id="registerAddr" type="text" value="" onclick="openPop_juso();" required="required" >
-				<input id="registerAddr1" type="text" value="" required="required" > 
+				<input id="registerAddr" type="text" value="" onclick="openPop_juso();" required="required" name="addr1" >
+				<input id="registerAddr1" type="text" value="" required="required" name="addr2" > 
 			<hr id="addrLine">
 		</div>
 

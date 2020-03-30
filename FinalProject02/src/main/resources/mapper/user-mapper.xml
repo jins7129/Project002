@@ -96,7 +96,8 @@
 	</select>
 	
 	<insert id="insertUser" parameterType="com.project.shuttle.model.dto.TBUserDto">
-	INSERT INTO VALUES()
+	INSERT INTO TB_USER VALUES
+	( #{userId}, #{userName}, #{userPw}, #{userPhone}, #{userAddr}, 0, 'USER', #{userImgpath}, 'empty', 0 )
 	</insert>
 	
 
