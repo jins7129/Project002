@@ -38,7 +38,7 @@
 }
 
 
-.writtenBoardNum, .applyBoardNum, .doingBoardNum{
+.writtenBoardNum, .applyBoardNum, .doingBoardNum, .doneBoardNum, .reviewBoardNum{
 	/* 내가 쓴 게시물 페이징 css */
 	cursor:pointer;
 	background: white;
@@ -47,12 +47,12 @@
 	font-size: 12pt;
 }
 
-.writtenBoardNum:hover, .applyBoardNum:hover, .doingBoardNum:hover{
+.writtenBoardNum:hover, .applyBoardNum:hover, .doingBoardNum:hover, .doneBoardNum:hover, .reviewBoardNum:hover{
 	/* 내가 쓴 게시물 페이징 호버 */
 	color:rgb(248, 112, 97);
 }
 
-.writtenBoardTitle:hover, .applyBoardTitle:hover, .doingBoardTitle:hover{
+.writtenBoardTitle:hover, .applyBoardTitle:hover, .doingBoardTitle:hover, .doneBoardTitle:hover, .reviewBoardTitle:hover{
 	/* 내가 쓴 게시물 제목 호버 */	
 	color: rgb(248, 112, 97);
 	cursor: pointer;
@@ -64,6 +64,8 @@
 	var writtenEndPageNum;
 	var applyEndPageNum;
 	var doingEndPageNum;
+	var doneBoardPageNum;
+	var reviewBoardPageNum;
 	
 	function checkPageNum(value, endPageNum){
 		// pageNum 태그 들의 값 확인
@@ -82,6 +84,8 @@
 		writtenBoard();	// 내가 쓴 글
 		applyBoard();	// 내가 신청한 글
 		doingBoard();	// 내가 하는 중인 글
+		doneBoard();	// 내가 완료한 글
+		reviewBoard();	// 내가 쓴 리뷰
 		
 		// 동적쿼리로 생성된 태그들의 이벤트 걸어주기 
 		$(document).on('click','input[name=writtenBoardPaging]', function() {
@@ -112,7 +116,25 @@
 		});
 		$(document).on('click','.doingBoardTitle', function() {
 					alert("흐럅");
-});
+		});
+		////////////////////
+		$(document).on('click','input[name=doneBoardPaging]', function() {
+					pageNum = checkPageNum(this.value, doneEndPageNum);
+					doneBoard();
+		});
+		$(document).on('click','.doneBoardTitle', function() {
+					alert("흐럅");
+		});
+		
+		////////////////////
+		$(document).on('click','input[name=reviewBoardPaging]', function() {
+					pageNum = checkPageNum(this.value, reviewEndPageNum);
+					reviewBoard();
+		});
+		$(document).on('click','.reviewBoardTitle', function() {
+					alert("흐럅");
+		});
+		
 	});
 	
 	function writtenBoard(){
@@ -251,6 +273,90 @@
 		});
 	}
 	
+	function doneBoard(){
+		// 진행중인 아르바이트 글 불러오는 함수
+		$.ajax({
+			type : "post",
+			contentType : "application/json",	// json 형태이기에 꼭 써줘야함
+			url : "getDoneBoard.do?pageNum=" + pageNum,
+			dataType : 'json',
+			success : function(data) {
+				console.log(data); // 들어온 json 값 확인
+				var list = data.list; // 글 목록을 담음
+				var pageMaker = data.pageMaker; // 페이징 정보를 담음
+				var doneBoard = $("#doneBoard");	// 페이지뿌려줄 테이블 태그
+				var donePaging = $("#doneBoardPaging");	// 페이징 뿌려줄 테이블 태그
+				doneBoard.children().remove(); // 게시판 기존 내용 삭제
+				donePaging.children().remove(); // 페이징 삭제
+				
+				doneEndPageNum = pageMaker.tempEndPage;
+				
+				doneBoard.append("<tr><th width='100px'>번호</th><th width='150px'>제목</th><th width='100px'>보상</th><th width='150px'>작성일</th></tr>");
+				for (var i = 0; i < list.length; i++) {
+					var val = list[i];
+					doneBoard.append("<tr><td align='center'>"
+							+ val.jobSeq
+								+ "</td><td align='center' class='doneBoardTitle' >"
+							+ val.jobTitle
+								+ "</td><td align='center'>"
+							+ val.jobReward
+							+ "</td><td align='center'>"
+							+ val.jobDate
+							+ "</td><td align='center'></td></tr>");
+				}
+				var pageCount = (pageMaker.endPage - pageMaker.startPage) + 1;
+				for (var i = 1; i < pageCount + 1; i++) {
+					donePaging.append("<input style='width:30px; float:none;'  type='button' name='doneBoardPaging' class='doneBoardNum' value='"+i+"'> ");
+				}
+			},
+			error : function() {
+				alert("통신 실패");
+			}
+		});
+	}
+	
+	function reviewBoard(){
+		// 진행중인 아르바이트 글 불러오는 함수
+		$.ajax({
+			type : "post",
+			contentType : "application/json",	// json 형태이기에 꼭 써줘야함
+			url : "getReviewBoard.do?pageNum=" + pageNum,
+			dataType : 'json',
+			success : function(data) {
+				console.log(data); // 들어온 json 값 확인
+				var list = data.list; // 글 목록을 담음
+				var pageMaker = data.pageMaker; // 페이징 정보를 담음
+				var reviewBoard = $("#reviewBoard");	// 페이지뿌려줄 테이블 태그
+				var reviewPaging = $("#reviewBoardPaging");	// 페이징 뿌려줄 테이블 태그
+				reviewBoard.children().remove(); // 게시판 기존 내용 삭제
+				reviewPaging.children().remove(); // 페이징 삭제
+				
+				reviewEndPageNum = pageMaker.tempEndPage;
+				
+				reviewBoard.append("<tr><th width='100px'>번호</th><th width='150px'>제목</th><th width='100px'>보상</th><th width='150px'>작성일</th></tr>");
+				for (var i = 0; i < list.length; i++) {
+					var val = list[i];
+					reviewBoard.append("<tr><td align='center'>"
+							+ val.jobSeq
+								+ "</td><td align='center' class='reviewBoardTitle' >"
+							+ val.jobTitle
+								+ "</td><td align='center'>"
+							+ val.jobReward
+							+ "</td><td align='center'>"
+							+ val.jobDate
+							+ "</td><td align='center'></td></tr>");
+				}
+				var pageCount = (pageMaker.endPage - pageMaker.startPage) + 1;
+				for (var i = 1; i < pageCount + 1; i++) {
+					reviewPaging.append("<input style='width:30px; float:none;'  type='button' name='reviewBoardPaging' class='reviewBoardNum' value='"+i+"'> ");
+				}
+			},
+			error : function() {
+				alert("통신 실패");
+			}
+		});
+	}
+	
 </script>
 
 </head>
@@ -301,7 +407,7 @@
 	<hr/>
 	<br/>
 	<div align="center" >
-		<h3>아르바이트 신청 목록</h3>
+		<h3>내가 신청한 글</h3>
 			<table id="applyBoard">
 			</table>
 		
@@ -317,7 +423,7 @@
 	</div>
 	
 	<div align="center" >
-		<h3>진행중인 아르바이트 목록</h3>
+		<h3>내가 진행중인 글</h3>
 			<table id="doingBoard">
 			</table>
 		
@@ -325,6 +431,37 @@
 				<table>
 					<tr>
 						<td id="doingBoardPaging">
+						</td>
+					</tr>
+				</table>
+		</div>
+	
+	</div>
+	<div align="center" >
+		<h3>내가 완료한 글</h3>
+			<table id="doneBoard">
+			</table>
+		
+			<div>
+				<table>
+					<tr>
+						<td id="doneBoardPaging">
+						</td>
+					</tr>
+				</table>
+		</div>
+	
+	</div>
+	
+	<div align="center" >
+		<h3>내가 쓴 리뷰</h3>
+			<table id="reviewBoard">
+			</table>
+		
+			<div>
+				<table>
+					<tr>
+						<td id="reviewBoardPaging">
 						</td>
 					</tr>
 				</table>

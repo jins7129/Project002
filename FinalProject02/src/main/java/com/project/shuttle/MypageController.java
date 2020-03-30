@@ -119,7 +119,54 @@ public class MypageController {
 		map.put("list", boardList);	// 사용자가 신청한 의뢰글(리스트) 맵에 넣어줌
 		map.put("pageMaker", pageMaker);
 		
-		System.out.println("doing");
+		return map;
+	}
+	
+	@RequestMapping(value="/getDoneBoard.do", method = RequestMethod.POST )
+	@ResponseBody
+	public Map<Object, Object> getDoneBoard(HttpSession session, int pageNum){
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		
+		TBUserDto loginInfo = (TBUserDto) session.getAttribute("loginInfo");
+		String userId = loginInfo.getUserId();
+		
+		Criteria cri = new Criteria();	
+		cri.setPage(pageNum);	
+		cri.setPageCount(10);	
+		
+		PageMaker pageMaker = new PageMaker();	
+		pageMaker.setCri(cri);	
+		pageMaker.setTotalCount(userBiz.countDoneBoard(userId));	
+
+		List<TBJobDto> boardList = userBiz.getDoneBoard(cri.getPage(),cri.getPageCount(),userId);
+		
+		map.put("list", boardList);	
+		map.put("pageMaker", pageMaker);
+		
+		return map;
+	}
+	
+	@RequestMapping(value="/getReviewBoard.do", method = RequestMethod.POST )
+	@ResponseBody
+	public Map<Object, Object> getReviewBoard(HttpSession session, int pageNum){
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		
+		TBUserDto loginInfo = (TBUserDto) session.getAttribute("loginInfo");
+		String userId = loginInfo.getUserId();
+		
+		Criteria cri = new Criteria();	
+		cri.setPage(pageNum);	
+		cri.setPageCount(10);	
+		
+		PageMaker pageMaker = new PageMaker();	
+		pageMaker.setCri(cri);	
+		pageMaker.setTotalCount(userBiz.countReviewBoard(userId));	
+
+		List<TBJobDto> boardList = userBiz.getReviewBoard(cri.getPage(),cri.getPageCount(),userId);
+		
+		map.put("list", boardList);	
+		map.put("pageMaker", pageMaker);
+		
 		return map;
 	}
 

@@ -76,6 +76,29 @@ public class TBUserBizImpl implements TBUserBiz {
 
 		return userDao.getDoingBoard(page, pageCountAfter, userId);
 	}
+	
+	@Override
+	public List<TBJobDto> getDoneBoard(int pageNum, int pageCount, String userId) {
+		// 내가 완료한 아르바이트 글 불러오기
+			int page = 0;
+			int pageCountAfter = 0;
+			pageCountAfter = pageNum * pageCount;
+			page = ((pageNum - 1) * 10) + 1;
+
+			return userDao.getDoneBoard(page, pageCountAfter, userId);
+	}
+
+	@Override
+	public List<TBJobDto> getReviewBoard(int pageNum, int pageCount, String userId) {
+		// 내가 작성한 리뷰 글 불러오기
+				int page = 0;
+				int pageCountAfter = 0;
+				pageCountAfter = pageNum * pageCount;
+				page = ((pageNum - 1) * 10) + 1;
+				
+				return userDao.getReviewBoard(page, pageCountAfter, userId);
+	}
+
 
 	@Override
 	public int countBoard(String userId) {
@@ -91,6 +114,16 @@ public class TBUserBizImpl implements TBUserBiz {
 	public int countDoingBoard(String userId) {
 		return userDao.countDoingBoard(userId);
 	}
+	
+	@Override
+	public int countDoneBoard(String userId) {
+		return userDao.countDoneBoard(userId);
+	}
+	
+	@Override
+	public int countReviewBoard(String userId) {
+		return userDao.countReviewBoard(userId);
+	}
 
 	@Override
 	public int insertUser(TBUserDto dto) {
@@ -101,5 +134,9 @@ public class TBUserBizImpl implements TBUserBiz {
 	public String idchk(String id) {
 		return userDao.idchk(id);
 	}
+
+	
+
+
 
 }
