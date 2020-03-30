@@ -67,14 +67,16 @@ function readURL(flag, input) {
 					if(data == true){
 					alert("이 아이디는 중복입니다.");
 					idkChk="N";
+					}else{
+						var res = confirm("이 아이디를 사용하실수 있습니다.");
+						if(res == true){
+							$("#Email_id").prop("disabled",true);
+						}
+						idkChk="Y";
 					}
 				},
 				error : function(err) {
-					var res = confirm("이 아이디를 사용하실수 있습니다.");
-					if(res == true){
-						$("#Email_id").prop("disabled",true);
-					}
-					idkChk="Y";
+					alert("기능 오류가 발생했습니다. 브라우저 콘솔을 확인해 주세요")
 				}
 			});
 		}
@@ -166,15 +168,11 @@ function readURL(flag, input) {
 
 
 <body>
-	<%@ include file="/WEB-INF/views/header.jsp" %>
-
-	
-
 	<h1>REGISTER</h1>
 	<hr id="registerLine" />
 		
 	<!-- 프로필 사진 넣기 -->
-	<form action="insert.do" method="post" id="insertForm" enctype="multipart/form-data" modelAttribute="uploadFile">
+	<form action="insert.do" method="post" id="insertForm">
 	
 	<div>
 	profile<br>
@@ -274,8 +272,6 @@ function readURL(flag, input) {
 	<h2>웰 알림 테스트</h2>
 	<input type="button" value="웹 알림 테스트" onclick="notifyMe();">
 	 -->
-
 	
-	<div id = "footer"><%@ include file="/WEB-INF/views/footer.jsp" %></div>
 </body>
 </html>

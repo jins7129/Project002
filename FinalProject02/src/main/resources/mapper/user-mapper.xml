@@ -30,7 +30,6 @@
 		<result property="jobView" column="JOB_VIEW" />
 	</resultMap>
 
-
 	<select id="login" parameterType="com.project.shuttle.model.dto.TBUserDto" resultMap="userDto">
 		SELECT *
 		FROM TB_USER
@@ -76,9 +75,10 @@
 		WHERE USER_ID = #{userId}
 	</select>
 	
+	<!-- 쒸불 존나안돼네 개같은거 -->
 	<insert id="insertUser" parameterType="com.project.shuttle.model.dto.TBUserDto">
 	INSERT INTO TB_USER VALUES
-	( #{userId}, #{userName}, #{userPw}, #{userPhone}, #{userAddr}, 0, 'USER', #{userImgpath}, 'empty', 0 )
+	(#{userId},#{userName},#{userPw},#{userPhone},#{userAddr},0,'USER','','empty',0);
 	</insert>
 	
 
