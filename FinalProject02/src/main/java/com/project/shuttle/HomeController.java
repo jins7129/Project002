@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -123,31 +122,24 @@ public class HomeController {
 			verifyNum += ranV[i] + "";
 		}
 		message.setText("회원가입을 위한 이메일 인증 메일입니다.\n인증번호 : " + verifyNum);
-		System.out.println(message);
 		emailSender.send(message);
 
 		return verifyNum;
 	}
 
-	@RequestMapping(value = "/insert.do", method = RequestMethod.POST)
-	public String insertBoard(String id, String pw, String name, String phone, String addr1, String addr2) {
+	@RequestMapping(value = "/insert.do")
+	public String insertBoard(String userId,String userId2,String userId3,String userId4, String pw, String name, String phone, String addr1, String addr2) {
 
-		System.out.println("id = " + id);
+		System.out.println("id = " + userId);
 		System.out.println("pw = " + pw);
 		System.out.println("name = " + name);
 		System.out.println("phone = " + phone);
 		System.out.println("addr1 = " + addr1);
 		System.out.println("addr2 = " + addr2);
-		TBUserDto dto = new TBUserDto();
-		dto.setUserId(id);
-		dto.setUserPw(pw);
-		dto.setUserName(name);
-		dto.setUserPhone(phone);
-		dto.setUserAddr(addr1 + " " + addr2);
-		dto.setUserImgpath("1");
+		TBUserDto dto = new TBUserDto(userId, pw, name, phone, addr1+" "+addr2, "1");
 
 		if (biz.insertUser(dto) > 0) {
-			return "main";
+			return "redirect:main.do";
 		} else {
 			return "redirect:signUp.do";
 		}
@@ -155,11 +147,11 @@ public class HomeController {
 
 	@RequestMapping(value = "/idchk.do")
 	@ResponseBody
-	public Boolean idChk(String id) {
+	public Boolean idChk(String Email_id) {
 		boolean chkRes;
 		chkRes = false;
 		try {
-			if (biz.idchk(id).equals(id)) {
+			if (biz.idchk(Email_id).equals(Email_id)) {
 				chkRes = true;
 			}
 		} catch (Exception e) {

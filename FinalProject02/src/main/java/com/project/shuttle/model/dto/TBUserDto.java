@@ -34,6 +34,18 @@ public class TBUserDto {
 	// 제재기간
 	private int userBlockDate;
 
+	
+	
+	public TBUserDto(String userId, String userName, String userPw, String userPhone, String userAddr,
+			String userImgpath) {
+		this.userId = userId;
+		this.userName = userName;
+		this.userPw = userPw;
+		this.userPhone = userPhone;
+		this.userAddr = userAddr;
+		this.userImgpath = userImgpath;
+	}
+
 	public String getUserId() {
 		return userId;
 	}

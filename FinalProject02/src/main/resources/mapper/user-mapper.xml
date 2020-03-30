@@ -135,8 +135,9 @@
 	<!-- 쒸불 존나안돼네 개같은거 -->
 	<insert id="insertUser" parameterType="com.project.shuttle.model.dto.TBUserDto">
 	INSERT INTO TB_USER VALUES
-	(#{userId},#{userName},#{userPw},#{userPhone},#{userAddr},0,'USER','','empty',0);
-	</insert>
+	<!-- USER_ID, USER_NAME, USER_PW,USER_PHONE, USER_ADDR, USER_COIN, USER_STATUS, USER_ACCOUNT, USER_BLOCK_DATE -->
+	(#{userId},#{userName},#{userPw},#{userPhone},#{userAddr}, 0, 'USER', 'www', 'empty',0)
+	</insert>	
 	
 
 </mapper>
