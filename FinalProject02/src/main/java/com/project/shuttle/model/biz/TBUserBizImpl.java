@@ -9,20 +9,16 @@ import com.project.shuttle.model.dao.TBUserDao;
 import com.project.shuttle.model.dto.TBJobDto;
 import com.project.shuttle.model.dto.TBUserDto;
 
-
-
 @Service
-public class TBUserBizImpl implements TBUserBiz{
-	
+public class TBUserBizImpl implements TBUserBiz {
+
 	@Autowired
 	private TBUserDao userDao;
-
 
 	@Override
 	public TBUserDto login(TBUserDto dto) {
 		return userDao.login(dto);
 	}
-
 
 	@Override
 	public List<TBJobDto> getWrittenBoard(int pageNum, int pageCount, String userId) {
@@ -30,11 +26,11 @@ public class TBUserBizImpl implements TBUserBiz{
 		int page = 0;
 		int pageCountAfter = 0;
 
-		pageCountAfter = pageNum*pageCount; 
-		page = ((pageNum-1)*10)+1;
-		
+		pageCountAfter = pageNum * pageCount;
+		page = ((pageNum - 1) * 10) + 1;
+
 //		System.out.println(pageCountAfter+"pageCountAfter//"+page+"page");
-		return  userDao.getWrittenBoard(page, pageCountAfter, userId);
+		return userDao.getWrittenBoard(page, pageCountAfter, userId);
 //		select *
 //		from (SELECT *
 //		        FROM (
@@ -44,7 +40,7 @@ public class TBUserBizImpl implements TBUserBiz{
 //		        where rnum <= 10
 //		    )
 //		where rnum >= 1;
-				// ((page-1)*10)+1
+		// ((page-1)*10)+1
 //		-- 2페이지
 //		select *
 //		from (SELECT *
@@ -56,38 +52,50 @@ public class TBUserBizImpl implements TBUserBiz{
 //		    )
 //		where rnum >= 11; 21 31 41
 	}
-	
+
 	@Override
 	public List<TBJobDto> getApplyBoard(int pageNum, int pageCount, String userId) {
 		// 내가 신청한 아르바이트 글 불러오기
 		int page = 0;
 		int pageCountAfter = 0;
 
-		pageCountAfter = pageNum*pageCount; 
-		page = ((pageNum-1)*10)+1;
-		
-		return  userDao.getApplyBoard(page, pageCountAfter, userId);
+		pageCountAfter = pageNum * pageCount;
+		page = ((pageNum - 1) * 10) + 1;
+
+		return userDao.getApplyBoard(page, pageCountAfter, userId);
 	}
 
+	@Override
+	public List<TBJobDto> getDoingBoard(int pageNum, int pageCount, String userId) {
+		// 내가 하는 중인 아르바이트 글 불러오기
+		int page = 0;
+		int pageCountAfter = 0;
 
+		pageCountAfter = pageNum * pageCount;
+		page = ((pageNum - 1) * 10) + 1;
+
+		return userDao.getDoingBoard(page, pageCountAfter, userId);
+	}
 
 	@Override
 	public int countBoard(String userId) {
 		return userDao.countBoard(userId);
 	}
-	
+
 	@Override
 	public int countApplyBoard(String userId) {
 		return userDao.countApplyBoard(userId);
 	}
 
+	@Override
+	public int countDoingBoard(String userId) {
+		return userDao.countDoingBoard(userId);
+	}
 
 	@Override
 	public int insertUser(TBUserDto dto) {
-		// TODO Auto-generated method stub
 		return userDao.insertUser(dto);
 	}
-
 
 	@Override
 	public String idchk(String id) {

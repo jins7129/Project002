@@ -61,6 +61,17 @@
 		]]>
 	</select>
 	
+	<select id="getDoingBoard" resultMap="boardDto">
+		<![CDATA[
+		SELECT * FROM (
+		SELECT * FROM (
+		SELECT ROWNUM RNM, JOB_SEQ, USER_ID, JOB_TITLE, JOB_CONTENT, JOB_REWARD, JOB_ADDR, JOB_CATEGORY, JOB_COMPLETE, JOB_DATE, JOB_START, JOB_DONE, JOB_VIEW 
+		FROM (SELECT * FROM TB_JOB WHERE USER_ID IN (
+		SELECT USER_ID FROM TB_APPLY WHERE APPLY_WOKER = #{userId}) ORDER BY JOB_SEQ DESC)) WHERE RNM <= #{pageCount}) WHERE RNM >= #{pageNum}
+		AND JOB_COMPLETE = 'D'
+		]]>
+	</select>
+	
 	<select id="countBoard" parameterType="String" resultType="int" >
 		SELECT COUNT(*) FROM TB_JOB
 		WHERE USER_ID = #{userId}
@@ -69,6 +80,14 @@
 	<select id="countApplyBoard" parameterType="String" resultType="int" >
 		SELECT count(*) FROM TB_JOB WHERE JOB_SEQ IN (
 		SELECT APPLY_SEQ FROM TB_APPLY WHERE APPLY_WOKER = #{userId}) ORDER BY JOB_SEQ DESC
+	</select>
+	
+	<select id="countDoingBoard" parameterType="String" resultType="int">
+		SELECT count(*) FROM TB_JOB 
+		WHERE 
+		USER_ID IN (SELECT USER_ID FROM TB_APPLY WHERE APPLY_WOKER = #{userId}) 
+		AND 
+		JOB_COMPLETE = 'D' ORDER BY JOB_SEQ DESC
 	</select>
 	
 	<select id="idchk" parameterType="com.project.shuttle.model.dto.TBUserDto" resultType="String" >
