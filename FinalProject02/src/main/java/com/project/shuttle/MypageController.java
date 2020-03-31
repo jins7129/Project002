@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.project.shuttle.model.biz.TBUserBiz;
 import com.project.shuttle.model.dto.Criteria;
@@ -43,6 +44,29 @@ public class MypageController {
 		mav.setViewName("user_mypage_updateform");
 		
 		return mav;
+	}
+	
+	@RequestMapping(value = "/mypage_updateres.do", method= RequestMethod.POST)
+	public RedirectView mypage_updateRes(HttpSession session,String userPhone,String userPw, String addr1, String addr2) {
+		TBUserDto loginInfo = (TBUserDto)session.getAttribute("loginInfo");
+		System.out.println(loginInfo.getUserId());
+		String userAddr = addr1+" "+addr2;	// 도로명 주소로 입력된 주소값을 하나로 합친 것
+		loginInfo.setUserAddr(userAddr);
+		loginInfo.setUserPw(userPw);
+		
+		int res = userBiz.mypageUpdate(loginInfo);
+		
+		RedirectView reView ;
+		
+		if(res>0) {
+			reView = new RedirectView("/mypage_main.do");
+		} else {
+			reView = new RedirectView("/mypage_main.do");
+		}
+		
+		
+		
+		return reView;
 	}
 	
 	@RequestMapping(value="/getWrittenBoard.do", method = RequestMethod.POST )
