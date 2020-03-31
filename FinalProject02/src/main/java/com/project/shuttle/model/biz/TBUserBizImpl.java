@@ -15,10 +15,7 @@ public class TBUserBizImpl implements TBUserBiz {
 	@Autowired
 	private TBUserDao userDao;
 
-	@Override
-	public TBUserDto login(TBUserDto dto) {
-		return userDao.login(dto);
-	}
+	
 
 	@Override
 	public List<TBJobDto> getWrittenBoard(int pageNum, int pageCount, String userId) {
@@ -124,7 +121,19 @@ public class TBUserBizImpl implements TBUserBiz {
 	public int countReviewBoard(String userId) {
 		return userDao.countReviewBoard(userId);
 	}
+	
 
+	@Override
+	public int mypageUpdate(TBUserDto dto) {
+		return userDao.mypageUpdate(dto);
+	}
+
+	
+	@Override
+	public TBUserDto login(TBUserDto dto) {
+		return userDao.login(dto);
+	}
+	
 	@Override
 	public int insertUser(TBUserDto dto) {
 		return userDao.insertUser(dto);
@@ -134,9 +143,6 @@ public class TBUserBizImpl implements TBUserBiz {
 	public String idchk(String id) {
 		return userDao.idchk(id);
 	}
-
-	
-
 
 
 }
