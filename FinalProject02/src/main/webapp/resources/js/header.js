@@ -106,18 +106,18 @@ $(function() {
 		}
 	});
 	// 메뉴 호버
-	$(".menu div").css("display", "none");
-	$(".menu").hover(
+	$(".Hmenu div").css("display", "none");
+	$(".Hmenu").hover(
 			function() {
 				$(this).children("div").show();
 				$(this).children("div").children("div").show().css({
 					"background-color" : "black"
 				});
 
-				$(".menu").children("div").css("background-color", "black");
-				$(".menu").not(this).children("div").show();
-				$(".menu").not(this).children("div").children("div").show();
-				$(".menu").not(this).children("div").children("div").css(
+				$(".Hmenu").children("div").css("background-color", "black");
+				$(".Hmenu").not(this).children("div").show();
+				$(".Hmenu").not(this).children("div").children("div").show();
+				$(".Hmenu").not(this).children("div").children("div").css(
 						"display", "none");
 
 				$(this).parent("div").parent("div").css({
@@ -126,7 +126,7 @@ $(function() {
 				});
 				$(this).children(".menuList").css("text-decoration",
 						"underline");
-				$(".menu").children(".menuList").css("color", "#7f7f7f");
+				$(".Hmenu").children(".menuList").css("color", "#7f7f7f");
 				$(this).children("a").css("color", "white");
 				$(".smallList").css({
 					"text-decoration" : "none",
@@ -140,11 +140,11 @@ $(function() {
 					"background-color" : "white"
 				});
 				$(this).children("a").css("text-decoration", "none");
-				$(".menu").children("a").css("color", "black");
+				$(".Hmenu").children("a").css("color", "black");
 				$(this).children("div").hide();
 				$(this).children("div").children("div").hide();
-				$(".menu").children("div").hide();
-				$(".menu").children("div").children("div").hide();
+				$(".Hmenu").children("div").hide();
+				$(".Hmenu").children("div").children("div").hide();
 
 			});
 	
