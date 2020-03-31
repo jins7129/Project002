@@ -127,16 +127,11 @@ public class HomeController {
 		return verifyNum;
 	}
 
+	//회원가입 기능
 	@RequestMapping(value = "/insert.do")
-	public String insertBoard(String userId,String userId2,String userId3,String userId4, String pw, String name, String phone, String addr1, String addr2) {
-
-		System.out.println("id = " + userId);
-		System.out.println("pw = " + pw);
-		System.out.println("name = " + name);
-		System.out.println("phone = " + phone);
-		System.out.println("addr1 = " + addr1);
-		System.out.println("addr2 = " + addr2);
-		TBUserDto dto = new TBUserDto(userId, pw, name, phone, addr1+" "+addr2, "1");
+	public String insertBoard(String userId, String userId2, String userId3, String userId4, String pw, String name,
+			String phone, String addr1, String addr2) {
+		TBUserDto dto = new TBUserDto(userId, pw, name, phone, addr1 + " " + addr2, "1");
 
 		if (biz.insertUser(dto) > 0) {
 			return "redirect:main.do";
@@ -144,7 +139,8 @@ public class HomeController {
 			return "redirect:signUp.do";
 		}
 	}
-
+	
+	//아이디 중복체크 기능
 	@RequestMapping(value = "/idchk.do")
 	@ResponseBody
 	public Boolean idChk(String Email_id) {
@@ -157,5 +153,11 @@ public class HomeController {
 		} catch (Exception e) {
 		}
 		return chkRes;
+	}
+	
+	@RequestMapping(value = "/toastTest.do")
+	public String toastTest() {
+		System.out.println("컨트롤러 들어옴");
+		return "toastTest";
 	}
 }

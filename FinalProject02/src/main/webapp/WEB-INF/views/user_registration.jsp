@@ -14,7 +14,40 @@
    margin-left: 28%;
 }
 
+input[type=button]{
+	display: -moz-box;
+	display: -ms-flexbox;
+	justify-content: center;
+	align-items: center;
+	padding: 0 20px;
+	width: 100px;
+	height: 35px;
+	border-radius: 10px;
+	background: rgb(248, 112, 97);
+	cursor: pointer;
+	/* font-family: Montserrat-Bold; */
+	font-size: 15px;
+	color: #fff;
+	line-height: 1.1;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	-webkit-transition: all 0.4s;
+	-o-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	transition: all 0.4s;
+	float: none;
+}
 
+input[type=button]:hover{
+	background: black;
+}
+
+input[type=text], input[type=password]{
+	border-radius: 10px;
+	border:1px solid black;
+	width: 300px;
+	height: 40px;
+	}
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
@@ -163,76 +196,67 @@ function readURL(flag, input) {
 
 
 <body>
+		<%@ include file="/WEB-INF/views/header.jsp" %>
+	<div style="margin-left: 5%">
 	<h1>REGISTER</h1>
-	<hr id="registerLine" />
+	<br><br>
 		
-	<!-- 프로필 사진 넣기 -->
 	<form action="insert.do" method="post" id="insertForm">
 	
-	<div>
+	<!--  
 	profile<br>
 	<img id="img_profile" class="img_profile" src="" onError="this.src='/resources/images/imgSample.png'" alt="" name="userImgpath">
 	<br>
 		<input type="file" id="imgFile" >
-	</div>
 	<hr>
 	
 		<input type="hidden" id="tg_YN" name="tgYn" value="N">
-
+-->
 		<!-- 로그인하기 -->
-		<div id="register_IdBox">
 			<label id="registerID"> user id : </label> 
 				<input type="text" placeholder="please insert your id"  required="required" name="userId" /> 
 				<input type="button" value="id-check" onclick="idChked();" id="idChk">
-		</div>
-			<hr id="idLine" />
+			<br><br>
 
 		<!-- 패스워드하기 -->
-		<div id="register_PwBox">
 			<label id="registerPW"> password : </label> 
 				<input type="password" placeholder="please insert your password" name="pw" onclick="idChkConfirm();" required="required" />
-		</div>
-			<hr id="pwLine" />
+			<br><br>
 		
 		<!-- 이름 하기 -->
-		<div id="register_NameBox">
 			<label id="registerName">name : </label>
 			<input type="text" placeholder="please insert your name" name="name" required="required" onclick="idChkConfirm();">
-		</div>
-
+			<br><br>
 		<!-- 모바일하기 -->
-		<div id="register_mobileBox">
 			<label id="registerMobile"> mobile : </label> 
 				<input type="text" placeholder="please insert your phone-number" name="phone" onclick="idChkConfirm();" required="required" />
-		</div>
-			<hr id="mobileLine" />
-
+			<br><br>
 
 		<!-- 도로명 주소 검색하기 -->
-		<div id="register_addrBox">
 			<label>Address : </label> 
-				<input id="registerAddr" type="text" value="" onclick="openPop_juso();" required="required" name="addr1" >
-				<input id="registerAddr1" type="text" value="" required="required" name="addr2" > 
-			<hr id="addrLine">
-		</div>
+				<input id="registerAddr" type="text" value="" onclick="openPop_juso();" required="required" name="addr1" placeholder="Click to here" >
+				<input id="registerAddr1" type="text" value="" required="required" name="addr2" placeholder="please more details" > 
+			<br><br>
 
 		<!-- 이메일 인증하기 -->
-		<div>
 		<label>Email Verify</label>
-			<input type="button" value="Verify" onclick="verifyEmail();" id="verifyBtn"><br>
+		
+			<input type="button" value="Verify" onclick="verifyEmail();" id="verifyBtn"><br><br>
+	
 			인증번호: 
 			<input type="text" value="" id="VerifyNum" >	
 			<input type="button" value="확인" onclick="emailChk();" id="verifyChk">
-			
-		</div>
-		<hr>
+			<br><br>
 		<!-- register 아래 button -->
-		<div id="register_long_btn">
-			<input type="button" value="REGISTER" id="register_longBtn" onclick="register();" style="float: left; ;">
-			<input type="button" value="CANCEL" onclick="location.href='main.do'" style="float: left;;">
-		</div>
+			<input type="button" value="REGISTER" id="register_longBtn" onclick="register();" > &nbsp;
+			<input type="button" value="CANCEL" onclick="location.href='main.do'">
 	</form>
-
+</div>
+<!-- 토스트 이미지 에디터 코드 -->
+<!-- 
+<input type="button" value="토스트 이미지 데모 테스트" onclick="location.href='toastTest.do'">
+<input type="button" value="결제 이미지 테스트" onclick="location.href='test.do'">
+ -->
 
 <!-- 결제페이지 더미코드 -->
 <!-- 	
@@ -244,7 +268,7 @@ function readURL(flag, input) {
 		<option>5000		
 		<option>10000		
 		<option>50000		
-	</select>\
+	</select>
 	
 	<input type="button" value="결제하기"><br>
 	
@@ -259,14 +283,15 @@ function readURL(flag, input) {
 
 	<label>비밀번호</label>
 	<input type="text" value="" placeholder="비밀번호를 입력하세요"><br>
- -->
-
+	 -->
 <!-- 알림테스트 코드 -->
 <!-- 
 <hr>
 	<h2>웰 알림 테스트</h2>
 	<input type="button" value="웹 알림 테스트" onclick="notifyMe();">
 	 -->
+	 	<div id = "footer"><%@ include file="/WEB-INF/views/footer.jsp" %></div>
+	 
 	
 </body>
 </html>
