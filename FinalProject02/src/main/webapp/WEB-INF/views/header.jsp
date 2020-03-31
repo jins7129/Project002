@@ -118,7 +118,7 @@
 		<!-- 메뉴 -->
 	<div class="div">
 		<div class="child1">
-			<div class="menu">
+			<div class="Hmenu">
 				<a>&nbsp;</a>
 				<div class="smallAll"></div>
 			</div>
@@ -126,7 +126,7 @@
 
 
 		<div class="child2">
-			<div class="menu">
+			<div class="Hmenu">
 				<a href="#" class="menuList">Offer</a>
 				<div class="smallAll">
 					<div>
@@ -144,7 +144,7 @@
 
 
 		<div class="child2">
-			<div class="menu">
+			<div class="Hmenu">
 				<a href="#" class="menuList">Customize</a>
 				<div class="smallAll">
 					<div>
@@ -156,7 +156,7 @@
 
 
 		<div class="child1">
-			<div class="menu">
+			<div class="Hmenu">
 				<a>&nbsp;</a>
 				<div class="smallAll"></div>
 			</div>
