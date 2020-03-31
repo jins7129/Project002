@@ -2,12 +2,13 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>1. Basic</title>
+        <title>Shuttle</title>
         <link type="text/css" href="https://uicdn.toast.com/tui-color-picker/v2.2.3/tui-color-picker.css"
             rel="stylesheet">
         <link type="text/css" href="/resources/css/service-basic.css" rel="stylesheet">
     </head>
     <body>
+    	<%@ include file="/WEB-INF/views/header.jsp"%>
         <div class="body-container">
             <div class="tui-image-editor-controls">
                 <div class="header">
@@ -226,5 +227,10 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
         <script type="text/javascript" src="resources/js/tui-image-editor.js"></script>
         <script src="resources/js/service-basic.js"></script>
+    
+    <!-- footer -->
+	<div id = "footer"><%@ include file="/WEB-INF/views/footer.jsp" %></div>
+	
+    
     </body>
 </html>

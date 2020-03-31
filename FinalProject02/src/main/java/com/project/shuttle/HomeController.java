@@ -155,9 +155,8 @@ public class HomeController {
 		return chkRes;
 	}
 	
-	@RequestMapping(value = "/toastTest.do")
+	@RequestMapping(value = "/editor.do")
 	public String toastTest() {
-		System.out.println("컨트롤러 들어옴");
 		return "toastTest";
 	}
 }

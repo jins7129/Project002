@@ -37,7 +37,6 @@
 
 		<!-- 맨 위 추천 순위 1 ~ 10 -->
 		<div id="ranking">
-			<a href="#">ranking 1 ~ 10</a>
 		</div>
 
 
@@ -149,7 +148,7 @@
 				<a href="#" class="menuList">Customize</a>
 				<div class="smallAll">
 					<div>
-						<a href="#" class="smallList">그림그리기</a>
+						<a href="editor.do" class="smallList">그림그리기</a>
 					</div>
 				</div>
 			</div>
