@@ -36,7 +36,11 @@
 			</tr>
 			<tr>
 				<td>주소</td>
-				<td><input type="text" class="input"value="${loginInfo.userAddr }" /></td>
+				<td><!-- 도로명 주소 검색하기 -->
+		<div id="register_addrBox">
+				<input id="registerAddr" type="text" value="" onclick="openPop_juso();" required="required" name="addr1" >
+				<input id="registerAddr1" type="text" value="" required="required" name="addr2" > 
+		</div></td>
 			</tr>
 
 		</table>
