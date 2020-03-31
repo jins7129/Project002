@@ -26,9 +26,9 @@ public class MypageController {
 	@Autowired
 	private TBUserBiz userBiz ;
 	
-	@RequestMapping("/test.do")
+	@RequestMapping("/testss.do")
 	public String testtest() {
-		return "test";
+		return "toastTestJinsung";
 	}
 	
 	@RequestMapping("/mypage_main.do")
@@ -52,6 +52,7 @@ public class MypageController {
 		System.out.println(loginInfo.getUserId());
 		String userAddr = addr1+" "+addr2;	// 도로명 주소로 입력된 주소값을 하나로 합친 것
 		loginInfo.setUserAddr(userAddr);
+		loginInfo.setUserPhone(userPhone);
 		loginInfo.setUserPw(userPw);
 		
 		int res = userBiz.mypageUpdate(loginInfo);

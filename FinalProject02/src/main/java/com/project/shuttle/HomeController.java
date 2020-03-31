@@ -157,6 +157,6 @@ public class HomeController {
 	
 	@RequestMapping(value = "/editor.do")
 	public String toastTest() {
-		return "toastTest";
+		return "main_imageEditor";
 	}
 }
