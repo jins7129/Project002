@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>REGISTER</title>
+<link rel="icon" href="/resources/images/icon/ms-icon-310x310.png" type="image/x-icon">
 <style>
 .img_profile {
    width: 160px;

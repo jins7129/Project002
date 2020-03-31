@@ -28,6 +28,7 @@ public class HomeController {
 	@Autowired
 	private TBUserBiz biz;
 
+	
 	@RequestMapping("/")
 	public ModelAndView ScheduleManagementRoot() {
 		ModelAndView mav = new ModelAndView("redirect:main.do");
@@ -154,9 +155,12 @@ public class HomeController {
 		}
 		return chkRes;
 	}
-	
+
+	//이미지 에디터
 	@RequestMapping(value = "/editor.do")
 	public String toastTest() {
-		return "toastTest";
+		return "imageEditor";
 	}
+	
+	
 }

@@ -7,8 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Shuttle</title>
-
-	<link rel="icon" href="#">
+	
+	<link rel="icon" href="/resources/images/icon.png" type="image/x-icon">
 	<link href="/resources/css/main.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Fira+Sans:300&display=swap" rel="stylesheet">
 

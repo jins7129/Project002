@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Shuttle</title>
-
+<link rel="icon" href="/resources/images/icon/ms-icon-310x310.png" type="image/x-icon">
 <link rel="icon" href="#">
 
 <link href="<c:url value = '/css/signUp.css'/>" rel="stylesheet">
