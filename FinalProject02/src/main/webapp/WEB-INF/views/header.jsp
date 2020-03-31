@@ -132,10 +132,7 @@
 						<a href="#" class="smallList">모아보기</a>
 					</div>
 					<div>
-						<a href="#" class="smallList">지원하기</a>
-					</div>
-					<div>
-						<a href="#" class="smallList">등록하기</a>
+						<a href="#" class="smallList">의뢰하기</a>
 					</div>
 				</div>
 			</div>
@@ -144,10 +141,13 @@
 
 		<div class="child2">
 			<div class="Hmenu">
-				<a href="#" class="menuList">Customize</a>
+				<a href="#" class="menuList">Other</a>
 				<div class="smallAll">
 					<div>
-						<a href="editor.do" class="smallList">그림그리기</a>
+						<a href="editor.do" class="smallList">사진 편집</a>
+					</div>
+					<div>
+						<a href="editor.do" class="smallList">결제 하기</a>
 					</div>
 				</div>
 			</div>

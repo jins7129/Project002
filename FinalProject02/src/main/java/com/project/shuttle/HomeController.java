@@ -159,7 +159,11 @@ public class HomeController {
 	//이미지 에디터
 	@RequestMapping(value = "/editor.do")
 	public String toastTest() {
+<<<<<<< HEAD
 		return "imageEditor";
+=======
+		return "main_imageEditor";
+>>>>>>> 8aa2f6083aeef40dda67af49449d92cead881f5b
 	}
 	
 	

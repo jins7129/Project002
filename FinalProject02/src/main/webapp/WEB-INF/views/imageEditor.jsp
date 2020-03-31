@@ -5,6 +5,7 @@
         <title>Shuttle</title>
         <link type="text/css" href="https://uicdn.toast.com/tui-color-picker/v2.2.3/tui-color-picker.css"
             rel="stylesheet">
+        <link type="text/css" href="/resources/css/tui-image-editor.css" rel="stylesheet" >
         <link type="text/css" href="/resources/css/service-basic.css" rel="stylesheet">
     </head>
     <body>
