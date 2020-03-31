@@ -34,7 +34,7 @@ public class TBUserDto {
 	// 제재기간
 	private int userBlockDate;
 
-	
+	public TBUserDto() {}
 	
 	public TBUserDto(String userId, String userName, String userPw, String userPhone, String userAddr,
 			String userImgpath) {
