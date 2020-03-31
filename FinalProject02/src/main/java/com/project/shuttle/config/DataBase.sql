@@ -29,9 +29,9 @@ CREATE TABLE TB_JOB
 
 SELECT * FROM TB_APPLY;
 
-SELECT * FROM TB_USER
+SELECT * FROM TB_USER;
 
-INSERT INTO TB_USER VALUES('user2@naver.com','유저','1234','010-1234-5678','서울시 강남구',0,'USER','','empty',0);
+INSERT INTO TB_USER VALUES('user4@naver.com','유저','1234','010-2234-5678','서울시 강남구',0,'USER','','empty',0);
 
 UPDATE TB_USER SET USER_IMGPATH = 'imgSample' WHERE USER_ID = 'user2@naver.com';
 

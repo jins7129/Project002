@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -25,8 +24,7 @@ public class HomeController {
 
 	@Autowired
 	public JavaMailSender emailSender;
-	
-	
+
 	@Autowired
 	private TBUserBiz biz;
 
@@ -59,7 +57,7 @@ public class HomeController {
 
 	}
 
-	//로그아웃 기능
+	// 로그아웃 기능
 	@RequestMapping("/logout.do")
 	public RedirectView logout(ModelAndView mav, HttpSession session) {
 //		session.invalidate();
@@ -72,7 +70,7 @@ public class HomeController {
 		return review;
 	}
 
-	//로그인 AJAX
+	// 로그인 AJAX
 	@RequestMapping(value = "/loginajax.do", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Boolean> loginAjax(HttpSession session, @RequestBody TBUserDto dto) {
@@ -99,7 +97,7 @@ public class HomeController {
 		boolean check = false;
 		if (res != null) {// 로그인 정보가 있다면
 			session.setAttribute("loginInfo", res);
-			System.out.println(res.getUserImgpath()+"imgPath");
+			System.out.println(res.getUserImgpath() + "imgPath");
 			check = true;
 		}
 		Map<String, Boolean> map = new HashMap<String, Boolean>();
@@ -108,13 +106,13 @@ public class HomeController {
 		return map;
 	}
 
-	//이메일 인증기능
+	// 이메일 인증기능
 	@RequestMapping(value = "/sendMail.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String sendMail(String to) {
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setTo("<"+to+">");
-		System.out.println("<"+to+">");
+		message.setTo("<" + to + ">");
+		System.out.println("<" + to + ">");
 		message.setTo(to);
 		message.setSubject("Shuttle Email Verify");
 		int[] ranV = new int[6];
@@ -124,42 +122,39 @@ public class HomeController {
 			verifyNum += ranV[i] + "";
 		}
 		message.setText("회원가입을 위한 이메일 인증 메일입니다.\n인증번호 : " + verifyNum);
-		System.out.println(message);
 		emailSender.send(message);
-		
+
 		return verifyNum;
 	}
 
-	@RequestMapping(value = "/insert.do", method = RequestMethod.POST)
-	public String insertBoard(String id, String pw, String name, String phone, String addr1, String addr2) {
-		
-		System.out.println("id = "+ id);
-		System.out.println("pw = "+ pw);
-		System.out.println("name = "+ name);
-		System.out.println("phone = "+ phone);
-		System.out.println("addr1 = "+ addr1);
-		System.out.println("addr2 = "+ addr2);
-		TBUserDto dto =  new TBUserDto();
-		dto.setUserId(id);
-		dto.setUserPw(pw);
-		dto.setUserName(name);
-		dto.setUserPhone(phone);
-		dto.setUserAddr(addr1 + " " + addr2);
-		dto.setUserImgpath("");
-		
-		if(biz.insertUser(dto) > 0) {
-			return "main";
-		}else {
+	@RequestMapping(value = "/insert.do")
+	public String insertBoard(String userId,String userId2,String userId3,String userId4, String pw, String name, String phone, String addr1, String addr2) {
+
+		System.out.println("id = " + userId);
+		System.out.println("pw = " + pw);
+		System.out.println("name = " + name);
+		System.out.println("phone = " + phone);
+		System.out.println("addr1 = " + addr1);
+		System.out.println("addr2 = " + addr2);
+		TBUserDto dto = new TBUserDto(userId, pw, name, phone, addr1+" "+addr2, "1");
+
+		if (biz.insertUser(dto) > 0) {
+			return "redirect:main.do";
+		} else {
 			return "redirect:signUp.do";
 		}
 	}
 
 	@RequestMapping(value = "/idchk.do")
 	@ResponseBody
-	public Boolean idChk(String id) {
-		boolean chkRes = false;
-		if (biz.idchk(id).equals(id)) {
-			chkRes = true;
+	public Boolean idChk(String Email_id) {
+		boolean chkRes;
+		chkRes = false;
+		try {
+			if (biz.idchk(Email_id).equals(Email_id)) {
+				chkRes = true;
+			}
+		} catch (Exception e) {
 		}
 		return chkRes;
 	}

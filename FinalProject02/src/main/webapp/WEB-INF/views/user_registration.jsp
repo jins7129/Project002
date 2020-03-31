@@ -47,34 +47,34 @@ function readURL(flag, input) {
 	function idChkConfirm() {
 		if (idkChk == "N") {
 			alert("아이디 중복체크를 먼저해주세요");
-			document.getElementsByName("id")[0].focus();
-		} else {
+			$("#Email_id").focus();
 		}
 	}
 
 	//ID 중복 검사
-	var idkChk="N";  //REGISTER에서 검사할 항목
+	var idkChk = "N"; //REGISTER에서 검사할 항목
 	function idChked() {
-		var doc = document.getElementsByName("id")[0];
-		if (doc.value.trim() == "" || doc.value == null
-				|| doc.value == "undefined") {
+		var doc = $("input[name=userId]").val();
+		if (doc.trim() == "" || doc == null || doc == "undefined") {
 			alert("아이디를 입력해주세요");
 		} else {
 			$.ajax({
-				url : "idchk.do?id=" + $("#Email_id").val(),
+				url : "idchk.do?id=" + $("#input[name=userId]").val(),
 				type : "post",
 				success : function(data) {
-					if(data == true){
-					alert("이 아이디는 중복입니다.");
-					idkChk="N";
+					if (data == true) {
+						alert("이 아이디는 중복입니다.");
+						idkChk = "N";
+					} else {
+						var res = confirm("이 아이디를 사용하실수 있습니다.");
+						if (res == true) {
+							$("#input[name=userId]").prop("disabled", true);
+						}
+						idkChk = "Y";
 					}
 				},
 				error : function(err) {
-					var res = confirm("이 아이디를 사용하실수 있습니다.");
-					if(res == true){
-						$("#Email_id").prop("disabled",true);
-					}
-					idkChk="Y";
+					alert("기능 오류가 발생했습니다. 브라우저 콘솔을 확인해 주세요")
 				}
 			});
 		}
@@ -98,7 +98,7 @@ function readURL(flag, input) {
 	function verifyEmail() {
 		$("#verifyBtn").prop("disabled", true);
 		$.ajax({
-			url : "sendMail.do?to=" + $("#Email_id").val(),
+			url : "sendMail.do?to=" + $("input[name=userId]").val(),
 			type : "post",
 			contentType : "application/json",
 			dataType : 'json',
@@ -126,7 +126,7 @@ function readURL(flag, input) {
 			alert("인증코드가 일치하지 않습니다.");
 		} else if ($("#VerifyNum").val() == EmailCode) {
 			alert("인증코드가 일치합니다.");
-			emailChk1 ="Y";	
+			emailChk1 = "Y";
 		}
 	}
 
@@ -150,31 +150,24 @@ function readURL(flag, input) {
 
 	//레지스터 유효성검사
 	function register() {
-			if(idkChk=="N" || emailChk1 =="N"){
-				alert("아이디 중복 체크 및 이메일 인증을 해주세요");
-				console.log(idkChk + emailChk1);
-		}else{
-			
+		if (idkChk == "N" || emailChk1 == "N") {
+			alert("아이디 중복 체크 및 이메일 인증을 해주세요");
+			console.log(idkChk + emailChk1);
+		} else {
+
 			$("#insertForm").submit();
 		}
 	}
-	
-	
-	
 </script>
 </head>
 
 
 <body>
-	<%@ include file="/WEB-INF/views/header.jsp" %>
-
-	
-
 	<h1>REGISTER</h1>
 	<hr id="registerLine" />
 		
 	<!-- 프로필 사진 넣기 -->
-	<form action="insert.do" method="post" id="insertForm" enctype="multipart/form-data" modelAttribute="uploadFile">
+	<form action="insert.do" method="post" id="insertForm">
 	
 	<div>
 	profile<br>
@@ -189,17 +182,17 @@ function readURL(flag, input) {
 		<!-- 로그인하기 -->
 		<div id="register_IdBox">
 			<label id="registerID"> user id : </label> 
-				<input type="text" placeholder="please insert your id" name="id" id="Email_id" required="required" /> 
+				<input type="text" placeholder="please insert your id"  required="required" name="userId" /> 
 				<input type="button" value="id-check" onclick="idChked();" id="idChk">
-			<hr id="idLine" />
 		</div>
+			<hr id="idLine" />
 
 		<!-- 패스워드하기 -->
 		<div id="register_PwBox">
 			<label id="registerPW"> password : </label> 
 				<input type="password" placeholder="please insert your password" name="pw" onclick="idChkConfirm();" required="required" />
-			<hr id="pwLine" />
 		</div>
+			<hr id="pwLine" />
 		
 		<!-- 이름 하기 -->
 		<div id="register_NameBox">
@@ -211,8 +204,8 @@ function readURL(flag, input) {
 		<div id="register_mobileBox">
 			<label id="registerMobile"> mobile : </label> 
 				<input type="text" placeholder="please insert your phone-number" name="phone" onclick="idChkConfirm();" required="required" />
-			<hr id="mobileLine" />
 		</div>
+			<hr id="mobileLine" />
 
 
 		<!-- 도로명 주소 검색하기 -->
@@ -274,8 +267,6 @@ function readURL(flag, input) {
 	<h2>웰 알림 테스트</h2>
 	<input type="button" value="웹 알림 테스트" onclick="notifyMe();">
 	 -->
-
 	
-	<div id = "footer"><%@ include file="/WEB-INF/views/footer.jsp" %></div>
 </body>
 </html>
