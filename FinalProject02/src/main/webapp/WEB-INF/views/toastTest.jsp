@@ -10,10 +10,10 @@
     </head>
     <body>
     	<%@ include file="/WEB-INF/views/header.jsp"%>
-        <div class="body-container">
+        <div class="body-container" style="width: 100%; height: 100%;">
             <div class="tui-image-editor-controls">
                 <div class="header">
-                    <img class="logo" src="resources/images/icon_logo.svg" style="width: 150px">
+                    <img class="logo" src ="/resources/images/TOAST_UI_Component.png">
                     <span class="name"> Image Editor</span>
                     <ul class="menu">
                         <li class="menu-item border input-wrapper">
@@ -38,7 +38,8 @@
                     <li class="menu-item" id="btn-mask-filter">Mask</li>
                     <li class="menu-item" id="btn-image-filter">Filter</li>
                 </ul>
-                <div class="sub-menu-container" id="crop-sub-menu">
+                <hr>
+                <div class="sub-menu-container" id="crop-sub-menu" >
                     <ul class="menu">
                         <li class="menu-item" id="btn-apply-crop">Apply</li>
                         <li class="menu-item" id="btn-cancel-crop">Cancel</li>
@@ -219,7 +220,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="tui-image-editor"></div>
+            <div class="tui-image-editor" style="background-color: white;"></div>
         </div>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.6.0/fabric.js"></script>
         <script type="text/javascript" src="https://uicdn.toast.com/tui.code-snippet/v1.5.0/tui-code-snippet.min.js"></script>
