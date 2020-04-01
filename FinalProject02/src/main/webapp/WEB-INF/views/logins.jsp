@@ -8,14 +8,9 @@
 <title>Shuttle</title>
 
 <link rel="icon" href="#">
-<link
-	href="https://fonts.	googleapis.com/css?family=Fira+Sans:300&display=swap"
-	rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css?family=Fira+Sans:300&display=swap" rel="stylesheet">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <link rel="icon" type="image/png"
 	href="<c:url value = '/resources/Login/images/icons/favicon.ico'/>">
 <link rel="stylesheet" type="text/css"

@@ -4,6 +4,7 @@ public class TBUserDto {
 	
 	// 유저 상세 정보
 
+	
 	// 아이디(이메일)
 	private String userId;
 
@@ -124,6 +125,13 @@ public class TBUserDto {
 
 	public void setUserBlockDate(int userBlockDate) {
 		this.userBlockDate = userBlockDate;
+	}
+	@Override
+	public String toString() {
+		return "TBUserDto [userId=" + userId + ", userName=" + userName + ", userPw=" + userPw + ", userPhone="
+				+ userPhone + ", userAddr=" + userAddr + ", userCoin=" + userCoin + ", userStatus=" + userStatus
+				+ ", userImgpath=" + userImgpath + ", userAccount=" + userAccount + ", userBlockDate=" + userBlockDate
+				+ "]";
 	}
 
 	

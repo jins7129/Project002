@@ -375,6 +375,10 @@
 				<td>${loginInfo.userId }</td>
 			</tr>
 			<tr>
+				<td>빵 개수</td>
+				<td>${loginInfo.userCoin }개</td>
+			</tr>
+			<tr>
 				<td>전화번호</td>
 				<td>${loginInfo.userPhone }</td>
 			</tr>

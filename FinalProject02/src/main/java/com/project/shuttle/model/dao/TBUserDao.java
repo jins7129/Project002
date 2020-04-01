@@ -20,6 +20,8 @@ public interface TBUserDao {
 	public int countDoneBoard(String userId);
 	public int countReviewBoard(String userId);
 	
+	public int kakaoUpdateBread(TBUserDto dto);
+	
 	public int mypageUpdate(TBUserDto dto);
 	
 	// 로그인, 회원가입 관련

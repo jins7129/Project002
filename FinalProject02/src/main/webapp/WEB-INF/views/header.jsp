@@ -16,11 +16,8 @@
 
 <link rel="icon" href="#">
 
-<link href="<c:url value = '/resources/css/header.css'/>"
-	rel="stylesheet">
-<link
-	href="https://fonts.googleapis.com/css?family=Fira+Sans:300&display=swap"
-	rel="stylesheet">
+<link href="<c:url value = '/resources/css/header.css'/>" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Fira+Sans:300&display=swap" rel="stylesheet">
 
 
 <script type="text/javascript"
