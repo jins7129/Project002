@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Shuttle</title>
+
+	<!-- header -->
+	<%@ include file="/WEB-INF/views/header.jsp"%>
 <style>
 input[type=button], input[type=submit]{
 	display: -moz-box;
@@ -47,7 +50,6 @@ input[type=text], input[type=password]{
 	border-radius: 10px;
 	}
 </style>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote-lite.min.js"></script>
@@ -62,8 +64,6 @@ input[type=text], input[type=password]{
 </head>
 <body>
 
-	<!-- header -->
-	<%@ include file="/WEB-INF/views/header.jsp"%>
 	<div align="center">
 		<br>
 		<h1>Request</h1><br><br>

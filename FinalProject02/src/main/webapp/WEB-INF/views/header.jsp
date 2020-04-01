@@ -12,6 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <title>헤더</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <link rel="icon" href="#">
 
