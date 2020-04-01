@@ -12,6 +12,10 @@
 	href="https://fonts.googleapis.com/css?family=Fira+Sans:300&display=swap"
 	rel="stylesheet">
 
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="1086121226988-79i2g3qsvsr85hmu6kh2i5jkelnofqrm.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
@@ -80,6 +84,7 @@
 				dataType : "json", // 명시해줘야함
 				success : function(msg) {
 					if (msg.check == true) {
+						alert("성공");
 						location.href = 'main.do';
 					} else {
 						$("#loginChk").show();
@@ -92,6 +97,60 @@
 
 		}
 
+	}
+	
+	// 카카오 로그인
+	function kakaoLogin() {
+        Kakao.init('cf755a94afb6a149564276600dcd27ed');
+        
+         // 카카오 로그인 버튼을 생성합니다.
+         Kakao.Auth.loginForm({
+         	success: function(authObj) {
+            	Kakao.API.request({
+                	url: '/v2/user/me',
+                    success: function(res) {
+                    	console.log(res);
+                                
+                        var userID = res.id;      //유저의 카카오톡 고유 id
+                        var userEmail = res.kakao_account.email;   //유저의 이메일
+                        
+                        document.getElementById('userId').value = userEmail;
+                        document.getElementById('userPw').value = userID;
+                        
+                        login();	// 이메일 아이디 중복검사 ajax
+                                
+                        Kakao.Auth.logout();
+                                
+                        },
+                        fail: function(error) {
+                        alert(JSON.stringify(error));
+                        }
+                    });
+                          
+                    },
+                    fail: function(err) {
+                    	alert(JSON.stringify(err));
+                    }
+		});
+	}
+	
+	function onSignIn(googleUser) {
+		// 정보
+		var profile = googleUser.getBasicProfile();
+		// 이메일
+		document.getElementById('userId').value = profile.getEmail();
+		// 아이디 코드
+		document.getElementById('userPw').value = profile.getId();
+
+		// 비동기로 이메일과 아이디코드를 확인하고 정보 넘기기
+	 	login();
+		
+		// ??
+		var id_token = googleUser.getAuthResponse().id_token;
+
+		// 로그아웃
+		var auth2 = gapi.auth2.getAuthInstance();
+		auth2.disconnect();
 	}
 </script>
 </head>
@@ -154,12 +213,13 @@
 							<!-- <i class="fa fa-facebook-f" aria-hidden="true"></i> --> <img
 							id="google"
 							src="<c:url value = '/resources/Login/images/icons/1200px-Google__G__Logo.svg.png'/>" />
-						</a> <a href="#" class="login100-form-social-item flex-c-m bg2 m-r-5">
+						</a> <a onclick="kakaoLogin();" class="login100-form-social-item flex-c-m bg2 m-r-5">
 							<!-- <i class="fa fa-google" aria-hidden="true"></i> --> <img
 							id="kakao"
 							src="<c:url value = '/resources/Login/images/icons/kakaolink_btn_medium.png'/>" />
 						</a>
 					</div>
+					<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" id="google"></div>
 				</form>
 
 				<!-- <div class="login100-more"></div> -->

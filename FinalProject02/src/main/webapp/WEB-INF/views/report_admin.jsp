@@ -8,6 +8,57 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+.report_table, .report_table th, .report_table td{
+	border: 0;
+}
+
+.report_table{
+	margin: 0px auto;
+	margin-bottom: 200px;
+	width: 70%;
+	border-bottom: 1px solid #999;
+	color: #666;
+	font-size: 20px;
+	table-layout: fixed;
+}
+
+.report_table th{
+	padding: 5px 0 6px;
+	border-top: solid 1px #999;
+	border-bottom: solid 1px #b2b2b2;
+	background-color: #f1f1f4;
+	color: #333;
+	font-weight: bold;
+	line-height: 40px;
+	vertical-align: top;
+}
+
+.report_table td{
+	padding: 8px 0 9px;
+	border-bottom: solid 1px #d2d2d2;
+	text-align: center;
+	line-height: 25px;
+}
+
+.report_table .date, .report_table .hit{
+	font-family: Tahoma;
+	font-size: 20px;
+	line-height: normal;
+}
+
+.report_table .title{
+	text-align: left;
+	padding-left: 15px;
+	font-size: 20px;
+	text-align: center;
+}
+
+.search_menu{
+	margin: 0px auto;
+	margin-top: 100px;
+	margin-bottom: 10px;
+	width: 70%;
+}
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
@@ -23,48 +74,46 @@
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
 
-
-<br/><br/><br/><br/><br/><br/>
-
-
-<div align="center">
+<div class = "search_menu">
 <select id = "type">
 	<option></option>
 	<option value = "reportWriter">신고한 아이디</option>
 	<option value = "userId">신고받은 아이디</option>
 </select>
-	<input type = "text" id = "search_text" placeholder="검색 후 엔터" onkeypress = "if(event.keyCode == 13){search();}">
+	<input type = "text" id = "search_text" placeholder="검색 후 엔터" onkeypress="if(event.keyCode == 13){search();}"/>
 </div>
-<div align="center">
-<table border = "1" >
+
+<table border = "1" class = "report_table">
+	<colgroup>
+		<col width = "20">
+		<col width = "20">
 		<col width = "100">
 		<col width = "100">
-		<col width = "100">
-		<col width = "100">
-		<col width = "100">
+		<col width = "50">
+	</colgroup>
+	<thead>
 	<tr>
-		<th>신고번호</th>
-		<th>글번호</th>
-		<th>유저아이디</th>
-		<th>신고작성자</th>
-		<th>신고날짜</th>
+		<th scope = "col">신고번호</th>
+		<th scope = "col">글번호</th>
+		<th scope = "col">유저아이디</th>
+		<th scope = "col">신고작성자</th>
+		<th scope = "col">신고날짜</th>
 	</tr>
+	</thead>
 	<c:forEach items = "${viewAll }" var = "list">
 		<tr>
-			<th>${list.reportSeq }</th>
-			<th><a href='/report_detail.do?seq=${list.jobSeq }'>${list.jobSeq }</a></th>
-			<th>${list.userId }</th>
-			<th>${list.reportWriter }</th>
-			<th><fmt:formatDate value="${list.reportDate }" pattern="yyyy.MM.dd"/> </th>
+			<td class = "title">${list.reportSeq }</td>
+			<td class = "title"><a href='/report_detail.do?seq=${list.jobSeq }'>${list.jobSeq }</a></td>
+			<td class = "name">${list.userId }</td>
+			<td class = "name">${list.reportWriter }</td>
+			<td class = "date"><fmt:formatDate value="${list.reportDate }" pattern="yyyy.MM.dd"/> </td>
 		</tr>
 	</c:forEach>
 </table>
-</div>
-<br/><br/><br/>
+
+
+
 <div style="display: block; text-align: center;">
-
-
-
 	<c:choose>
 		<c:when test = "${content != null}">
 			<c:if test="${paging.startPage != 1 }">
