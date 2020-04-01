@@ -11,16 +11,18 @@
 .input {
 	border: 1px solid black;
 	height: 30px;
+	border-radius: 5px 5px 5px 5px;
 }
+
+.input:focus {
+	border-color: rgb(248, 112, 97);
+}
+
 #btnUpdate {
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: flex;
 	justify-content: center;
 	align-items: center;
 	padding: 0 20px;
+	margin: 5px;
 	width: 100px;
 	height: 35px;
 	border-radius: 10px;
@@ -105,7 +107,9 @@
 				
 				<tr>
 					<td colspan="3" align="right"><input id="btnUpdate"
-					type="submit" value="수정완료"/></td>
+					type="submit" value="수정완료"/><input id="btnUpdate"
+					type="button" onclick="history.back();" value="취소"/></td>
+					
 				</tr>
 			</table>
 		</form>

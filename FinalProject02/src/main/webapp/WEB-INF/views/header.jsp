@@ -146,7 +146,7 @@
 						<a href="editor.do" class="smallList">사진 편집</a>
 					</div>
 					<div>
-						<a href="editor.do" class="smallList">결제 하기</a>
+						<a href="main_pay_main.do" class="smallList">결제 하기</a>
 					</div>
 				</div>
 			</div>
