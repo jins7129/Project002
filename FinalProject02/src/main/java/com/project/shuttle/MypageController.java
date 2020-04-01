@@ -1,5 +1,7 @@
 package com.project.shuttle;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,15 +9,24 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.project.shuttle.model.biz.KakaoPayBiz;
 import com.project.shuttle.model.biz.TBUserBiz;
 import com.project.shuttle.model.dto.Criteria;
+import com.project.shuttle.model.dto.KakaoPayDto;
 import com.project.shuttle.model.dto.PageMaker;
 import com.project.shuttle.model.dto.TBJobDto;
 import com.project.shuttle.model.dto.TBUserDto;
@@ -194,5 +205,39 @@ public class MypageController {
 		
 		return map;
 	}
-
+	/////////// 카카오 페이 컨트롤러 부분
+	
+	@Autowired
+	private KakaoPayBiz kakaopay;
+	
+	@RequestMapping("/main_pay_main.do")
+	public ModelAndView kakaoPayMain(ModelAndView mav) {
+		
+		mav.setViewName("main_pay_first");
+		
+		return mav;
+	}
+	
+	
+	@RequestMapping(value="/main_pay_first.do", method = RequestMethod.POST)
+	public String kakaoPayFirst(HttpSession session, int quantity) {
+													// 선택한 수량
+		TBUserDto loginInfo = (TBUserDto)session.getAttribute("loginInfo");	// 유저 정보
+		String userId = loginInfo.getUserId();	// 아이디
+		
+		return "redirect:" + kakaopay.kakaoPayReady(userId, quantity);
+		// 아이디와 수량을 보내줌
+	}
+	
+	@RequestMapping(value="/main_pay_success.do", method = RequestMethod.GET)
+	public ModelAndView kakaoPaySuccess(ModelAndView mav, String pg_token) {
+		System.out.println("kakao pg_token : " + pg_token);
+		
+		mav.setViewName("main_pay_success");
+		mav.addObject("kakaoInfo", kakaopay.kakaoPayInfo(pg_token));
+		
+		return mav;
+		
+	}
+	
 }

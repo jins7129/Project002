@@ -33,7 +33,7 @@
          var imageEditor = new tui.ImageEditor('#tui-image-editor-container', {
              includeUI: {
                  loadImage: {
-                     path: 'resources/toast/img/sampleImage2.png',
+                     path: 'resources/toast/img/flower.jpg',
                      name: 'SampleImage'
                  },
                  theme: whiteTheme, 
