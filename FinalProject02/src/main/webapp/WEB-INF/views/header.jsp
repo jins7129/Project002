@@ -21,8 +21,7 @@
 	href="https://fonts.googleapis.com/css?family=Fira+Sans:300&display=swap"
 	rel="stylesheet">
 
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
 <script type="text/javascript"
 	src="<c:url value = '/resources/js/header.js'/>"></script>
 
@@ -132,7 +131,7 @@
 						<a href="#" class="smallList">모아보기</a>
 					</div>
 					<div>
-						<a href="#" class="smallList">의뢰하기</a>
+						<a href="main_insert.do" class="smallList">의뢰하기</a>
 					</div>
 				</div>
 			</div>

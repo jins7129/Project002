@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>REGISTER</title>
-<link rel="icon" href="/resources/images/icon/ms-icon-310x310.png" type="image/x-icon">
+<link rel="icon" href="resources/images/icon.png" type="image/x-icon">
 <style>
 .img_profile {
    width: 160px;
@@ -197,14 +197,16 @@ function readURL(flag, input) {
 
 
 <body>
-		<%@ include file="/WEB-INF/views/header.jsp" %>
-	<div style="margin-left: 5%">
-	<h1>REGISTER</h1>
-	<br><br>
-		
-	<form action="insert.do" method="post" id="insertForm">
-	
-	<!--  
+	<!-- header -->
+	<%@ include file="/WEB-INF/views/header.jsp"%>
+	<div align="center">
+		<br>
+		<h1>REGISTER</h1>
+		<br> <br>
+
+		<form action="insert.do" method="post" id="insertForm">
+
+			<!--  
 	profile<br>
 	<img id="img_profile" class="img_profile" src="" onError="this.src='/resources/images/imgSample.png'" alt="" name="userImgpath">
 	<br>
@@ -213,47 +215,46 @@ function readURL(flag, input) {
 	
 		<input type="hidden" id="tg_YN" name="tgYn" value="N">
 -->
-		<!-- 로그인하기 -->
-			<label id="registerID"> user id : </label> 
-				<input type="text" placeholder="please insert your id"  required="required" name="userId" /> 
-				<input type="button" value="id-check" onclick="idChked();" id="idChk">
-			<br><br>
+			<!-- 로그인하기 -->
+			<label id="registerID"> user id : </label> <input type="text"
+				placeholder="please insert your id" required="required"
+				name="userId" /> <input type="button" value="id-check"
+				onclick="idChked();" id="idChk"> <br> <br>
 
-		<!-- 패스워드하기 -->
-			<label id="registerPW"> password : </label> 
-				<input type="password" placeholder="please insert your password" name="pw" onclick="idChkConfirm();" required="required" />
-			<br><br>
-		
-		<!-- 이름 하기 -->
-			<label id="registerName">name : </label>
-			<input type="text" placeholder="please insert your name" name="name" required="required" onclick="idChkConfirm();">
-			<br><br>
-		<!-- 모바일하기 -->
-			<label id="registerMobile"> mobile : </label> 
-				<input type="text" placeholder="please insert your phone-number" name="phone" onclick="idChkConfirm();" required="required" />
-			<br><br>
+			<!-- 패스워드하기 -->
+			<label id="registerPW"> password : </label> <input type="password"
+				placeholder="please insert your password" name="pw"
+				onclick="idChkConfirm();" required="required" /> <br> <br>
 
-		<!-- 도로명 주소 검색하기 -->
-			<label>Address : </label> 
-				<input id="registerAddr" type="text" value="" onclick="openPop_juso();" required="required" name="addr1" placeholder="Click to here" >
-				<input id="registerAddr1" type="text" value="" required="required" name="addr2" placeholder="please more details" > 
-			<br><br>
+			<!-- 이름 하기 -->
+			<label id="registerName">name : </label> <input type="text"
+				placeholder="please insert your name" name="name"
+				required="required" onclick="idChkConfirm();"> <br> <br>
+			<!-- 모바일하기 -->
+			<label id="registerMobile"> mobile : </label> <input type="text"
+				placeholder="please insert your phone-number" name="phone"
+				onclick="idChkConfirm();" required="required" /> <br> <br>
 
-		<!-- 이메일 인증하기 -->
-		<label>Email Verify</label>
-		
-			<input type="button" value="Verify" onclick="verifyEmail();" id="verifyBtn"><br><br>
-	
-			인증번호: 
-			<input type="text" value="" id="VerifyNum" >	
-			<input type="button" value="확인" onclick="emailChk();" id="verifyChk">
-			<br><br>
-		<!-- register 아래 button -->
-			<input type="button" value="REGISTER" id="register_longBtn" onclick="register();" > &nbsp;
-			<input type="button" value="CANCEL" onclick="location.href='main.do'">
-	</form>
-</div>
-<!-- 토스트 이미지 에디터 코드 -->
+			<!-- 도로명 주소 검색하기 -->
+			<label>Address : </label> <input id="registerAddr" type="text"
+				value="" onclick="openPop_juso();" required="required" name="addr1"
+				placeholder="Click to here"> <input id="registerAddr1"
+				type="text" value="" required="required" name="addr2"
+				placeholder="please more details"> <br> <br>
+
+			<!-- 이메일 인증하기 -->
+			<label>Email Verify</label> <input type="button" value="Verify"
+				onclick="verifyEmail();" id="verifyBtn"><br> <br>
+			인증번호: <input type="text" value="" id="VerifyNum"> <input
+				type="button" value="확인" onclick="emailChk();" id="verifyChk">
+			<br> <br>
+			<!-- register 아래 button -->
+			<input type="button" value="REGISTER" id="register_longBtn"
+				onclick="register();"> &nbsp; <input type="button"
+				value="CANCEL" onclick="location.href='main.do'">
+		</form>
+	</div>
+	<!-- 토스트 이미지 에디터 코드 -->
 <!-- 
 <input type="button" value="토스트 이미지 데모 테스트" onclick="location.href='toastTest.do'">
 <input type="button" value="결제 이미지 테스트" onclick="location.href='test.do'">
