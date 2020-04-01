@@ -93,6 +93,36 @@
 
 	}
 </script>
+<style type="text/css">
+.back{
+	display: -moz-box;
+	display: -ms-flexbox;
+	justify-content: center;
+	align-items: center;
+	padding: 0 20px;
+	width: 100px;
+	height: 35px;
+	border-radius: 10px;
+	background: rgb(248, 112, 97);
+	cursor: pointer;
+	/* font-family: Montserrat-Bold; */
+	font-size: 15px;
+	color: #fff;
+	line-height: 1.1;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	-webkit-transition: all 0.4s;
+	-o-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	transition: all 0.4s;
+	float: none;
+}
+
+.back:hover{
+	background: black;
+}
+
+</style>
 </head>
 <body>
 
@@ -100,8 +130,7 @@
 	<!-- login * join을 ajax로 불러오는 부분 -->
 	<div class="limiter" style="background-color: #F7F7F7;">
 		<div>
-			<input type="button" onclick="back();" id="back"
-				style="background-color: #F7F7F7;" value="Back" />
+			<input type="button" onclick="back();" id="back" class="back" value="Back" />
 		</div>
 		<div class="container-login100">
 			<div class="wrap-login100">

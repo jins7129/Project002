@@ -15,7 +15,7 @@
    margin-left: 28%;
 }
 
-input[type=button]{
+.inputBtn{
 	display: -moz-box;
 	display: -ms-flexbox;
 	justify-content: center;
@@ -39,11 +39,11 @@ input[type=button]{
 	float: none;
 }
 
-input[type=button]:hover{
+.inputBtn:hover{
 	background: black;
 }
 
-input[type=text], input[type=password]{
+.inputText{
 	border-radius: 10px;
 	border:1px solid black;
 	width: 300px;
@@ -51,7 +51,6 @@ input[type=text], input[type=password]{
 	}
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
 <script type="text/javascript">
 
 $(function() {
@@ -216,84 +215,46 @@ function readURL(flag, input) {
 		<input type="hidden" id="tg_YN" name="tgYn" value="N">
 -->
 			<!-- 로그인하기 -->
-			<label id="registerID"> user id : </label> <input type="text"
-				placeholder="please insert your id" required="required"
-				name="userId" /> <input type="button" value="id-check"
-				onclick="idChked();" id="idChk"> <br> <br>
+			<label id="registerID"> user id : </label> 
+				<input type="text" class="inputText" placeholder="please insert your id" required="required" name="userId" /> 
+				<input type="button" class="inputBtn"  value="id-check" onclick="idChked();" id="idChk"> <br> <br>
 
 			<!-- 패스워드하기 -->
-			<label id="registerPW"> password : </label> <input type="password"
-				placeholder="please insert your password" name="pw"
-				onclick="idChkConfirm();" required="required" /> <br> <br>
+			<label id="registerPW"> password : </label> 
+				<input type="password" placeholder="please insert your password" class="inputText" name="pw" onclick="idChkConfirm();" required="required" /> <br> <br>
 
 			<!-- 이름 하기 -->
-			<label id="registerName">name : </label> <input type="text"
-				placeholder="please insert your name" name="name"
-				required="required" onclick="idChkConfirm();"> <br> <br>
+			<label id="registerName">name : </label> 
+				<input type="text" class="inputText" placeholder="please insert your name" name="name" required="required" onclick="idChkConfirm();"> <br> <br>
 			<!-- 모바일하기 -->
-			<label id="registerMobile"> mobile : </label> <input type="text"
-				placeholder="please insert your phone-number" name="phone"
-				onclick="idChkConfirm();" required="required" /> <br> <br>
+			<label id="registerMobile"> mobile : </label> 
+				<input type="text" placeholder="please insert your phone-number" name="phone" class="inputText" onclick="idChkConfirm();" required="required" /> <br> <br>
 
 			<!-- 도로명 주소 검색하기 -->
-			<label>Address : </label> <input id="registerAddr" type="text"
-				value="" onclick="openPop_juso();" required="required" name="addr1"
-				placeholder="Click to here"> <input id="registerAddr1"
-				type="text" value="" required="required" name="addr2"
-				placeholder="please more details"> <br> <br>
+			<label>Address : </label> 
+				<input id="registerAddr" type="text" class="inputText" value="" onclick="openPop_juso();" required="required" name="addr1" placeholder="Click to here"> 
+				<input id="registerAddr1" class="inputText" type="text" value="" required="required" name="addr2" placeholder="please more details"> <br> <br>
 
 			<!-- 이메일 인증하기 -->
-			<label>Email Verify</label> <input type="button" value="Verify"
-				onclick="verifyEmail();" id="verifyBtn"><br> <br>
-			인증번호: <input type="text" value="" id="VerifyNum"> <input
-				type="button" value="확인" onclick="emailChk();" id="verifyChk">
-			<br> <br>
+			<label>Email Verify</label> 
+				<input type="button" value="Verify" class="inputBtn" onclick="verifyEmail();" id="verifyBtn"><br> <br>
+			인증번호: 
+				<input type="text" value="" class="inputText" id="VerifyNum"> 
+				<input type="button" class="inputBtn" value="확인" onclick="emailChk();" id="verifyChk">
+				<br> <br>
 			<!-- register 아래 button -->
-			<input type="button" value="REGISTER" id="register_longBtn"
-				onclick="register();"> &nbsp; <input type="button"
-				value="CANCEL" onclick="location.href='main.do'">
+				<input type="button" value="REGISTER" id="register_longBtn" class="inputBtn" onclick="register();">
+				 &nbsp; 
+				<input type="button" class="inputBtn" value="CANCEL" onclick="location.href='main.do'">
 		</form>
 	</div>
-	<!-- 토스트 이미지 에디터 코드 -->
-<!-- 
-<input type="button" value="토스트 이미지 데모 테스트" onclick="location.href='toastTest.do'">
-<input type="button" value="결제 이미지 테스트" onclick="location.href='test.do'">
- -->
+ 	<div id = "footer"><%@ include file="/WEB-INF/views/footer.jsp" %></div>
 
-<!-- 결제페이지 더미코드 -->
-<!-- 	
-	<hr>
-	<h1>결제페이지</h1>
-	<label>결제금액을 선택하세요</label>
-	<select>
-		<option>1000		
-		<option>5000		
-		<option>10000		
-		<option>50000		
-	</select>
-	
-	<input type="button" value="결제하기"><br>
-	
-	<label>은행</label>
-	<input type="text" value="" placeholder=""><br>
-	
-	<label>카드번호</label>
-	<input type="text" value="" placeholder=""><br>
-	
-	<label>유효기간</label>
-	<input type="text" value="" placeholder=""> <input type="text" value="" placeholder=""><br>
-
-	<label>비밀번호</label>
-	<input type="text" value="" placeholder="비밀번호를 입력하세요"><br>
-	 -->
 <!-- 알림테스트 코드 -->
 <!-- 
 <hr>
 	<h2>웰 알림 테스트</h2>
 	<input type="button" value="웹 알림 테스트" onclick="notifyMe();">
 	 -->
-	 	<div id = "footer"><%@ include file="/WEB-INF/views/footer.jsp" %></div>
-	 
-	
 </body>
 </html>

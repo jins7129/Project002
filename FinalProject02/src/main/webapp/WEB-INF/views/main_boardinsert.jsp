@@ -56,7 +56,8 @@ input[type=text], input[type=password]{
 <script type="text/javascript">
    $(function() {
      $('#summernote').summernote({
-       height: 300,
+       height: 500,
+       witdh : 200
        //lang: 'ko-KR' // 언어 세팅
      });
    });
@@ -67,31 +68,42 @@ input[type=text], input[type=password]{
 	<div align="center">
 		<br>
 		<h1>Request</h1><br><br>
-		<form action="insertRes.do" method="post">
-			<input type="hidden" name="userId" value="">
+		<form action="main_insertRes.do" method="post">
+			<input type="hidden" name="userId" value="${loginInfo.userId}">
 			
-			<label>제목 : </label> 
+			<label>Title : </label> 
 				<input type="text" placeholder="please insert title" name="jobTitle" value="" style="width: 550px"><br><br>
 			
-			<label>보상 : </label> 
+			<label>Reward : </label> 
 				<input type="text" placeholder="please insert pay" name="jobReward" value="" style="width: 15	0px"><br><br>
 			
-			<label>기간 : </label> 
+			<label>Date : </label> 
 				<input type="date" name="jobStart" value="" style="border: 1px solid black;	"> ~
 				<input type="date" name="jobDone" value="" style="border: 1px solid black;"><br><br>
 			
-			<label>위치 : </label>
+			<label>Location : </label>
 			<input type="text" placeholder="please insert address" name="jobAddr"><br><br>
 			
-			<label>내용 : </label>
 			<textarea id="summernote" name="editordata"></textarea>
 			<br><br>
-	
+			<label>Category</label>
+				<select name="jobCategory1">
+					<optgroup label="대분류">
+						<option label="매장관리" value="매장관리"/>
+						<option label="서빙/주방" value="서빙/주방"/>
+						<option label="서비스/미디어" value="서비스/미디어"/>
+						<option label="생산/기능/운전/배달" value="생산/기능/운전/배달"/>
+						<option label="사무/회계" value="사무/회계"/>
+						<option label="상담/영업/리서치" value="상담/영업/리서치"/>
+						<option label="교육" value="교육"/>
+						<option label="기타/심부름" value="기타/심부름"/>
+					</optgroup>
+				</select><br><br>
 			<input type="submit" value="작성하기">
 			<input type="button" value="돌아가기" onclick="location.href='main.do';">
 		</form>
-
 	</div>
-		 	<div id = "footer"><%@ include file="/WEB-INF/views/footer.jsp" %></div>
+	
+		 	<%@ include file="/WEB-INF/views/footer.jsp" %>
 </body>
 </html>

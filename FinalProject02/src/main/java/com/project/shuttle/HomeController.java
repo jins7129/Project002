@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.project.shuttle.model.biz.TBUserBiz;
+import com.project.shuttle.model.dto.TBJobDto;
 import com.project.shuttle.model.dto.TBUserDto;
 
 @Controller
@@ -162,9 +163,27 @@ public class HomeController {
 		return "main_imageEditor";
 	}
 	
+	//의뢰하기 폼으로 이동
 	@RequestMapping(value = "/main_insert.do")
 	public String main_boardinsert() {
 		return "main_boardinsert";
+	}
+	
+	//의뢰하기 글 작성 기능
+	@RequestMapping(value = "/main_insertRes.do")
+	public String main_boardInsertRes(String userId, String jobTitle, String jobReward, String jobStart, 
+			String jobDone, String jobAddr, String editordata, String jobCategory ) {
+		System.out.println("id:"+userId);
+		System.out.println("title:"+jobTitle);
+		System.out.println("reward:"+jobReward);
+		System.out.println("start:"+jobStart);
+		System.out.println("done:"+jobDone);
+		System.out.println("addr:"+jobAddr);
+		System.out.println("data:"+editordata);
+		System.out.println("category:"+jobCategory);
+		TBJobDto dto = new TBJobDto();
+		
+		return "";
 	}
 	
 }
