@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,13 +68,13 @@
 
 	<div align="center">
 		<img src="resources/file/profilePhoto/${loginInfo.userId}.png" />
-		<form action="">
-			<table>
-				<tr>
-					<td><input type="file" name="userImgpath" title="사진 변경"/></td>
-				</tr>
-			</table>
-		</form>
+		
+		<form:form method="post" enctype="multipart/form-data" action="mypage_update_img.do">
+		file<br/>										
+		<input type="file" name="mpfile"/>
+		<input type="submit" value="send"/>
+		</form:form>
+		
 		<form action="mypage_updateres.do" method="post" >
 			<table>
 				<tr>
@@ -115,8 +117,6 @@
 			</table>
 		</form>
 	</div>
-
-
 
 	<%@ include file="/WEB-INF/views/footer.jsp"%>
 
