@@ -248,6 +248,7 @@ function readURL(flag, input) {
 				<input type="button" class="inputBtn" value="CANCEL" onclick="location.href='main.do'">
 		</form>
 	</div>
+	<!-- footer -->
  	<div id = "footer"><%@ include file="/WEB-INF/views/footer.jsp" %></div>
 
 <!-- 알림테스트 코드 -->

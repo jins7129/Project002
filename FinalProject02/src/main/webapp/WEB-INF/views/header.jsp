@@ -125,7 +125,7 @@
 				<a href="#" class="menuList">Offer</a>
 				<div class="smallAll">
 					<div>
-						<a href="#" class="smallList">모아보기</a>
+						<a href="main_jobList.do" class="smallList">모아보기</a>
 					</div>
 					<div>
 						<a href="main_insert.do" class="smallList">의뢰하기</a>

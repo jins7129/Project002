@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.project.shuttle.model.dao.TBJobDao">
 
-	<resultMap type="com.project.shuttle.model.dto.TBJobDto" id="boardDto">
+	<resultMap type="com.project.shuttle.model.dto.TBJobDto" id="JobDto">
 		<result property="jobSeq" column="JOB_SEQ" />
 		<result property="userId" column="USER_ID" />
 		<result property="jobTitle" column="JOB_TITLE" />
@@ -22,5 +22,18 @@
 	
 	</insert>	
 	
+	<select id="selectList" resultMap="JobDto">
+	SELECT JOB_SEQ, USER_ID, JOB_TITLE, JOB_CONTENT, JOB_REWARD, JOB_ADDR, JOB_CATEGORY, JOB_COMPLETE, JOB_DATE, JOB_START, JOB_DONE, JOB_VIEW
+	FROM TB_JOB ORDER BY JOB_SEQ DESC
+	</select>
+	
+	<!-- 변수값 바꿀것 -->
+	<select id="selectOne" resultMap="JobDto" parameterType="int">
+	SELECT JOB_SEQ, USER_ID, JOB_TITLE, JOB_CONTENT, JOB_REWARD, JOB_ADDR, JOB_CATEGORY, JOB_COMPLETE, JOB_DATE, JOB_START, JOB_DONE, JOB_VIEW
+	FROM TB_JOB WHERE JOB_SEQ  = 1 
+	</select>
+
+
+
 
 </mapper>

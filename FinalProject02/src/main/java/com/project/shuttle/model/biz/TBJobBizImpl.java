@@ -1,5 +1,7 @@
 package com.project.shuttle.model.biz;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,11 @@ public class TBJobBizImpl implements TBJobBiz {
 	@Override
 	public int insert(TBJobDto dto) {
 		return dao.insert(dto);
+	}
+
+	@Override
+	public List<TBJobDto> selectList() {
+		return dao.selectList();
 	}
 
 }

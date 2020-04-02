@@ -1,7 +1,9 @@
 package com.project.shuttle;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -193,5 +196,21 @@ public class HomeController {
 			return "redirect:main_insert.do";
 		}
 	}
+	
+	//Job 게시판 전체출력(헤더-모아보기)
+	@RequestMapping(value = "/main_jobList.do")
+	public String jobList(Model model) {
+		List<TBJobDto> list = new ArrayList<TBJobDto>();
+		list = JobBiz.selectList();
+		model.addAttribute("list", list);
+		return "main_jobList";
+	}
+	
+	//Job 게시판 내 글 클릭 시, 상세보기 (모아보기 - 글 클릭)
+//	@RequestMapping(value = "")
+//	public String jobDetail(Model model, int job_seq) {
+//		
+//		return "main_jobDetail";
+//	}
 	
 }
