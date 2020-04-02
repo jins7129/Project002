@@ -1,5 +1,6 @@
 package com.project.shuttle;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.project.shuttle.model.biz.TBJobBiz;
 import com.project.shuttle.model.biz.TBUserBiz;
 import com.project.shuttle.model.dto.TBJobDto;
 import com.project.shuttle.model.dto.TBUserDto;
@@ -29,6 +31,8 @@ public class HomeController {
 	@Autowired
 	private TBUserBiz biz;
 
+	@Autowired
+	private TBJobBiz JobBiz;
 	
 	@RequestMapping("/")
 	public ModelAndView ScheduleManagementRoot() {
@@ -171,19 +175,14 @@ public class HomeController {
 	
 	//의뢰하기 글 작성 기능
 	@RequestMapping(value = "/main_insertRes.do")
-	public String main_boardInsertRes(String userId, String jobTitle, String jobReward, String jobStart, 
-			String jobDone, String jobAddr, String editordata, String jobCategory ) {
-		System.out.println("id:"+userId);
-		System.out.println("title:"+jobTitle);
-		System.out.println("reward:"+jobReward);
-		System.out.println("start:"+jobStart);
-		System.out.println("done:"+jobDone);
-		System.out.println("addr:"+jobAddr);
-		System.out.println("data:"+editordata);
-		System.out.println("category:"+jobCategory);
-		TBJobDto dto = new TBJobDto();
-		
-		return "";
+	public String main_boardInsertRes(String userId, String jobTitle, int jobReward, Date jobStart, 
+			Date jobDone, String jobAddr, String editordata, String jobCategory ) {
+		TBJobDto dto = new TBJobDto(userId, jobTitle, editordata, jobReward, jobAddr, jobCategory, jobStart, jobDone);
+		if(JobBiz.insert(dto)>0) {
+			return "main.do";
+		}else {
+			return "redirect:main_insert.do";
+		}	
 	}
 	
 }

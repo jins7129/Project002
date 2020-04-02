@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.shuttle.model.dao.TBJobDao">
+
+	<resultMap type="com.project.shuttle.model.dto.TBJobDto" id="boardDto">
+		<result property="jobSeq" column="JOB_SEQ" />
+		<result property="userId" column="USER_ID" />
+		<result property="jobTitle" column="JOB_TITLE" />
+		<result property="jobContent" column="JOB_CONTENT" />
+		<result property="jobReward" column="JOB_REWARD" />
+		<result property="jobAddr" column="JOB_ADDR" />
+		<result property="jobCategory" column="JOB_CATEGORY" />
+		<result property="jobComplete" column="JOB_COMPLETE" />
+		<result property="jobDate" column="JOB_DATE" />
+		<result property="jobStart" column="JOB_START" />
+		<result property="jobDone" column="JOB_DONE" />
+		<result property="jobView" column="JOB_VIEW" />
+	</resultMap>
+	
+	<insert id="insertJob" parameterType="com.project.shuttle.model.dto.TBJobDto">
+	INSERT INTO TB_JOB VALUES ( JobSeq.nextVal, #{userId}, #{jobTitle}, #{jobContent}, #{jobReward}, #{jobAddr}, #{jobCategory}, #{jobComplete}, #{jobDate}, #{jobStart}, #{jobDone}, #{jobView})
+	
+	</insert>	
+	
+
+</mapper>

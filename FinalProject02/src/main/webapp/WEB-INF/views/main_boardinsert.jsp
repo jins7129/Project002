@@ -10,7 +10,7 @@
 	<!-- header -->
 	<%@ include file="/WEB-INF/views/header.jsp"%>
 <style>
-input[type=button], input[type=submit]{
+.inputBtn{
 	display: -moz-box;
 	display: -ms-flexbox;
 	justify-content: center;
@@ -34,20 +34,15 @@ input[type=button], input[type=submit]{
 	float: none;
 }
 
-input[type=button]:hover, input[type=submit]:hover{
+.inputBtn:hover{
 	background: black;
 }
 
-input[type=text], input[type=password]{
+.inputText{
 	border-radius: 10px;
 	border:1px solid black;
 	width: 300px;
 	height: 40px;
-	}
-	
-	input[type=date]{
-	all: unset;
-	border-radius: 10px;
 	}
 </style>
 
@@ -72,17 +67,17 @@ input[type=text], input[type=password]{
 			<input type="hidden" name="userId" value="${loginInfo.userId}">
 			
 			<label>Title : </label> 
-				<input type="text" placeholder="please insert title" name="jobTitle" value="" style="width: 550px"><br><br>
+				<input type="text" class="inputText" placeholder="please insert title" name="jobTitle" value="" style="width: 550px"><br><br>
 			
 			<label>Reward : </label> 
-				<input type="text" placeholder="please insert pay" name="jobReward" value="" style="width: 15	0px"><br><br>
+				<input type="number" class="inputText" placeholder="please insert pay" name="jobReward" value="" style="width: 15	0px"><br><br>
 			
 			<label>Date : </label> 
-				<input type="date" name="jobStart" value="" style="border: 1px solid black;	"> ~
-				<input type="date" name="jobDone" value="" style="border: 1px solid black;"><br><br>
+				<input type="date" class="inputText" name="jobStart" value="" style="border: 1px solid black;	"> ~
+				<input type="date" class="inputText" name="jobDone" value="" style="border: 1px solid black;"><br><br>
 			
 			<label>Location : </label>
-			<input type="text" placeholder="please insert address" name="jobAddr"><br><br>
+			<input type="text" class="inputText" placeholder="please insert address" name="jobAddr"><br><br>
 			
 			<textarea id="summernote" name="editordata"></textarea>
 			<br><br>
@@ -99,8 +94,8 @@ input[type=text], input[type=password]{
 						<option label="기타/심부름" value="기타/심부름"/>
 					</optgroup>
 				</select><br><br>
-			<input type="submit" value="작성하기">
-			<input type="button" value="돌아가기" onclick="location.href='main.do';">
+			<input type="submit" class="inputBtn" value="작성하기">
+			<input type="button" class="inputBtn" value="돌아가기" onclick="location.href='main.do';">
 		</form>
 	</div>
 	

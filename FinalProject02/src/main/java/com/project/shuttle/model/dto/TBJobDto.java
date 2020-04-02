@@ -46,8 +46,9 @@ public class TBJobDto {
     public TBJobDto() {
 	}
 
-	public TBJobDto(String userId, String jobTitle, String jobContent, int jobReward, String jobAddr,
-			String jobCategory, String jobDate, Date jobStart, Date jobDone) {
+	public TBJobDto(String userId, String jobTitle, String jobContent, 
+			int jobReward, String jobAddr,
+			String jobCategory, Date jobStart, Date jobDone) {
 		super();
 		this.userId = userId;
 		this.jobTitle = jobTitle;
@@ -55,7 +56,6 @@ public class TBJobDto {
 		this.jobReward = jobReward;
 		this.jobAddr = jobAddr;
 		this.jobCategory = jobCategory;
-		this.jobDate = jobDate;
 		this.jobStart = jobStart;
 		this.jobDone = jobDone;
 	}
