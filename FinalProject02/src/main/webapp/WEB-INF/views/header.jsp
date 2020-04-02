@@ -65,10 +65,10 @@
 							</div>
 						</div>
 					</div>
-					<div class="container2">
-						<a href="#" id="mybagTxt"><img id="mybag"
-							src="<c:url value = '/resources/images/icon_bag.svg'/>" />&nbsp;MyBag</a>
-					</div>
+<!-- 					<div class="container2"> -->
+<!-- 						<a href="#" id="mybagTxt"><img id="mybag" -->
+<%-- 							src="<c:url value = '/resources/images/icon_bag.svg'/>" />&nbsp;MyBag</a> --%>
+<!-- 					</div> -->
 				</div>
 			</div>
 

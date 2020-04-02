@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Shuttle</title>
-
+<link rel="icon" href="/resources/images/icon.png" type="image/x-icon">
 	<!-- header -->
 	<%@ include file="/WEB-INF/views/header.jsp"%>
 <style>

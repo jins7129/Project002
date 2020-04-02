@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Shuttle</title>
+<link rel="icon" href="/resources/images/icon.png" type="image/x-icon">
 </head>
 <body>
 

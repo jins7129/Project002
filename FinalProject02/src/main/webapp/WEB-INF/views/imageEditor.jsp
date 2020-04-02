@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Shuttle</title>
+        <link rel="icon" href="/resources/images/icon.png" type="image/x-icon">
         <link type="text/css" href="https://uicdn.toast.com/tui-color-picker/v2.2.3/tui-color-picker.css"
             rel="stylesheet">
         <link type="text/css" href="/resources/css/tui-image-editor.css" rel="stylesheet" >

@@ -74,7 +74,9 @@
 				dataType : "json", // 명시해줘야함
 				success : function(msg) {
 					if (msg.check == true) {
-						location.href = 'main.do';
+						//window.location.reload();
+						history.go(0);			// 페이지 새로고침 
+						back();
 					} else {
 						$("#loginChk").show();
 					}

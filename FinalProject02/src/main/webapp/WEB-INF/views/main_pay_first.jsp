@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Shuttle</title>
+<link rel="icon" href="/resources/images/icon.png" type="image/x-icon">
 <%@ include file="/WEB-INF/views/header.jsp"%>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>

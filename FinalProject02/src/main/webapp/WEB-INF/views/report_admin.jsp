@@ -9,6 +9,7 @@
 <title>Shuttle</title>
 <style type="text/css">
 </style>
+<link rel="icon" href="/resources/images/icon.png" type="image/x-icon">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 	function search(){
