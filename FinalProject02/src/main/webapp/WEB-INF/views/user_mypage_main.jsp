@@ -5,9 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Shuttle</title>
+<link rel="icon" href="/resources/images/icon.png" type="image/x-icon">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <style type="text/css">
 #btnUpdate {
+	/*버튼 css*/
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -moz-box;
@@ -57,6 +59,22 @@
 	color: rgb(248, 112, 97);
 	cursor: pointer;
 }
+
+.boardTitle{
+	text-decoration: none;
+	
+}
+
+.boardTitle:hover{
+	color: rgb(248, 112, 97);
+}
+
+.boardCss{
+	float:none;
+
+}
+
+
 </style>
 <script type="text/javascript">
 
@@ -95,17 +113,11 @@
 					pageNum = checkPageNum(this.value, writtenEndPageNum);
 					writtenBoard();
 			});
-		$(document).on('click','.writtenBoardTitle', function() {
-					alert("흐럅");
-		});
 		
 		////////////////////
 		$(document).on('click','input[name=applyBoardPaging]', function() {
 					pageNum = checkPageNum(this.value, applyEndPageNum);
 					applyBoard();
-		});
-		$(document).on('click','.applyBoardTitle', function() {
-					alert("흐럅");
 		});
 		
 		
@@ -114,25 +126,16 @@
 					pageNum = checkPageNum(this.value, doingEndPageNum);
 					doingBoard();
 		});
-		$(document).on('click','.doingBoardTitle', function() {
-					alert("흐럅");
-		});
 		////////////////////
 		$(document).on('click','input[name=doneBoardPaging]', function() {
 					pageNum = checkPageNum(this.value, doneEndPageNum);
 					doneBoard();
-		});
-		$(document).on('click','.doneBoardTitle', function() {
-					alert("흐럅");
 		});
 		
 		////////////////////
 		$(document).on('click','input[name=reviewBoardPaging]', function() {
 					pageNum = checkPageNum(this.value, reviewEndPageNum);
 					reviewBoard();
-		});
-		$(document).on('click','.reviewBoardTitle', function() {
-					alert("흐럅");
 		});
 		
 	});
@@ -158,16 +161,14 @@
 				writtenBoard.append("<tr><th width='100px'>번호</th><th width='150px'>제목</th><th width='100px'>보상</th><th width='150px'>작성일</th><th width='100px'>완료여부</th></tr>");
 				for (var i = 0; i < list.length; i++) {
 					var val = list[i];	// 게시글 뿌리기
-					writtenBoard.append("<tr><td align='center'>"
-							+ val.jobSeq
-								+ "</td><td align='center' class='writtenBoardTitle' >"
-							+ val.jobTitle
-								+ "</td><td align='center'>"
-							+ val.jobReward
-							+ "</td><td align='center'>"
-							+ val.jobDate
-							+ "</td><td align='center'>"
-							+ val.jobComplete+"</td></tr>");
+					writtenBoard.append("<tr><td align='center'><td>"
+								+ "</td><td align='center'><a class='boardTitle' href='main.do'>"
+								+ val.jobSeq
+								+ val.jobTitle
+								+ "</a><br/>"
+								+ val.jobReward
+								+ val.jobDate
+								+ val.jobComplete+"</td></tr>");
 				}
 				var pageCount = (pageMaker.endPage - pageMaker.startPage) + 1;	// 페이지 수 띄우기 변수
 				
@@ -358,10 +359,36 @@
 	}
 	
 </script>
-
+<style type="text/css">
+.wrapper > div{
+  border: 3px solid skyblue;
+  border-radius: 20px 20px 20px 20px;
+  margin : 5px;
+}
+ 
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 150px 150px;
+  width : 600px;
+}
+</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/header.jsp"%>
+	<div align="center" >
+<div class="wrapper">
+  <div class="div1">1</div>
+  <div class="div2">2</div>
+  <div class="div3">3</div>
+  <div class="div4">4</div>
+  <div class="div4">5</div>
+  <div class="div4">6</div>
+  <div class="div4">7</div>
+</div>
+</div>
+
+
 
 	<div align="center">
 		<img src="resources/file/profilePhoto/${loginInfo.userImgpath}.png" />
@@ -373,6 +400,10 @@
 			<tr>
 				<td>아이디 :</td>
 				<td>${loginInfo.userId }</td>
+			</tr>
+			<tr>
+				<td>빵 개수</td>
+				<td>${loginInfo.userCoin }개</td>
 			</tr>
 			<tr>
 				<td>전화번호</td>

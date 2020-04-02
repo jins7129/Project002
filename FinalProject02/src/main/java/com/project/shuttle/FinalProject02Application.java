@@ -25,6 +25,8 @@ public class FinalProject02Application implements WebMvcConfigurer {
                 .addPathPatterns("/mypage_update.do")
                 .addPathPatterns("/signUp.do")
                 .addPathPatterns("/mypage_updateres.do")
+                .addPathPatterns("/main_pay_main.do")
+                .addPathPatterns("/main_pay_first.do")
                 ;
     }
 	

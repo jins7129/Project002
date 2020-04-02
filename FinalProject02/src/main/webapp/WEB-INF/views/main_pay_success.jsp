@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Shuttle</title>
+<link rel="icon" href="/resources/images/icon.png" type="image/x-icon">
 </head>
 <body>
 
@@ -21,8 +22,8 @@
 결제금액:    [[${kakaoInfo.amount.total}]]<br/>
 결제방법:    [[${kakaoInfo.payment_method_type}]]<br/>
 
-<h2>${kakaoInfo }</h2>
- 
+내 아이디에 있는 빵 갯수 ${loginInfo.userCoin }
+
 <%@ include file="/WEB-INF/views/footer.jsp"%>
 
 </body>

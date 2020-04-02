@@ -16,11 +16,8 @@
 
 <link rel="icon" href="#">
 
-<link href="<c:url value = '/resources/css/header.css'/>"
-	rel="stylesheet">
-<link
-	href="https://fonts.googleapis.com/css?family=Fira+Sans:300&display=swap"
-	rel="stylesheet">
+<link href="<c:url value = '/resources/css/header.css'/>" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Fira+Sans:300&display=swap" rel="stylesheet">
 
 
 <script type="text/javascript"
@@ -68,10 +65,10 @@
 							</div>
 						</div>
 					</div>
-					<div class="container2">
-						<a href="#" id="mybagTxt"><img id="mybag"
-							src="<c:url value = '/resources/images/icon_bag.svg'/>" />&nbsp;MyBag</a>
-					</div>
+<!-- 					<div class="container2"> -->
+<!-- 						<a href="#" id="mybagTxt"><img id="mybag" -->
+<%-- 							src="<c:url value = '/resources/images/icon_bag.svg'/>" />&nbsp;MyBag</a> --%>
+<!-- 					</div> -->
 				</div>
 			</div>
 

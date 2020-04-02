@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Shuttle</title>
+<link rel="icon" href="/resources/images/icon.png" type="image/x-icon">
 <script type="text/javascript">
 	function dayshow(){
 		document.getElementById('day').style.display="block";

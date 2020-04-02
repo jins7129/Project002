@@ -31,7 +31,7 @@ public class LoginSessionIntercepter implements HandlerInterceptor {
 			// 로그인 정보가 없는 상태로 페이지 요청을 했을 경우
 			if(request.getRequestURI().contains("/signUp.do")) {
 				return true;	// 로그인 정보가 없는 상태로 회원가입폼을 들어갈 경우(허용)
-			} 
+			}
 			response.sendRedirect("/main.do");	// main으로 던짐
 			return false;
 		}

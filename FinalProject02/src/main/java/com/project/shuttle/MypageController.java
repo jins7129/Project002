@@ -35,12 +35,10 @@ import com.project.shuttle.model.dto.TBUserDto;
 public class MypageController {
 	
 	@Autowired
-	private TBUserBiz userBiz ;
+	private TBUserBiz userBiz;
 	
-	@RequestMapping("/testss.do")
-	public String testtest() {
-		return "toastTestJinsung";
-	}
+	@Autowired
+	private KakaoPayBiz kakaopay;
 	
 	@RequestMapping("/mypage_main.do")
 	public ModelAndView mypageMain(ModelAndView mav) {
@@ -207,8 +205,8 @@ public class MypageController {
 	}
 	/////////// 카카오 페이 컨트롤러 부분
 	
-	@Autowired
-	private KakaoPayBiz kakaopay;
+//	@Autowired
+//	private KakaoPayBiz kakaopay;	// 해당 카카오비즈 사용함
 	
 	@RequestMapping("/main_pay_main.do")
 	public ModelAndView kakaoPayMain(ModelAndView mav) {
@@ -221,7 +219,7 @@ public class MypageController {
 	
 	@RequestMapping(value="/main_pay_first.do", method = RequestMethod.POST)
 	public String kakaoPayFirst(HttpSession session, int quantity) {
-													// 선택한 수량
+													// 선택한 수량 , int quantity
 		TBUserDto loginInfo = (TBUserDto)session.getAttribute("loginInfo");	// 유저 정보
 		String userId = loginInfo.getUserId();	// 아이디
 		
@@ -230,11 +228,13 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/main_pay_success.do", method = RequestMethod.GET)
-	public ModelAndView kakaoPaySuccess(ModelAndView mav, String pg_token) {
-		System.out.println("kakao pg_token : " + pg_token);
+	public ModelAndView kakaoPaySuccess(HttpSession session, ModelAndView mav, String pg_token) {
+//		System.out.println("kakao pg_token : " + pg_token); 응답으로 pg_token이 넘어오면 성공이다 이말이야
+		TBUserDto loginInfo = (TBUserDto)session.getAttribute("loginInfo");	// 유저 정보
+//		String userId = loginInfo.getUserId();	// 아이디
 		
 		mav.setViewName("main_pay_success");
-		mav.addObject("kakaoInfo", kakaopay.kakaoPayInfo(pg_token));
+		mav.addObject("kakaoInfo", kakaopay.kakaoPayInfo(pg_token, loginInfo,session));	// 토큰을 통해 각 값들을 불러옴(카카오비즈확인요망)
 		
 		return mav;
 		
