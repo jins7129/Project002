@@ -13,6 +13,8 @@
 <style type="text/css">
 #kakaoPayImg{
 	cursor: pointer;
+	width: 280px;
+	height: 160px;
 }
 
 .payCheckbox{
@@ -53,7 +55,7 @@ font-family: 'Fira Sans';
 		<tr>
 			<td>
 				<div class="custom-control custom-radio">
-						<input type="radio" id="jb-radio1" name="quantity" class="custom-control-input" value="100">
+						<input checked="checked" type="radio" id="jb-radio1" name="quantity" class="custom-control-input" value="100">
 						<label class="custom-control-label" for="jb-radio1">bread 100개</label>
 					</div>
 			</td>
@@ -93,7 +95,7 @@ font-family: 'Fira Sans';
 	
 	</table>
 	<br/>
-	<img id="kakaoPayImg" src="/resources/Login/images/icons/kakaolink_btn_medium.png" onclick="chargeKakao();"/>
+	<img  id="kakaoPayImg" src="/resources/Login/images/icons/kakaoPay.png" onclick="chargeKakao();"/>
 	
 
 </form>

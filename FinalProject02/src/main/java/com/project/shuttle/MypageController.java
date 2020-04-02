@@ -1,11 +1,18 @@
 package com.project.shuttle;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +27,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.util.WebUtils;
 
 import com.project.shuttle.model.biz.KakaoPayBiz;
 import com.project.shuttle.model.biz.TBUserBiz;
@@ -30,6 +39,7 @@ import com.project.shuttle.model.dto.KakaoPayDto;
 import com.project.shuttle.model.dto.PageMaker;
 import com.project.shuttle.model.dto.TBJobDto;
 import com.project.shuttle.model.dto.TBUserDto;
+import com.project.shuttle.model.dto.UploadDto;
 
 @Controller
 public class MypageController {
@@ -237,6 +247,56 @@ public class MypageController {
 		
 		return mav;
 		
+	}
+	
+	@RequestMapping("mypage_update_img.do")
+	public String imgUpload(HttpSession session, HttpServletRequest request, UploadDto uploadFile ) {
+		
+		MultipartFile file = uploadFile.getMpfile();
+		TBUserDto loginInfo = (TBUserDto)session.getAttribute("loginInfo");
+		String userId = loginInfo.getUserId();
+		
+		String name = file.getOriginalFilename();
+		String[] fileName = name.split("\\.");
+		// split 자체가 정규식으로 작동하는데 .(온점) 하나는 무작위 한글자를 의미한다고 함.
+		// 그렇기에 .(온점)을 찾아 자르고 싶으면 [.]이나 \\.으로 .이라는걸 명시하는 이스케이프 문자를 사용해야함
+		
+		InputStream inStream = null;
+		OutputStream outStream = null;
+		
+		try {
+			inStream = file.getInputStream();
+			String path = WebUtils.getRealPath(request.getSession().getServletContext(),"/storage");
+			System.out.println("upload path: " +path);
+		
+			File storage = new File(path);
+			if(!storage.exists()) {
+				storage.mkdir();
+			}
+			
+			File newFile = new File(path+"/"+userId+"."+fileName[1]);
+			newFile.createNewFile();
+			
+			outStream = new FileOutputStream(newFile);
+			
+			int read = 0;
+			byte[] b = new byte[(int)file.getSize()];
+			
+			while((read=inStream.read(b))!= -1) {
+				outStream.write(b,0,read);
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				inStream.close();
+				outStream.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return "user_mypage_main";
 	}
 	
 }
