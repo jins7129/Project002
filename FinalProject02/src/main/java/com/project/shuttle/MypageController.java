@@ -216,7 +216,6 @@ public class MypageController {
 		return mav;
 	}
 	
-	
 	@RequestMapping(value="/main_pay_first.do", method = RequestMethod.POST)
 	public String kakaoPayFirst(HttpSession session, int quantity) {
 													// 선택한 수량 , int quantity

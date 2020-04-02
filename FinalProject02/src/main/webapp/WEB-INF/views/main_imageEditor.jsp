@@ -22,6 +22,9 @@
 	<%@ include file="/WEB-INF/views/header.jsp" %>
 
         <div id="tui-image-editor-container"></div>
+        
+        
+        
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.6.0/fabric.js"></script>
         <script type="text/javascript" src="https://uicdn.toast.com/tui.code-snippet/v1.5.0/tui-code-snippet.min.js"></script>
         <script type="text/javascript" src="https://uicdn.toast.com/tui-color-picker/v2.2.3/tui-color-picker.js"></script>

@@ -62,7 +62,7 @@
 
 .boardTitle{
 	text-decoration: none;
-	
+	color : black;
 }
 
 .boardTitle:hover{
@@ -157,29 +157,26 @@
 				writtenPaging.children().remove(); // 페이징 삭제
 				
 				writtenEndPageNum = pageMaker.tempEndPage;
-				
-				writtenBoard.append("<tr><th width='100px'>번호</th><th width='150px'>제목</th><th width='100px'>보상</th><th width='150px'>작성일</th><th width='100px'>완료여부</th></tr>");
 				for (var i = 0; i < list.length; i++) {
 					var val = list[i];	// 게시글 뿌리기
-					writtenBoard.append("<tr><td align='center'><td>"
-								+ "</td><td align='center'><a class='boardTitle' href='main.do'>"
-								+ val.jobSeq
-								+ val.jobTitle
-								+ "</a><br/>"
-								+ val.jobReward
-								+ val.jobDate
-								+ val.jobComplete+"</td></tr>");
+					if(val.jobComplete == "Y"){
+						val.jobComplete = "완료";
+					} else if (val.jobComplete == "N"){
+						val.jobComplete = "미완료"
+					}
+					writtenBoard.append("<div>번호 : "+val.jobSeq+ "<br/><a class='boardTitle' href='main.do' >제목 : "+ val.jobTitle+"</a><br/>보상 : "+val.jobReward+"<br/>작성일 : "+val.jobDate+"<br/>완료여부 : "+val.jobComplete+"</div>");
+								
 				}
 				var pageCount = (pageMaker.endPage - pageMaker.startPage) + 1;	// 페이지 수 띄우기 변수
 				
 				if(pageMaker.next == true){	// 처음으로 버튼
-					applyPaging.append("<input style='width:30px; float:none;'  type='button' name='applyBoardPaging' class='applyBoardNum' value='<<'> ");
+					writtenPaging.append("<input style='width:30px; float:none;'  type='button' name='applyBoardPaging' class='applyBoardNum' value='<<'> ");
 				}
 				for (var i = 1; i < pageCount + 1; i++) {	// 일반 페이징 번호 버튼
 					writtenPaging.append("<input style='width:30px; float:none;'  type='button' name='writtenBoardPaging' class='writtenBoardNum' value='"+i+"'> ");
 				}
 				if(pageMaker.prev == true){	// 마지막으로 버튼
-					applyPaging.append("<input style='width:30px; float:none;'  type='button' name='applyBoardPaging' class='applyBoardNum' value='>>'> ");
+					writtenPaging.append("<input style='width:30px; float:none;'  type='button' name='applyBoardPaging' class='applyBoardNum' value='>>'> ");
 				}
 			},
 			error : function() {
@@ -207,18 +204,10 @@
 				
 				applyEndPageNum = pageMaker.tempEndPage;
 				
-				applyBoard.append("<tr><th width='100px'>번호</th><th width='150px'>제목</th><th width='100px'>보상</th><th width='150px'>작성일</th></tr>");
 				for (var i = 0; i < list.length; i++) {
 					var val = list[i];
-					applyBoard.append("<tr><td align='center'>"
-							+ val.jobSeq
-								+ "</td><td align='center' class='applyBoardTitle' >"
-							+ val.jobTitle
-								+ "</td><td align='center'>"
-							+ val.jobReward
-							+ "</td><td align='center'>"
-							+ val.jobDate
-							+ "</td><td align='center'></td></tr>");
+					applyBoard.append("<div>번호 : "+val.jobSeq+ "<br/><a class='boardTitle' href='main.do' >제목 : "+ val.jobTitle+"</a><br/>보상 : "+val.jobReward+"<br/>작성일 : "+val.jobDate+"</div>");
+					
 				}
 				var pageCount = (pageMaker.endPage - pageMaker.startPage) + 1;
 				for (var i = 1; i < pageCount + 1; i++) {
@@ -250,18 +239,10 @@
 				
 				doingEndPageNum = pageMaker.tempEndPage;
 				
-				doingBoard.append("<tr><th width='100px'>번호</th><th width='150px'>제목</th><th width='100px'>보상</th><th width='150px'>작성일</th></tr>");
 				for (var i = 0; i < list.length; i++) {
 					var val = list[i];
-					doingBoard.append("<tr><td align='center'>"
-							+ val.jobSeq
-								+ "</td><td align='center' class='doingBoardTitle' >"
-							+ val.jobTitle
-								+ "</td><td align='center'>"
-							+ val.jobReward
-							+ "</td><td align='center'>"
-							+ val.jobDate
-							+ "</td><td align='center'></td></tr>");
+					doingBoard.append("<div>번호 : "+val.jobSeq+ "<br/><a class='boardTitle' href='main.do' >제목 : "+ val.jobTitle+"</a><br/>보상 : "+val.jobReward+"<br/>작성일 : "+val.jobDate+"</div>");
+					
 				}
 				var pageCount = (pageMaker.endPage - pageMaker.startPage) + 1;
 				for (var i = 1; i < pageCount + 1; i++) {
@@ -275,7 +256,6 @@
 	}
 	
 	function doneBoard(){
-		// 진행중인 아르바이트 글 불러오는 함수
 		$.ajax({
 			type : "post",
 			contentType : "application/json",	// json 형태이기에 꼭 써줘야함
@@ -292,22 +272,14 @@
 				
 				doneEndPageNum = pageMaker.tempEndPage;
 				
-				doneBoard.append("<tr><th width='100px'>번호</th><th width='150px'>제목</th><th width='100px'>보상</th><th width='150px'>작성일</th></tr>");
 				for (var i = 0; i < list.length; i++) {
 					var val = list[i];
-					doneBoard.append("<tr><td align='center'>"
-							+ val.jobSeq
-								+ "</td><td align='center' class='doneBoardTitle' >"
-							+ val.jobTitle
-								+ "</td><td align='center'>"
-							+ val.jobReward
-							+ "</td><td align='center'>"
-							+ val.jobDate
-							+ "</td><td align='center'></td></tr>");
-				}
+					doneBoard.append("<div>번호 : "+val.jobSeq+ "<br/><a class='boardTitle' href='main.do' >제목 : "+ val.jobTitle+"</a><br/>보상 : "+val.jobReward+"<br/>작성일 : "+val.jobDate+"</div>");
+					
 				var pageCount = (pageMaker.endPage - pageMaker.startPage) + 1;
 				for (var i = 1; i < pageCount + 1; i++) {
 					donePaging.append("<input style='width:30px; float:none;'  type='button' name='doneBoardPaging' class='doneBoardNum' value='"+i+"'> ");
+				}
 				}
 			},
 			error : function() {
@@ -317,7 +289,6 @@
 	}
 	
 	function reviewBoard(){
-		// 진행중인 아르바이트 글 불러오는 함수
 		$.ajax({
 			type : "post",
 			contentType : "application/json",	// json 형태이기에 꼭 써줘야함
@@ -334,18 +305,10 @@
 				
 				reviewEndPageNum = pageMaker.tempEndPage;
 				
-				reviewBoard.append("<tr><th width='100px'>번호</th><th width='150px'>제목</th><th width='100px'>보상</th><th width='150px'>작성일</th></tr>");
 				for (var i = 0; i < list.length; i++) {
 					var val = list[i];
-					reviewBoard.append("<tr><td align='center'>"
-							+ val.jobSeq
-								+ "</td><td align='center' class='reviewBoardTitle' >"
-							+ val.jobTitle
-								+ "</td><td align='center'>"
-							+ val.jobReward
-							+ "</td><td align='center'>"
-							+ val.jobDate
-							+ "</td><td align='center'></td></tr>");
+					reviewBoard.append("<div>번호 : "+val.jobSeq+ "<br/><a class='boardTitle' href='main.do' >제목 : "+ val.jobTitle+"</a><br/>보상 : "+val.jobReward+"<br/>작성일 : "+val.jobDate+"</div>");
+					
 				}
 				var pageCount = (pageMaker.endPage - pageMaker.startPage) + 1;
 				for (var i = 1; i < pageCount + 1; i++) {
@@ -361,34 +324,22 @@
 </script>
 <style type="text/css">
 .wrapper > div{
-  border: 3px solid skyblue;
+  border: 4px solid skyblue;
   border-radius: 20px 20px 20px 20px;
   margin : 5px;
+  padding: 15px;
+  font-size: 18px;
 }
  
 .wrapper {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 150px 150px;
-  width : 600px;
+  grid-template-columns: 1fr 1fr 1fr;
+  width : 800px;
 }
 </style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/header.jsp"%>
-	<div align="center" >
-<div class="wrapper">
-  <div class="div1">1</div>
-  <div class="div2">2</div>
-  <div class="div3">3</div>
-  <div class="div4">4</div>
-  <div class="div4">5</div>
-  <div class="div4">6</div>
-  <div class="div4">7</div>
-</div>
-</div>
-
-
 
 	<div align="center">
 		<img src="resources/file/profilePhoto/${loginInfo.userImgpath}.png" />
@@ -424,8 +375,8 @@
 
 	<div align="center">
 		<h3>내가 작성한 글</h3>
-		<table id="writtenBoard">
-		</table>
+		<div id="writtenBoard" class="wrapper" align="left" >
+		</div>
 		<div>
 			<table>
 				<tr>
@@ -434,14 +385,15 @@
 			</table>
 		</div>
 	</div>
+	
 	<br/>
-	<hr/>
+	<hr/>	
 	<br/>
+	
 	<div align="center" >
 		<h3>내가 신청한 글</h3>
-			<table id="applyBoard">
-			</table>
-		
+			<div id="applyBoard" class="wrapper" align="left" >
+			</div>
 			<div>
 				<table>
 					<tr>
@@ -452,12 +404,11 @@
 		</div>
 	
 	</div>
-	
+	<br/><hr/><br/>
 	<div align="center" >
 		<h3>내가 진행중인 글</h3>
-			<table id="doingBoard">
-			</table>
-		
+			<div id="doingBoard" class="wrapper" align="left" >
+			</div>
 			<div>
 				<table>
 					<tr>
@@ -468,11 +419,11 @@
 		</div>
 	
 	</div>
+	<br/><hr/><br/>
 	<div align="center" >
 		<h3>내가 완료한 글</h3>
-			<table id="doneBoard">
-			</table>
-		
+			<div id="doneBoard" class="wrapper" align="left" >
+			</div>
 			<div>
 				<table>
 					<tr>
@@ -483,11 +434,11 @@
 		</div>
 	
 	</div>
-	
+	<br/><hr/><br/>
 	<div align="center" >
 		<h3>내가 쓴 리뷰</h3>
-			<table id="reviewBoard">
-			</table>
+			<div id="reviewBoard" class="wrapper" align="left" >
+			</div>
 		
 			<div>
 				<table>
