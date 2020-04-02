@@ -17,8 +17,8 @@
 		<result property="jobView" column="JOB_VIEW" />
 	</resultMap>
 	
-	<insert id="insertJob" parameterType="com.project.shuttle.model.dto.TBJobDto">
-	INSERT INTO TB_JOB VALUES ( JobSeq.nextVal, #{userId}, #{jobTitle}, #{jobContent}, #{jobReward}, #{jobAddr}, #{jobCategory}, #{jobComplete}, #{jobDate}, #{jobStart}, #{jobDone}, #{jobView})
+	<insert id="insert" parameterType="com.project.shuttle.model.dto.TBJobDto">
+	INSERT INTO TB_JOB VALUES ( TB_JOB_SEQ.NEXTVAL, #{userId}, #{jobTitle}, #{jobContent}, #{jobReward}, #{jobAddr}, #{jobCategory}, 'N', SYSDATE, #{jobStart}, #{jobDone}, 0)
 	
 	</insert>	
 	

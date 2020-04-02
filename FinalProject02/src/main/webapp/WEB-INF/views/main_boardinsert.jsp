@@ -82,7 +82,7 @@
 			<textarea id="summernote" name="editordata"></textarea>
 			<br><br>
 			<label>Category</label>
-				<select name="jobCategory1">
+				<select name="jobCategory">
 					<optgroup label="대분류">
 						<option label="매장관리" value="매장관리"/>
 						<option label="서빙/주방" value="서빙/주방"/>

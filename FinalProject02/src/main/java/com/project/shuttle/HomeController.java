@@ -178,11 +178,20 @@ public class HomeController {
 	public String main_boardInsertRes(String userId, String jobTitle, int jobReward, Date jobStart, 
 			Date jobDone, String jobAddr, String editordata, String jobCategory ) {
 		TBJobDto dto = new TBJobDto(userId, jobTitle, editordata, jobReward, jobAddr, jobCategory, jobStart, jobDone);
-		if(JobBiz.insert(dto)>0) {
-			return "main.do";
-		}else {
+		System.out.println(userId);
+		System.out.println(jobTitle);
+		System.out.println(jobReward);
+		System.out.println(jobStart);
+		System.out.println(jobDone);
+		System.out.println(jobAddr);
+		System.out.println(editordata);
+		System.out.println(jobCategory);
+
+		if (JobBiz.insert(dto) > 0) {
+			return "redirect:main.do";
+		} else {
 			return "redirect:main_insert.do";
-		}	
+		}
 	}
 	
 }
