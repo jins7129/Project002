@@ -8,5 +8,7 @@ public interface TBJobBiz {
 	public int insert(TBJobDto dto);
 
 	public List<TBJobDto> selectList();
+
+	public TBJobDto selectOne(int jobSeq);
 	
 }

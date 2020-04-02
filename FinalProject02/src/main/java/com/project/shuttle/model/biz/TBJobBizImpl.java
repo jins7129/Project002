@@ -24,4 +24,9 @@ public class TBJobBizImpl implements TBJobBiz {
 		return dao.selectList();
 	}
 
+	@Override
+	public TBJobDto selectOne(int jobSeq) {
+		return dao.selectOne(jobSeq);
+	}
+
 }

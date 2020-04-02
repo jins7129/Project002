@@ -73,4 +73,8 @@ SELECT * FROM (
 		
 		--유저테이블 조회용 쿼리문
 SELECT * FROM TB_USER;
->>>>>>> d49de8f1d5c063f6e4f0777be249adcf781716b1
+
+SELECT * FROM TB_JOB;
+
+--컬럼 타입 변경
+ALTER TABLE TB_JOB MODIFY (JOB_CONTENT LONG());
