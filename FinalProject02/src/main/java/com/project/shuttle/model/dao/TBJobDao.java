@@ -11,4 +11,6 @@ public interface TBJobDao {
 	public List<TBJobDto> selectList();
 	
 	public TBJobDto selectOne(int jobSeq);
+
+	public void addView(int jobSeq);
 }

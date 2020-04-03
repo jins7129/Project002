@@ -36,7 +36,7 @@ public class HomeController {
 
 	@Autowired
 	private TBJobBiz JobBiz;
-	
+
 	@RequestMapping("/")
 	public ModelAndView ScheduleManagementRoot() {
 		ModelAndView mav = new ModelAndView("redirect:main.do");
@@ -136,7 +136,7 @@ public class HomeController {
 		return verifyNum;
 	}
 
-	//회원가입 기능
+	// 회원가입 기능
 	@RequestMapping(value = "/insert.do")
 	public String insertBoard(String userId, String userId2, String userId3, String userId4, String pw, String name,
 			String phone, String addr1, String addr2) {
@@ -148,8 +148,8 @@ public class HomeController {
 			return "redirect:signUp.do";
 		}
 	}
-	
-	//아이디 중복체크 기능
+
+	// 아이디 중복체크 기능
 	@RequestMapping(value = "/idchk.do")
 	@ResponseBody
 	public Boolean idChk(String Email_id) {
@@ -164,40 +164,31 @@ public class HomeController {
 		return chkRes;
 	}
 
-	//이미지 에디터
+	// 이미지 에디터
 	@RequestMapping(value = "/editor.do")
 	public String toastTest() {
 		return "main_imageEditor";
 	}
-	
-	//의뢰하기 폼으로 이동
+
+	// 의뢰하기 폼으로 이동
 	@RequestMapping(value = "/main_insert.do")
 	public String main_boardinsert() {
 		return "main_boardinsert";
 	}
-	
-	//의뢰하기 글 작성 기능
-	@RequestMapping(value = "/main_insertRes.do")
-	public String main_boardInsertRes(String userId, String jobTitle, int jobReward, Date jobStart, 
-			Date jobDone, String jobAddr, String editordata, String jobCategory ) {
-		TBJobDto dto = new TBJobDto(userId, jobTitle, editordata, jobReward, jobAddr, jobCategory, jobStart, jobDone);
-		System.out.println(userId);
-		System.out.println(jobTitle);
-		System.out.println(jobReward);
-		System.out.println(jobStart);
-		System.out.println(jobDone);
-		System.out.println(jobAddr);
-		System.out.println(editordata);
-		System.out.println(jobCategory);
 
+	// 의뢰하기 글 작성 기능
+	@RequestMapping(value = "/main_insertRes.do")
+	public String main_boardInsertRes(String userId, String jobTitle, int jobReward, Date jobStart, Date jobDone,
+			String jobAddr, String editordata, String jobCategory) {
+		TBJobDto dto = new TBJobDto(userId, jobTitle, editordata, jobReward, jobAddr, jobCategory, jobStart, jobDone);
 		if (JobBiz.insert(dto) > 0) {
 			return "redirect:main.do";
 		} else {
 			return "redirect:main_insert.do";
 		}
 	}
-	
-	//Job 게시판 전체출력(헤더-모아보기)
+
+	// Job 게시판 전체출력(헤더-모아보기)
 	@RequestMapping(value = "/main_jobList.do")
 	public String jobList(Model model) {
 		List<TBJobDto> list = new ArrayList<TBJobDto>();
@@ -205,12 +196,13 @@ public class HomeController {
 		model.addAttribute("list", list);
 		return "main_jobList";
 	}
-	
-	//Job 게시판 내 글 클릭 시, 상세보기 (모아보기 - 글 클릭)
+
+	// Job 게시판 내 글 클릭 시, 상세보기 (모아보기 - 글 클릭)
 	@RequestMapping(value = "/main_jobDetail.do")
 	public String jobDetail(Model model, int jobSeq) {
-			model.addAttribute("dto", JobBiz.selectOne(jobSeq));
-			return "main_jobDetail";
+		JobBiz.addView(jobSeq);
+		model.addAttribute("dto", JobBiz.selectOne(jobSeq));
+		return "main_jobDetail";
 	}
-	
+
 }

@@ -51,7 +51,7 @@
 	<h1>모아보기</h1>
 	<div class="wrapper">
 		<c:forEach items="${list}" var="JobDto">
-			<div style=" " onclick="location.href='main_jobDetail.do?jobSeq=${JobDto.jobSeq}'">
+			<div onclick="location.href='main_jobDetail.do?jobSeq=${JobDto.jobSeq}'">
 				<span>${JobDto.jobTitle}</span>
 				<span>${JobDto.userId}</span>
 				<span>${JobDto.jobDate}</span>
@@ -59,8 +59,6 @@
 			</div>
 		</c:forEach>
 	</div>
-
-
 
 	<!-- footer -->
  	<div id = "footer"><%@ include file="/WEB-INF/views/footer.jsp" %></div>

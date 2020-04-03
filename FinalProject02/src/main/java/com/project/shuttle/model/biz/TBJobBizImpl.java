@@ -29,4 +29,9 @@ public class TBJobBizImpl implements TBJobBiz {
 		return dao.selectOne(jobSeq);
 	}
 
+	@Override
+	public void addView(int jobSeq) {
+		dao.addView(jobSeq);
+	}
+
 }
