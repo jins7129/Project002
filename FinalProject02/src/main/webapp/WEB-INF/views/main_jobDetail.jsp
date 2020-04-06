@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>프로젝트 리스트 및 피드백 보기 페이지</title>
+<title>Insert title here</title>
 </head>
 <body>
 

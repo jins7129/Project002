@@ -12,17 +12,14 @@
 <head>
 <meta charset="UTF-8">
 <title>헤더</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <link rel="icon" href="#">
 
-<link href="<c:url value = '/resources/css/header.css'/>"
-	rel="stylesheet">
-<link
-	href="https://fonts.googleapis.com/css?family=Fira+Sans:300&display=swap"
-	rel="stylesheet">
+<link href="<c:url value = '/resources/css/header.css'/>" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Fira+Sans:300&display=swap" rel="stylesheet">
 
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
 <script type="text/javascript"
 	src="<c:url value = '/resources/js/header.js'/>"></script>
 
@@ -37,7 +34,6 @@
 
 		<!-- 맨 위 추천 순위 1 ~ 10 -->
 		<div id="ranking">
-			<a href="#">ranking 1 ~ 10</a>
 		</div>
 
 
@@ -69,11 +65,10 @@
 							</div>
 						</div>
 					</div>
-					<div class="container2">
-						<a href="#" id="mybagTxt"><img id="mybag"
-							src="<c:url value = '/resources/images/icon_bag.svg'/>" />&nbsp;My
-							Bag</a>
-					</div>
+<!-- 					<div class="container2"> -->
+<!-- 						<a href="#" id="mybagTxt"><img id="mybag" -->
+<%-- 							src="<c:url value = '/resources/images/icon_bag.svg'/>" />&nbsp;MyBag</a> --%>
+<!-- 					</div> -->
 				</div>
 			</div>
 
@@ -95,9 +90,9 @@
 			<div class="child3" id="searchBox">
 				<a rel="tooltip" title=""><input type="text" name="inputSearch"
 					id="inputSearch" placeholder="type to search" /></a> <img id="search"
-					src="<c:url value = '/resources/images/icon_search.svg'/>" />&nbsp;&nbsp;<img
+					src="<c:url value = '/resources/images/icon_search.svg'/>" />&nbsp;&nbsp;<!--<img
 					id="search_image"
-					src="<c:url value = '/resources/images/icon_search_image.svg'/>" />
+					 src="<c:url value = '/resources/images/icon_search_image.svg'/>" /> -->
 			</div>
 
 			<c:choose>
@@ -119,25 +114,21 @@
 		<!-- 메뉴 -->
 	<div class="div">
 		<div class="child1">
-			<div class="menu">
+			<div class="Hmenu">
 				<a>&nbsp;</a>
 				<div class="smallAll"></div>
 			</div>
 		</div>
 
-
 		<div class="child2">
-			<div class="menu">
+			<div class="Hmenu">
 				<a href="#" class="menuList">Offer</a>
 				<div class="smallAll">
 					<div>
-						<a href="#" class="smallList">모아보기</a>
+						<a href="main_jobList.do" class="smallList">모아보기</a>
 					</div>
 					<div>
-						<a href="#" class="smallList">지원하기</a>
-					</div>
-					<div>
-						<a href="#" class="smallList">등록하기</a>
+						<a href="main_insert.do" class="smallList">의뢰하기</a>
 					</div>
 				</div>
 			</div>
@@ -145,11 +136,14 @@
 
 
 		<div class="child2">
-			<div class="menu">
-				<a href="#" class="menuList">Customize</a>
+			<div class="Hmenu">
+				<a href="#" class="menuList">Other</a>
 				<div class="smallAll">
 					<div>
-						<a href="#" class="smallList">그림그리기</a>
+						<a href="editor.do" class="smallList">사진 편집</a>
+					</div>
+					<div>
+						<a href="main_pay_main.do" class="smallList">결제 하기</a>
 					</div>
 				</div>
 			</div>
@@ -157,7 +151,7 @@
 
 
 		<div class="child1">
-			<div class="menu">
+			<div class="Hmenu">
 				<a>&nbsp;</a>
 				<div class="smallAll"></div>
 			</div>

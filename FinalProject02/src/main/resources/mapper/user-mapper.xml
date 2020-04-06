@@ -31,15 +31,7 @@
 	</resultMap>
 
 
-	<select id="login" parameterType="com.project.shuttle.model.dto.TBUserDto" resultMap="userDto">
-		SELECT *
-		FROM TB_USER
-		WHERE USER_ID = #{userId}
-		AND
-		USER_PW =
-		#{userPw}
-	</select>
-
+	<!-- 마이페이지안에서 사용될 쿼리문 -->
 	<select id="getWrittenBoard" resultMap="boardDto">
 		<![CDATA[
 		SELECT * FROM (
@@ -61,6 +53,39 @@
 		]]>
 	</select>
 	
+	<select id="getDoingBoard" resultMap="boardDto">
+		<![CDATA[
+		SELECT * FROM (
+		SELECT * FROM (
+		SELECT ROWNUM RNM, JOB_SEQ, USER_ID, JOB_TITLE, JOB_CONTENT, JOB_REWARD, JOB_ADDR, JOB_CATEGORY, JOB_COMPLETE, JOB_DATE, JOB_START, JOB_DONE, JOB_VIEW 
+		FROM (SELECT * FROM TB_JOB WHERE USER_ID IN (
+		SELECT USER_ID FROM TB_APPLY WHERE APPLY_WOKER = #{userId}) ORDER BY JOB_SEQ DESC)) WHERE RNM <= #{pageCount}) WHERE RNM >= #{pageNum}
+		AND JOB_COMPLETE = 'D'
+		]]>
+	</select>
+	
+	<select id="getDoneBoard" resultMap="boardDto">
+		<![CDATA[
+		SELECT * FROM (
+		SELECT * FROM (
+		SELECT ROWNUM RNM, JOB_SEQ, USER_ID, JOB_TITLE, JOB_CONTENT, JOB_REWARD, JOB_ADDR, JOB_CATEGORY, JOB_COMPLETE, JOB_DATE, JOB_START, JOB_DONE, JOB_VIEW 
+		FROM (SELECT * FROM TB_JOB WHERE USER_ID IN (
+		SELECT USER_ID FROM TB_APPLY WHERE APPLY_WOKER = #{userId}) ORDER BY JOB_SEQ DESC)) WHERE RNM <= #{pageCount}) WHERE RNM >= #{pageNum}
+		AND JOB_COMPLETE = 'Y'
+		]]>
+	</select>
+	
+	<select id="getReviewBoard" resultMap="boardDto">
+		<![CDATA[
+		SELECT * FROM (
+		SELECT * FROM (
+		SELECT ROWNUM RNM, JOB_SEQ, USER_ID, JOB_TITLE, JOB_CONTENT, JOB_REWARD, JOB_ADDR, JOB_CATEGORY, JOB_COMPLETE, JOB_DATE, JOB_START, JOB_DONE, JOB_VIEW 
+		FROM (SELECT * FROM TB_JOB WHERE USER_ID IN (
+		SELECT USER_ID FROM TB_APPLY WHERE APPLY_WOKER = #{userId}) ORDER BY JOB_SEQ DESC)) WHERE RNM <= #{pageCount}) WHERE RNM >= #{pageNum}
+		AND JOB_COMPLETE = 'Y'
+		]]>
+	</select>
+	
 	<select id="countBoard" parameterType="String" resultType="int" >
 		SELECT COUNT(*) FROM TB_JOB
 		WHERE USER_ID = #{userId}
@@ -71,14 +96,63 @@
 		SELECT APPLY_SEQ FROM TB_APPLY WHERE APPLY_WOKER = #{userId}) ORDER BY JOB_SEQ DESC
 	</select>
 	
+	<select id="countDoingBoard" parameterType="String" resultType="int">
+		SELECT count(*) FROM TB_JOB 
+		WHERE 
+		USER_ID IN (SELECT USER_ID FROM TB_APPLY WHERE APPLY_WOKER = #{userId}) 
+		AND 
+		JOB_COMPLETE = 'D' ORDER BY JOB_SEQ DESC
+	</select>
+	
+	<select id="countDoneBoard" parameterType="String" resultType="int">
+		SELECT count(*) FROM TB_JOB 
+		WHERE 
+		USER_ID IN (SELECT USER_ID FROM TB_APPLY WHERE APPLY_WOKER = #{userId}) 
+		AND 
+		JOB_COMPLETE = 'Y' ORDER BY JOB_SEQ DESC
+	</select>
+	
+	<select id="countReviewBoard" parameterType="String" resultType="int">
+		SELECT count(*) FROM TB_JOB 
+		WHERE 
+		USER_ID IN (SELECT USER_ID FROM TB_APPLY WHERE APPLY_WOKER = #{userId}) 
+		AND 
+		JOB_COMPLETE = 'Y' ORDER BY JOB_SEQ DESC
+	</select>
+	
+	<update id="kakaoUpdateBread" parameterType="com.project.shuttle.model.dto.TBUserDto" >
+		UPDATE TB_USER SET
+		USER_COIN = USER_COIN + #{userCoin}
+		WHERE USER_ID = #{userId}
+	</update>
+	
+	<update id="mypageUpdate" parameterType="com.project.shuttle.model.dto.TBUserDto" >
+		UPDATE TB_USER SET
+		USER_PHONE = #{userPhone},
+		USER_ADDR = #{userAddr},
+		USER_PW = #{userPw}
+		WHERE USER_ID = #{userId}
+	</update>	
+	
+	<!-- 로그인, 회원가입 쿼리문 -->
+	<select id="login" parameterType="com.project.shuttle.model.dto.TBUserDto" resultMap="userDto">
+		SELECT *
+		FROM TB_USER
+		WHERE USER_ID = #{userId}
+		AND USER_PW = #{userPw}
+	</select>
+	
 	<select id="idchk" parameterType="com.project.shuttle.model.dto.TBUserDto" resultType="String" >
 		SELECT USER_ID FROM TB_USER 
 		WHERE USER_ID = #{userId}
 	</select>
 	
+	<!-- 쒸불 존나안돼네 개같은거 -->
 	<insert id="insertUser" parameterType="com.project.shuttle.model.dto.TBUserDto">
-	INSERT INTO VALUES()
-	</insert>
+	INSERT INTO TB_USER VALUES
+	<!-- USER_ID, USER_NAME, USER_PW,USER_PHONE, USER_ADDR, USER_COIN, USER_STATUS, USER_ACCOUNT, USER_BLOCK_DATE -->
+	(#{userId},#{userName},#{userPw},#{userPhone},#{userAddr}, 0, 'USER', 'www', 'empty',0)
+	</insert>	
 	
 
 </mapper>

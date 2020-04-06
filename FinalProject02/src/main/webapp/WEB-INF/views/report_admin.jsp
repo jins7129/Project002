@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Shuttle</title>
 <style type="text/css">
 .report_table, .report_table th, .report_table td{
 	border: 0;
@@ -60,6 +60,7 @@
 	width: 70%;
 }
 </style>
+<link rel="icon" href="/resources/images/icon.png" type="image/x-icon">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 	function search(){

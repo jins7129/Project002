@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<<<<<<< HEAD
 <title>Insert title here</title>
 <style type="text/css">
 .detail{
@@ -21,6 +22,10 @@
 	width: 20%;
 }
 </style>
+=======
+<title>Shuttle</title>
+<link rel="icon" href="/resources/images/icon.png" type="image/x-icon">
+>>>>>>> 0eac8dd153db9146f16cd12461c9b0c0085417b4
 <script type="text/javascript">
 	function dayshow(){
 		document.getElementById('day').style.display="block";

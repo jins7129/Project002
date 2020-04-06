@@ -1,6 +1,9 @@
 package com.project.shuttle;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -9,15 +12,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.project.shuttle.model.biz.TBJobBiz;
 import com.project.shuttle.model.biz.TBUserBiz;
+import com.project.shuttle.model.dto.TBJobDto;
 import com.project.shuttle.model.dto.TBUserDto;
 
 @Controller
@@ -25,11 +30,13 @@ public class HomeController {
 
 	@Autowired
 	public JavaMailSender emailSender;
-	
-	
+
 	@Autowired
 	private TBUserBiz biz;
 
+	@Autowired
+	private TBJobBiz JobBiz;
+	
 	@RequestMapping("/")
 	public ModelAndView ScheduleManagementRoot() {
 		ModelAndView mav = new ModelAndView("redirect:main.do");
@@ -59,6 +66,7 @@ public class HomeController {
 
 	}
 
+	// 로그아웃 기능
 	@RequestMapping("/logout.do")
 	public RedirectView logout(ModelAndView mav, HttpSession session) {
 //		session.invalidate();
@@ -71,6 +79,7 @@ public class HomeController {
 		return review;
 	}
 
+	// 로그인 AJAX
 	@RequestMapping(value = "/loginajax.do", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Boolean> loginAjax(HttpSession session, @RequestBody TBUserDto dto) {
@@ -97,7 +106,7 @@ public class HomeController {
 		boolean check = false;
 		if (res != null) {// 로그인 정보가 있다면
 			session.setAttribute("loginInfo", res);
-			System.out.println(res.getUserImgpath()+"imgPath");
+			System.out.println(res.getUserImgpath() + "imgPath");
 			check = true;
 		}
 		Map<String, Boolean> map = new HashMap<String, Boolean>();
@@ -106,36 +115,13 @@ public class HomeController {
 		return map;
 	}
 
-	@RequestMapping(value = "/sendMail.do")
-	public ModelAndView ssendMail(ModelAndView mav, String to) {
-		SimpleMailMessage message = new SimpleMailMessage();
-		System.out.println("1");
-		message.setTo(to);
-		System.out.println(to);
-		message.setSubject("Shuttle Email Verify");
-		int[] ranV = new int[6];
-		System.out.println("3");
-		String test = "";
-		for (int i = 0; i < ranV.length; i++) {
-			ranV[i] = (int) (Math.random() * 9);
-			test += ranV[i] + "";
-		}
-		System.out.println("4");
-		System.out.println(test);
-		System.out.println("5");
-		message.setText("회원가입을 위한 이메일 인증 메일입니다.\n인증번호 : ");
-		System.out.println("6");
-		emailSender.send(message);
-
-		mav.setViewName("main");
-		return mav;
-	}
-
+	// 이메일 인증기능
 	@RequestMapping(value = "/sendMail.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String sendMail(String to) {
 		SimpleMailMessage message = new SimpleMailMessage();
-		System.out.println("<"+to+">");
+		message.setTo("<" + to + ">");
+		System.out.println("<" + to + ">");
 		message.setTo(to);
 		message.setSubject("Shuttle Email Verify");
 		int[] ranV = new int[6];
@@ -145,24 +131,86 @@ public class HomeController {
 			verifyNum += ranV[i] + "";
 		}
 		message.setText("회원가입을 위한 이메일 인증 메일입니다.\n인증번호 : " + verifyNum);
-		System.out.println(message);
 		emailSender.send(message);
+
 		return verifyNum;
 	}
 
+	//회원가입 기능
 	@RequestMapping(value = "/insert.do")
-	public String insertBoard() {
-		
-		return "";
-	}
+	public String insertBoard(String userId, String userId2, String userId3, String userId4, String pw, String name,
+			String phone, String addr1, String addr2) {
+		TBUserDto dto = new TBUserDto(userId, pw, name, phone, addr1 + " " + addr2, "1");
 
+		if (biz.insertUser(dto) > 0) {
+			return "redirect:main.do";
+		} else {
+			return "redirect:signUp.do";
+		}
+	}
+	
+	//아이디 중복체크 기능
 	@RequestMapping(value = "/idchk.do")
 	@ResponseBody
-	public Boolean idChk(String id) {
-		boolean chkRes = false;
-		if (biz.idchk(id).equals(id)) {
-			chkRes = true;
+	public Boolean idChk(String Email_id) {
+		boolean chkRes;
+		chkRes = false;
+		try {
+			if (biz.idchk(Email_id).equals(Email_id)) {
+				chkRes = true;
+			}
+		} catch (Exception e) {
 		}
 		return chkRes;
 	}
+
+	//이미지 에디터
+	@RequestMapping(value = "/editor.do")
+	public String toastTest() {
+		return "main_imageEditor";
+	}
+	
+	//의뢰하기 폼으로 이동
+	@RequestMapping(value = "/main_insert.do")
+	public String main_boardinsert() {
+		return "main_boardinsert";
+	}
+	
+	//의뢰하기 글 작성 기능
+	@RequestMapping(value = "/main_insertRes.do")
+	public String main_boardInsertRes(String userId, String jobTitle, int jobReward, Date jobStart, 
+			Date jobDone, String jobAddr, String editordata, String jobCategory ) {
+		TBJobDto dto = new TBJobDto(userId, jobTitle, editordata, jobReward, jobAddr, jobCategory, jobStart, jobDone);
+		System.out.println(userId);
+		System.out.println(jobTitle);
+		System.out.println(jobReward);
+		System.out.println(jobStart);
+		System.out.println(jobDone);
+		System.out.println(jobAddr);
+		System.out.println(editordata);
+		System.out.println(jobCategory);
+
+		if (JobBiz.insert(dto) > 0) {
+			return "redirect:main.do";
+		} else {
+			return "redirect:main_insert.do";
+		}
+	}
+	
+	//Job 게시판 전체출력(헤더-모아보기)
+	@RequestMapping(value = "/main_jobList.do")
+	public String jobList(Model model) {
+		List<TBJobDto> list = new ArrayList<TBJobDto>();
+		list = JobBiz.selectList();
+		model.addAttribute("list", list);
+		return "main_jobList";
+	}
+	
+	//Job 게시판 내 글 클릭 시, 상세보기 (모아보기 - 글 클릭)
+//	@RequestMapping(value = "")
+//	public String jobDetail(Model model, int job_seq) {
+//		
+//		return "main_jobDetail";
+//	}
+	
 }

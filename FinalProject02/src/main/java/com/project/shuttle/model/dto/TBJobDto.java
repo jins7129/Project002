@@ -42,7 +42,43 @@ public class TBJobDto {
     // 조회수 
     private int jobView;
 
-    public int getJobSeq() {
+    
+    public TBJobDto() {
+	}
+
+	public TBJobDto(String userId, String jobTitle, String jobContent, 
+			int jobReward, String jobAddr,
+			String jobCategory, Date jobStart, Date jobDone) {
+		super();
+		this.userId = userId;
+		this.jobTitle = jobTitle;
+		this.jobContent = jobContent;
+		this.jobReward = jobReward;
+		this.jobAddr = jobAddr;
+		this.jobCategory = jobCategory;
+		this.jobStart = jobStart;
+		this.jobDone = jobDone;
+	}
+
+	public TBJobDto(int jobSeq, String userId, String jobTitle, String jobContent, int jobReward, String jobAddr,
+			String jobCategory, String jobComplete, String jobDate, Date jobStart, Date jobDone, int jobView) {
+		this.jobSeq = jobSeq;
+		this.userId = userId;
+		this.jobTitle = jobTitle;
+		this.jobContent = jobContent;
+		this.jobReward = jobReward;
+		this.jobAddr = jobAddr;
+		this.jobCategory = jobCategory;
+		this.jobComplete = jobComplete;
+		this.jobDate = jobDate;
+		this.jobStart = jobStart;
+		this.jobDone = jobDone;
+		this.jobView = jobView;
+	}
+	
+	
+
+	public int getJobSeq() {
         return jobSeq;
     }
 
