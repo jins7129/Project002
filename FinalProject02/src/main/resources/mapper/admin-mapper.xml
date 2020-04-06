@@ -19,6 +19,14 @@
 		<result property="userBlockDate" column="USER_BLOCK_DATE" />
 	</resultMap>
 	
+	<resultMap type="com.project.shuttle.model.dto.TBReviewDto" id="reviewDto">
+		<result property="reviewOwner" column="REVIEW_OWNER" />
+		<result property="reviewWorker" column="REVIEW_WORKER" />
+		<result property="reviewScore" column="REVIEW_SCORE" />
+		<result property="reviewCategory" column="REVIEW_CATEGORY" />
+		<result property="reviewContent" column="REVIEW_CONTENT" />
+	</resultMap>
+	
 	<select id = "countReport" resultType = "int">
 		SELECT COUNT(*) FROM TB_REPORT WHERE REPORT_STATUS = 'N'
 	</select>
@@ -71,4 +79,9 @@
 		FROM TB_USER
 		WHERE USER_ID = #{id}
 	</select>
+	
+	<insert id = "review_write" parameterType = "map">
+		INSERT INTO TB_REVIEW
+		VALUES(#{userId},#{review_id},#{score},#{title},#{content})
+	</insert>
 </mapper>

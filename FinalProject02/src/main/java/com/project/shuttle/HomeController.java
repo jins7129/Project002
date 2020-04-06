@@ -26,6 +26,7 @@ public class HomeController {
 	@Autowired
 	public JavaMailSender emailSender;
 	
+	
 	@Autowired
 	private TBUserBiz biz;
 
