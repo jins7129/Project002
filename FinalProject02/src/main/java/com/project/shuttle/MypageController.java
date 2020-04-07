@@ -261,6 +261,8 @@ public class MypageController {
 		// split 자체가 정규식으로 작동하는데 .(온점) 하나는 무작위 한글자를 의미한다고 함.
 		// 그렇기에 .(온점)을 찾아 자르고 싶으면 [.]이나 \\.으로 .이라는걸 명시하는 이스케이프 문자를 사용해야함
 		
+		String userImgpath = userId+"."+fileName[1];
+		
 		InputStream inStream = null;
 		OutputStream outStream = null;
 		
@@ -274,7 +276,7 @@ public class MypageController {
 				storage.mkdir();
 			}
 			
-			File newFile = new File(path+"/"+userId+"."+fileName[1]);
+			File newFile = new File(path+"/"+userImgpath);
 			newFile.createNewFile();
 			
 			outStream = new FileOutputStream(newFile);

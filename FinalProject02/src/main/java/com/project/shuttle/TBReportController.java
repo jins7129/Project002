@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.project.shuttle.model.biz.Paging;
 import com.project.shuttle.model.biz.TBReportBiz;
 import com.project.shuttle.model.dto.TBReportDto;
+import com.project.shuttle.model.dto.TBUserDto;
 
 @Controller
 public class TBReportController {
@@ -41,11 +42,11 @@ public class TBReportController {
 		
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
-			cntPerPage = "1";
+			cntPerPage = "5";
 		} else if (nowPage == null) {
 			nowPage = "1";
 		} else if (cntPerPage == null) { 
-			cntPerPage = "1";
+			cntPerPage = "5";
 		}
 		
 		paging = new Paging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
@@ -72,11 +73,11 @@ public class TBReportController {
 
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
-			cntPerPage = "1";
+			cntPerPage = "5";
 		} else if (nowPage == null) {
 			nowPage = "1";
 		} else if (cntPerPage == null) { 
-			cntPerPage = "1";
+			cntPerPage = "5";
 		}
 		
 		int total = 0;
@@ -153,5 +154,39 @@ public class TBReportController {
 			System.out.println("report_done 1번째 실패");
 			return "redirect:report_admin.do";
 		}	
+	}
+	
+	// 마이페이지 -> 리뷰 작성
+	@RequestMapping(value = "/review_write.do", method=RequestMethod.GET)
+	public String review_write(Model model, String id) {
+		
+		model.addAttribute("review_id",id);
+		
+		return "review_write";
+	}
+	
+	// 리뷰 작성 완료
+	@RequestMapping(value = "/review_writeres.do",method=RequestMethod.GET)
+	public String review_writeres(Model model, HttpSession session, String review_id, String score, String title, String content) {
+		
+		TBUserDto loginInfo = (TBUserDto) session.getAttribute("loginInfo");
+		String userId = loginInfo.getUserId();
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("userId", userId);
+		map.put("review_id", review_id);
+		map.put("score", score);
+		map.put("title", title);
+		map.put("content", content);
+		
+		int res = biz.review_write(map);
+		
+		if(res > 0) {
+			logger.info("review_write 성공");
+			return "";
+		} else {
+			logger.info("review_write 실패");
+			return "";
+		}
 	}
 }

@@ -4,6 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="1086121226988-79i2g3qsvsr85hmu6kh2i5jkelnofqrm.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <title>REGISTER</title>
 <link rel="icon" href="resources/images/icon.png" type="image/x-icon">
 <style>
@@ -85,6 +90,11 @@ function readURL(flag, input) {
 	}
 
 	//ID 중복 검사
+	var idkChk="N";  //REGISTER에서 검사할 항목
+	function idChked(check) {
+		var doc = document.getElementsByName("id")[0];
+		if (doc.value.trim() == "" || doc.value == null
+				|| doc.value == "undefined") {
 	var idkChk = "N"; //REGISTER에서 검사할 항목
 	function idChked() {
 		var doc = $("input[name=userId]").val();
@@ -107,6 +117,14 @@ function readURL(flag, input) {
 					}
 				},
 				error : function(err) {
+					var res = confirm("이 아이디를 사용하실수 있습니다.");
+					if(res == true){
+						$("#Email_id").prop("disabled",true);
+					}
+					idkChk="Y";
+					if(check == "Y"){
+						emailChk1 = "Y";
+					}
 					alert("기능 오류가 발생했습니다. 브라우저 콘솔을 확인해 주세요")
 				}
 			});
@@ -191,6 +209,61 @@ function readURL(flag, input) {
 			$("#insertForm").submit();
 		}
 	}
+	
+	// 카카오 로그인
+	function kakaoLogin() {
+        Kakao.init('cf755a94afb6a149564276600dcd27ed');
+        
+         // 카카오 로그인 버튼을 생성합니다.
+         Kakao.Auth.loginForm({
+         	success: function(authObj) {
+            	Kakao.API.request({
+                	url: '/v2/user/me',
+                    success: function(res) {
+                    	console.log(res);
+                                
+                        var userID = res.id;      //유저의 카카오톡 고유 id
+                        var userEmail = res.kakao_account.email;   //유저의 이메일
+                        document.getElementById('Email_id').value = userEmail;
+                        document.getElementById('pw').value = userID;
+                        
+                        idChked('Y');	// 이메일 아이디 중복검사 ajax
+                                
+                        Kakao.Auth.logout();
+                                
+                        },
+                        fail: function(error) {
+                        alert(JSON.stringify(error));
+                        }
+                    });
+                          
+                    },
+                    fail: function(err) {
+                    	alert(JSON.stringify(err));
+                    }
+		});
+	}
+	
+	function onSignIn(googleUser) {
+		// 정보
+		var profile = googleUser.getBasicProfile();
+		// 이메일
+		document.getElementById('Email_id').value = profile.getEmail();
+		// 아이디 코드
+		document.getElementById('pw').value = profile.getId();
+
+		// 비동기로 이메일과 아이디코드를 확인하고 정보 넘기기
+		idChked('Y');
+	 	
+		// ??
+		var id_token = googleUser.getAuthResponse().id_token;
+
+		// 로그아웃
+		var auth2 = gapi.auth2.getAuthInstance();
+		auth2.disconnect();
+		
+	}
+
 </script>
 </head>
 
@@ -216,11 +289,18 @@ function readURL(flag, input) {
 -->
 			<!-- 로그인하기 -->
 			<label id="registerID"> user id : </label> 
+				<input type="text" placeholder="please insert your id" name="id" id="Email_id" required="required" /> 
+				<input type="button" value="id-check" onclick="idChked('N');" id="idChk">
+			<hr id="idLine" />
+		</div>
 				<input type="text" class="inputText" placeholder="please insert your id" required="required" name="userId" /> 
 				<input type="button" class="inputBtn"  value="id-check" onclick="idChked();" id="idChk"> <br> <br>
 
 			<!-- 패스워드하기 -->
 			<label id="registerPW"> password : </label> 
+				<input type="password" placeholder="please insert your password" name="pw" id = "pw" onclick="idChkConfirm();" required="required" />
+			<hr id="pwLine" />
+		</div>
 				<input type="password" placeholder="please insert your password" class="inputText" name="pw" onclick="idChkConfirm();" required="required" /> <br> <br>
 
 			<!-- 이름 하기 -->
@@ -239,6 +319,46 @@ function readURL(flag, input) {
 			<label>Email Verify</label> 
 				<input type="button" value="Verify" class="inputBtn" onclick="verifyEmail();" id="verifyBtn"><br> <br>
 			인증번호: 
+			<input type="text" value="" id="VerifyNum" >	
+			<input type="button" value="확인" onclick="emailChk();" id="verifyChk">
+			
+		</div>
+		<hr>
+		<!-- register 아래 button -->
+		<div id="register_long_btn">
+			<input type="button" value="REGISTER" id="register_longBtn" onclick="register();" style="float: left; ;">
+			<input type="button" value="CANCEL" onclick="location.href='main.do'" style="float: left;;">
+		</div>
+	</form>
+	
+	<input type = "button" value = "카카오 로그인" onclick = "kakaoLogin();"/>
+	<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" id="google"></div>
+<!-- 결제페이지 더미코드 -->
+<!-- 	
+	<hr>
+	<h1>결제페이지</h1>
+	<label>결제금액을 선택하세요</label>
+	<select>
+		<option>1000		
+		<option>5000		
+		<option>10000		
+		<option>50000		
+	</select>\
+	
+	<input type="button" value="결제하기"><br>
+	
+	<label>은행</label>
+	<input type="text" value="" placeholder=""><br>
+	
+	<label>카드번호</label>
+	<input type="text" value="" placeholder=""><br>
+	
+	<label>유효기간</label>
+	<input type="text" value="" placeholder=""> <input type="text" value="" placeholder=""><br>
+
+	<label>비밀번호</label>
+	<input type="text" value="" placeholder="비밀번호를 입력하세요"><br>
+ -->
 				<input type="text" value="" class="inputText" id="VerifyNum"> 
 				<input type="button" class="inputBtn" value="확인" onclick="emailChk();" id="verifyChk">
 				<br> <br>
