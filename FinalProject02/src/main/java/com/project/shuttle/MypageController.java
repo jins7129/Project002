@@ -340,14 +340,50 @@ public class MypageController {
 	}
 
 	@RequestMapping("/main_jobDetail.do")
-	public ModelAndView boardDetail(ModelAndView mav, int jobSeq) {
+	public ModelAndView boardDetail(ModelAndView mav, int jobSeq, HttpSession session) {
 		
+		TBUserDto userInfo = (TBUserDto)session.getAttribute("loginInfo");
+		// 로그인유저정보
 		TBJobDto dto = jobBiz.selectOne(jobSeq);
+		// 게시글 정보
 		List<TBUserDto> applyInfo = applyBiz.selectApply(jobSeq);
+		// 해당 게시글의 지원자 정보
 		jobBiz.addView(jobSeq);
+		// 조회수 증가
+		TBUserDto writerInfo = userBiz.userDetail(dto.getUserId());
+		// 게시글 작성자 정보
+		TBReviewDto reviewDto = userBiz.countReview(dto.getUserId());
+		// 게시글 작성자 별점
+		String userScore = "평가가 없습니다.";
 		
+		if(reviewDto != null) {
+			userScore = reviewDto.getReviewScore();
+		}
+		Map<String,String> map = new HashMap<String, String>();
+		String apply = "false";
+		String writer = "false";
+		
+		for(int i = 0; i < applyInfo.size(); i++) {
+			if(userInfo.getUserId().equals(applyInfo.get(i).getUserId())) {
+				// 유저아이디와 지원자 정보 중의 아이디가 같다면
+				apply = "true";
+			}
+		}
+		
+		if(userInfo.getUserId().equals(dto.getUserId())) {
+			writer = "true";
+		}
+		
+		map.put("apply", apply);
+		map.put("writer", writer);
+		map.put("userScore", userScore);
+		
+		
+		mav.addObject("check",map);
 		mav.addObject("applyInfo",applyInfo);
 		mav.addObject("jobInfo",dto);
+		mav.addObject("writerInfo",writerInfo);
+		
 		mav.setViewName("main_jobDetail");
 		
 		return mav;
@@ -381,7 +417,6 @@ public class MypageController {
 		dto.setApplyOwner(jobUserId);
 		RedirectView review = new RedirectView("/main_jobDetail.do?jobSeq="+jobSeq);
 		int res =applyBiz.boardApplyUpdate(dto);
-		System.out.println(res+"//왔다");
 		return review;
 	}
 	

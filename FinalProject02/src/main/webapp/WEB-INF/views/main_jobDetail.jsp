@@ -75,7 +75,7 @@ function applyCancel(){
 }
 #boardHeader{
 	border-radius: 50px 50px 0px 0px;
-	height: 150px;
+	height: 300px;
 }
 #boardHeaderLine1{
 	height: 30px;
@@ -133,7 +133,10 @@ function applyCancel(){
 .btnDetail:hover {
 	background: black;
 }
-	
+
+.img{
+	border-radius: 40px;
+}	
 
 </style>
 </head>
@@ -151,6 +154,11 @@ function applyCancel(){
 	<div style="float:right; padding:10px;">유형 : ${jobInfo.jobCategory }</div><br/>
 	<div style="float:left; padding:10px; clear:both;"  >기간 : ${jobInfo.jobStart } ~ ${jobInfo.jobDone }</div>
 	<div style="float:right; padding:10px;">작성일 : ${jobInfo.jobDate }</div><br/>
+	<div style="float:left; padding:10px; clear:both;"  >작성자 : ${jobInfo.userId }</div>
+	<div style="float:right; padding:10px;">보상 : ${jobInfo.jobReward }</div><br/>
+	<div style="float:right; padding:10px;">평점 : ${check.userScore }</div>
+	<div style="position: relative; top:15px; left:-230px; "  ><img class="img" style="width: 30%; height: 30%;" src="resources/file/profilePhoto/${writerInfo.userImgpath }"/></div>
+	
 </div>
 <c:choose>
 	<c:when test="${jobInfo.jobComplete == 'N' }">
@@ -171,26 +179,18 @@ function applyCancel(){
 ${jobInfo.jobContent }
 </div>
 <div id="boardFooter" class="board">
+
 <c:choose>
-	<c:when test="${loginInfo.userId == jobInfo.userId }">
-		<input type="button" class="btnDetail" value="BACK" onclick="history.back();" />
+	<c:when test="${check.apply == 'true' }">
+		<input type="button" class="btnDetail" value="CANCEL" onclick="applyCancel();"/>
 	</c:when>
-	<c:otherwise>
-		<c:choose>
-			<c:when test="${jobInfo.jobComplete =='N' }">
+		<c:otherwise>
+			<c:if test="${check.writer =='false' }">
 				<input type="button" class="btnDetail" value="APPLY" onclick="apply();" />
-			</c:when>
-			<c:otherwise>
-				<input type="button" class="btnDetail" value="CANCEL" onclick="applyCancel();"/>
-			</c:otherwise>
-		</c:choose>
-	</c:otherwise>
-	
-		
-			
-		
-	
+			</c:if>
+		</c:otherwise>
 </c:choose>
+<input type="button" class="btnDetail" value="BACK" onclick="history.back();" />
 </div>
 </div>
 </div>
