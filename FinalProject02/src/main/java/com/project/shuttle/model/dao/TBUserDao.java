@@ -23,6 +23,7 @@ public interface TBUserDao {
 	public int kakaoUpdateBread(TBUserDto dto);
 	
 	public int mypageUpdate(TBUserDto dto);
+	public int mypagePhotoUpdate(TBUserDto dto);
 	
 	// 로그인, 회원가입 관련
 	public TBUserDto login(TBUserDto dto);

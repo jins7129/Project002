@@ -15,8 +15,6 @@ public class TBUserBizImpl implements TBUserBiz {
 	@Autowired
 	private TBUserDao userDao;
 
-	
-
 	@Override
 	public List<TBJobDto> getWrittenBoard(int pageNum, int pageCount, String userId) {
 		// 내가 쓴 글 불러오기
@@ -128,7 +126,11 @@ public class TBUserBizImpl implements TBUserBiz {
 		return userDao.mypageUpdate(dto);
 	}
 
-	
+	@Override
+	public int mypagePhotoUpdate(TBUserDto dto) {
+		return userDao.mypagePhotoUpdate(dto);
+	}
+
 	@Override
 	public TBUserDto login(TBUserDto dto) {
 		return userDao.login(dto);
@@ -143,6 +145,7 @@ public class TBUserBizImpl implements TBUserBiz {
 	public String idchk(String id) {
 		return userDao.idchk(id);
 	}
+
 
 
 }

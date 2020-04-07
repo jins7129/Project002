@@ -77,8 +77,9 @@
 	overflow: hidden; 
 	clip:rect(0,0,0,0); 
 	border: 0; }
-label { 
+label, .submitBtn { 
 display: inline-block; 
+width: 120px;
 padding: 0 20px; 
 color: #999; 
 font-size: inherit; 
@@ -90,9 +91,6 @@ border: 1px solid #ebebeb;
 border-bottom-color: #e2e2e2; 
 border-radius: .25em;
 
-}
-.submitBtn{
-	display: none;
 }
 
 </style>
@@ -119,12 +117,12 @@ border-radius: .25em;
 	<%@ include file="/WEB-INF/views/header.jsp"%>
 
 	<div align="center">
-		<img src="resources/file/profilePhoto/${loginInfo.userId}.png" />
+		<img style="width: 30%; height: 30%;" src="resources/file/profilePhoto/${loginInfo.userImgpath}" />
 		
 		<form:form id="imgUpload" method="post" enctype="multipart/form-data" action="mypage_update_img.do">
-		<label for="file">업로드</label>
+		<label for="file">Upload</label>
 		<input type="file" class="btnUpdate" id="file" name="mpfile"/>
-		<input class="submitBtn" type="submit" value="send"/>
+		<input class="submitBtn" type="submit" value="Send"/>
 		</form:form>
 		
 		<form action="mypage_updateres.do" method="post" >
@@ -162,14 +160,13 @@ border-radius: .25em;
 				
 				<tr>
 					<td colspan="3" align="right"><input id="btnUpdate"
-					type="submit" value="수정완료" onclick="imgUpload();"/><input class="btnUpdate"
+					type="submit" value="수정완료"/><input class="btnUpdate"
 					type="button" onclick="history.back();" value="취소"/></td>
 					
 				</tr>
 			</table>
 		</form>
 	</div>
-
 	<%@ include file="/WEB-INF/views/footer.jsp"%>
 
 </body>

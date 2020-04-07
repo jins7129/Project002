@@ -73,6 +73,7 @@ SELECT * FROM (
 		
 		--유저테이블 조회용 쿼리문
 SELECT * FROM TB_USER;
+<<<<<<< HEAD
 
 SELECT * FROM TB_JOB;
 
@@ -81,3 +82,5 @@ UPDATE TB_JOB SET JOB_VIEW = (SELECT JOB_VIEW FROM TB_JOB WHERE JOB_SEQ = 25) + 
 
 --컬럼 타입 변경
 ALTER TABLE TB_JOB MODIFY (JOB_CONTENT LONG());
+=======
+>>>>>>> 91c12e657deab38ff5f6663ca685fefeb0c4ccaa

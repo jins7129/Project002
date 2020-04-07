@@ -342,8 +342,10 @@
 	<%@ include file="/WEB-INF/views/header.jsp"%>
 
 	<div align="center">
-		<img src="resources/file/profilePhoto/${loginInfo.userImgpath}.png" />
+		<img style="width: 30%; height: 30%;" src="resources/file/profilePhoto/${loginInfo.userImgpath}" />
 		<table>
+		
+		
 			<tr>
 				<td>이름 :</td>
 				<td>${loginInfo.userName }</td>
@@ -386,9 +388,7 @@
 		</div>
 	</div>
 	
-	<br/>
-	<hr/>	
-	<br/>
+	<br/><br/>
 	
 	<div align="center" >
 		<h3>내가 신청한 글</h3>
@@ -404,7 +404,7 @@
 		</div>
 	
 	</div>
-	<br/><hr/><br/>
+	<br/><br/>
 	<div align="center" >
 		<h3>내가 진행중인 글</h3>
 			<div id="doingBoard" class="wrapper" align="left" >
@@ -419,7 +419,7 @@
 		</div>
 	
 	</div>
-	<br/><hr/><br/>
+	<br/><br/>
 	<div align="center" >
 		<h3>내가 완료한 글</h3>
 			<div id="doneBoard" class="wrapper" align="left" >
