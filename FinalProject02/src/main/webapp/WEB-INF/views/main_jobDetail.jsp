@@ -4,9 +4,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Shuttle</title>
+<link rel="icon" href="/resources/images/icon.png" type="image/x-icon">
 </head>
 <body>
+
+<%@ include file="/WEB-INF/views/header.jsp"%>
+
+<div align="center" >
+
+${jobInfo.jobContent }
+
+</div>
+
+
+<%@ include file="/WEB-INF/views/footer.jsp" %>
 
 </body>
 </html>

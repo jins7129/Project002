@@ -18,10 +18,17 @@ public class TBJobBizImpl implements TBJobBiz {
 	public int insert(TBJobDto dto) {
 		return dao.insert(dto);
 	}
+	
+	@Override
+	public TBJobDto selectOne(int jobSeq) {
+		return dao.selectOne(jobSeq);
+	}
 
 	@Override
 	public List<TBJobDto> selectList() {
 		return dao.selectList();
 	}
+
+	
 
 }

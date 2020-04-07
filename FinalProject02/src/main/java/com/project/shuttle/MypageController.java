@@ -5,9 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,26 +13,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.WebUtils;
 
 import com.project.shuttle.model.biz.KakaoPayBiz;
+import com.project.shuttle.model.biz.TBJobBiz;
 import com.project.shuttle.model.biz.TBUserBiz;
 import com.project.shuttle.model.dto.Criteria;
-import com.project.shuttle.model.dto.KakaoPayDto;
 import com.project.shuttle.model.dto.PageMaker;
 import com.project.shuttle.model.dto.TBJobDto;
 import com.project.shuttle.model.dto.TBUserDto;
@@ -46,6 +36,9 @@ public class MypageController {
 	
 	@Autowired
 	private TBUserBiz userBiz;
+	
+	@Autowired
+	private TBJobBiz jobBiz;
 	
 	@Autowired
 	private KakaoPayBiz kakaopay;
@@ -101,7 +94,7 @@ public class MypageController {
 		
 		Criteria cri = new Criteria();	// 넘겨 받은 페이지 번호로 페이지를 설정할 객체
 		cri.setPage(pageNum);	// 보여줄 페이지 번호(넘겨 받은 pageNum 값)
-		cri.setPageCount(10);	// 해당 페이지에서 보여줄 게시글의 갯수
+		cri.setPageCount(9);	// 해당 페이지에서 보여줄 게시글의 갯수
 		
 		PageMaker pageMaker = new PageMaker();	// 페이지 번호를 생성해줄 객체
 		pageMaker.setCri(cri);	// 위의 페이지 번호를 설정해줌
@@ -126,7 +119,7 @@ public class MypageController {
 		
 		Criteria cri = new Criteria();	// 넘겨 받은 페이지 번호로 페이지를 설정할 객체
 		cri.setPage(pageNum);	// 보여줄 페이지 번호(넘겨 받은 pageNum 값)
-		cri.setPageCount(10);	// 해당 페이지에서 보여줄 게시글의 갯수
+		cri.setPageCount(9);	// 해당 페이지에서 보여줄 게시글의 갯수
 		
 		PageMaker pageMaker = new PageMaker();	// 페이지 번호를 생성해줄 객체
 		pageMaker.setCri(cri);	// 위의 페이지 번호를 설정해줌
@@ -151,7 +144,7 @@ public class MypageController {
 		
 		Criteria cri = new Criteria();	// 넘겨 받은 페이지 번호로 페이지를 설정할 객체
 		cri.setPage(pageNum);	// 보여줄 페이지 번호(넘겨 받은 pageNum 값)
-		cri.setPageCount(10);	// 해당 페이지에서 보여줄 게시글의 갯수
+		cri.setPageCount(9);	// 해당 페이지에서 보여줄 게시글의 갯수
 		
 		PageMaker pageMaker = new PageMaker();	// 페이지 번호를 생성해줄 객체
 		pageMaker.setCri(cri);	// 위의 페이지 번호를 설정해줌
@@ -176,7 +169,7 @@ public class MypageController {
 		
 		Criteria cri = new Criteria();	
 		cri.setPage(pageNum);	
-		cri.setPageCount(10);	
+		cri.setPageCount(9);	
 		
 		PageMaker pageMaker = new PageMaker();	
 		pageMaker.setCri(cri);	
@@ -200,7 +193,7 @@ public class MypageController {
 		
 		Criteria cri = new Criteria();	
 		cri.setPage(pageNum);	
-		cri.setPageCount(10);	
+		cri.setPageCount(9);	
 		
 		PageMaker pageMaker = new PageMaker();	
 		pageMaker.setCri(cri);	
@@ -266,9 +259,13 @@ public class MypageController {
 		InputStream inStream = null;
 		OutputStream outStream = null;
 		
+		loginInfo.setUserImgpath(userImgpath);
+		userBiz.mypagePhotoUpdate(loginInfo);// 사진경로 바꾸는 biz
+		
+		
 		try {
 			inStream = file.getInputStream();
-			String path = WebUtils.getRealPath(request.getSession().getServletContext(),"/storage");
+			String path = WebUtils.getRealPath(request.getSession().getServletContext(),"/resources/file/profilePhoto");
 			System.out.println("upload path: " +path);
 		
 			File storage = new File(path);
@@ -299,6 +296,17 @@ public class MypageController {
 			}
 		}
 		return "user_mypage_main";
+	}
+	
+	@RequestMapping("/main_jobDetail.do")
+	public ModelAndView boardDetail(ModelAndView mav, int jobSeq) {
+		
+		TBJobDto dto = jobBiz.selectOne(jobSeq);
+		
+		mav.addObject("jobInfo",dto);
+		mav.setViewName("main_jobDetail");
+		
+		return mav;
 	}
 	
 }

@@ -9,4 +9,6 @@ public interface TBJobBiz {
 
 	public List<TBJobDto> selectList();
 	
+	public TBJobDto selectOne(int jobSeq);
+	
 }

@@ -7,5 +7,6 @@ import com.project.shuttle.model.dto.TBJobDto;
 public interface TBJobDao {
 	// Job Insert 기능
 	public int insert(TBJobDto dto);
+	public TBJobDto selectOne(int jobSeq);
 	public List<TBJobDto> selectList();
 }

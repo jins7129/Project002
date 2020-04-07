@@ -30,7 +30,7 @@
 	<!-- 변수값 바꿀것 -->
 	<select id="selectOne" resultMap="JobDto" parameterType="int">
 	SELECT JOB_SEQ, USER_ID, JOB_TITLE, JOB_CONTENT, JOB_REWARD, JOB_ADDR, JOB_CATEGORY, JOB_COMPLETE, JOB_DATE, JOB_START, JOB_DONE, JOB_VIEW
-	FROM TB_JOB WHERE JOB_SEQ  = 1 
+	FROM TB_JOB WHERE JOB_SEQ  = #{jobSeq} 
 	</select>
 
 

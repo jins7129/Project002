@@ -85,8 +85,6 @@
 				dataType : "json", // 명시해줘야함
 				success : function(msg) {
 					if (msg.check == true) {
-						alert("성공");
-						location.href = 'main.do';
 						//window.location.reload();
 						history.go(0);			// 페이지 새로고침 
 						back();
@@ -186,7 +184,9 @@
 .back:hover{
 	background: black;
 }
-
+#kakao:hover{
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -243,22 +243,13 @@
 					</div>
 
 					<div class="login100-form-social flex-c-m">
-						<a href="#" class="login100-form-social-item flex-c-m bg1 m-r-5">
-							<!-- <i class="fa fa-facebook-f" aria-hidden="true"></i> --> <img
-							id="google"
-							src="<c:url value = '/resources/Login/images/icons/1200px-Google__G__Logo.svg.png'/>" />
+						<a data-theme="dark" data-onsuccess="onSignIn" class="login100-form-social-item flex-c-m bg1 m-r-5 g-signin2">
+							<img id="google" src="<c:url value = '/resources/Login/images/icons/1200px-Google__G__Logo.svg.png'/>" />
 						</a> <a onclick="kakaoLogin();" class="login100-form-social-item flex-c-m bg2 m-r-5">
-							<!-- <i class="fa fa-google" aria-hidden="true"></i> --> <img
-							id="kakao"
-							src="<c:url value = '/resources/Login/images/icons/kakaolink_btn_medium.png'/>" />
+							<img id="kakao" src="<c:url value = '/resources/Login/images/icons/kakaolink_btn_medium.png'/>" />
 						</a>
 					</div>
-					<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" id="google"></div>
 				</form>
-
-				<!-- <div class="login100-more"></div> -->
-				<%-- 				<div class="login100-more"
-					style="background-image: url('<c:url value = '/resources/Login/images/kevin-bhagat-zNRITe8NPqY-unsplash.jpg'/>');"></div> --%>
 			</div>
 		</div>
 	</div>

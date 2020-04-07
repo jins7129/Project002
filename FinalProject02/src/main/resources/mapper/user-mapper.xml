@@ -134,6 +134,12 @@
 		WHERE USER_ID = #{userId}
 	</update>	
 	
+	<update id="mypagePhotoUpdate" parameterType="com.project.shuttle.model.dto.TBUserDto">
+		UPDATE TB_USER SET
+		USER_IMGPATH = #{userImgpath}
+		WHERE USER_ID = #{userId}
+	</update>
+	
 	<!-- 로그인, 회원가입 쿼리문 -->
 	<select id="login" parameterType="com.project.shuttle.model.dto.TBUserDto" resultMap="userDto">
 		SELECT *
