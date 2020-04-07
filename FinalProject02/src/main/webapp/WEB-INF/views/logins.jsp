@@ -97,7 +97,8 @@
 	justify-content: center;
 	align-items: center;
 	padding: 0 20px;
-	width: 100px;
+	margin: 10px;
+	width: 80px;
 	height: 35px;
 	border-radius: 10px;
 	background: rgb(248, 112, 97);
