@@ -13,7 +13,8 @@
 <style type="text/css">
 .input {
 	border: 1px solid black;
-	height: 30px;
+	height: 40px;
+	margin: 10px;
 	border-radius: 5px 5px 5px 5px;
 }
 
@@ -21,7 +22,7 @@
 	border-color: rgb(248, 112, 97);
 }
 
-#btnUpdate {
+.btnUpdate {
 	justify-content: center;
 	align-items: center;
 	padding: 0 20px;
@@ -42,10 +43,58 @@
 	-moz-transition: all 0.4s;
 	transition: all 0.4s;
 }
-
-#btnUpdate:hover {
+#btnUpdate{
+	background: #00bf8f;
+	justify-content: center;
+	align-items: center;
+	padding: 0 20px;
+	margin: 5px;
+	width: 100px;
+	height: 35px;
+	border-radius: 10px;
+	cursor: pointer;
+	/* font-family: Montserrat-Bold; */
+	font-size: 15px;
+	color: #fff;
+	line-height: 1.1;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	-webkit-transition: all 0.4s;
+	-o-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	transition: all 0.4s;
+}
+.btnUpdate:hover, #btnUpdate:Hover {
 	background: black;
 }
+#file{
+ /* 파일 필드 숨기기 */ 
+	position: absolute; 
+		width: 1px; 
+	height: 1px; 
+	padding: 0; 
+	margin: -1px; 
+	overflow: hidden; 
+	clip:rect(0,0,0,0); 
+	border: 0; }
+label { 
+display: inline-block; 
+padding: 0 20px; 
+color: #999; 
+font-size: inherit; 
+line-height: normal; 
+vertical-align: middle; 
+background-color: #fdfdfd; 
+cursor: pointer; 
+border: 1px solid #ebebeb; 
+border-bottom-color: #e2e2e2; 
+border-radius: .25em;
+
+}
+.submitBtn{
+	display: none;
+}
+
 </style>
 <script type="text/javascript">
 	//도로명주소 팝업 함수
@@ -60,6 +109,9 @@
 		$("#registerAddr").val(roadAddrPart1);
 		$("#registerAddr1").val(addrDetail + " " + zipNo);
 	}
+	function imgUpload() {
+		$("#imgUpload").submit();
+	}
 </script>
 </head>
 <body>
@@ -69,10 +121,10 @@
 	<div align="center">
 		<img src="resources/file/profilePhoto/${loginInfo.userId}.png" />
 		
-		<form:form method="post" enctype="multipart/form-data" action="mypage_update_img.do">
-		file<br/>										
-		<input type="file" name="mpfile"/>
-		<input type="submit" value="send"/>
+		<form:form id="imgUpload" method="post" enctype="multipart/form-data" action="mypage_update_img.do">
+		<label for="file">업로드</label>
+		<input type="file" class="btnUpdate" id="file" name="mpfile"/>
+		<input class="submitBtn" type="submit" value="send"/>
 		</form:form>
 		
 		<form action="mypage_updateres.do" method="post" >
@@ -103,14 +155,14 @@
 							<input id="registerAddr" class="input" type="text" value="${loginInfo.userAddr }"
 								onclick="openPop_juso();" required="required" name="addr1" style="margin: 2px;" >
 							<input id="registerAddr1" class="input" type="text" value=""
-								required="required" name="addr2">
+								name="addr2">
 						</div>
 					</td>
 				</tr>
 				
 				<tr>
 					<td colspan="3" align="right"><input id="btnUpdate"
-					type="submit" value="수정완료"/><input id="btnUpdate"
+					type="submit" value="수정완료" onclick="imgUpload();"/><input class="btnUpdate"
 					type="button" onclick="history.back();" value="취소"/></td>
 					
 				</tr>
