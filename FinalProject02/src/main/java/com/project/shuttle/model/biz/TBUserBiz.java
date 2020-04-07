@@ -3,6 +3,7 @@ package com.project.shuttle.model.biz;
 import java.util.List;
 
 import com.project.shuttle.model.dto.TBJobDto;
+import com.project.shuttle.model.dto.TBReviewDto;
 import com.project.shuttle.model.dto.TBUserDto;
 
 public interface TBUserBiz {
@@ -29,4 +30,8 @@ public interface TBUserBiz {
 	public int insertUser(TBUserDto dto);
 	
 	public String idchk(String id);
+	
+	// 글 상세보기에서 사용될 유저 정보(APPLY한 유저)
+	public TBUserDto userDetail(String userId);
+	public TBReviewDto countReview(String userId);
 }

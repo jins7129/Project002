@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.shuttle.model.dao.TBApplyDao">
+
+	<resultMap type="com.project.shuttle.model.dto.TBJobDto" id="JobDto">
+		<result property="jobSeq" column="JOB_SEQ" />
+		<result property="userId" column="USER_ID" />
+		<result property="jobTitle" column="JOB_TITLE" />
+		<result property="jobContent" column="JOB_CONTENT" />
+		<result property="jobReward" column="JOB_REWARD" />
+		<result property="jobAddr" column="JOB_ADDR" />
+		<result property="jobCategory" column="JOB_CATEGORY" />
+		<result property="jobComplete" column="JOB_COMPLETE" />
+		<result property="jobDate" column="JOB_DATE" />
+		<result property="jobStart" column="JOB_START" />
+		<result property="jobDone" column="JOB_DONE" />
+		<result property="jobView" column="JOB_VIEW" />
+	</resultMap>
+	
+	<resultMap type="com.project.shuttle.model.dto.TBApplyDto" id="applyDto">
+		<result property="applyWoker" column="APPLY_WOKER" />
+		<result property="applyOwner" column="APPLY_OWNER" />
+		<result property="applySeq" column="APPLY_SEQ" />
+	</resultMap>
+	
+	<resultMap type="com.project.shuttle.model.dto.TBUserDto" id="userDto">
+		<result property="userId" column="USER_ID" />
+		<result property="userName" column="USER_NAME" />
+		<result property="userPw" column="USER_PW" />
+		<result property="userPhone" column="USER_PHONE" />
+		<result property="userAddr" column="USER_ADDR" />
+		<result property="userCoin" column="USER_COIN" />
+		<result property="userStatus" column="USER_STATUS" />
+		<result property="userImgpath" column="USER_IMGPATH" />
+		<result property="userAccount" column="USER_ACCOUNT" />
+		<result property="userBlockDate" column="USER_BLOCK_DATE" />
+	</resultMap>
+	
+	<select id="selectApply" parameterType="int" resultMap="userDto" >
+		SELECT * FROM TB_USER
+		WHERE USER_ID IN (SELECT APPLY_WOKER FROM TB_APPLY
+		WHERE APPLY_SEQ = #{applySeq})
+	</select>
+	
+	<!-- 보드관련 신청, 신청취소 -->
+	<insert id="boardApplyUpdate" parameterType="com.project.shuttle.model.dto.TBApplyDto">
+		INSERT INTO TB_APPLY VALUES(#{applyWoker},#{applyOwner},#{applySeq})
+	</insert>
+	
+	<delete id="boardApplyCancel" parameterType="com.project.shuttle.model.dto.TBApplyDto" >
+		DELETE TB_APPLY 
+		WHERE APPLY_WOKER = #{applyWoker}
+		AND
+		APPLY_SEQ = #{applySeq}
+	</delete>
+	
+</mapper>

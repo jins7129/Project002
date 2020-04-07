@@ -29,6 +29,14 @@
 		<result property="jobDone" column="JOB_DONE" />
 		<result property="jobView" column="JOB_VIEW" />
 	</resultMap>
+	
+	<resultMap type="com.project.shuttle.model.dto.TBReviewDto" id="reviewDto">
+		<result property="reviewOwner" column="REVIEW_OWNER" />
+		<result property="reviewWoker" column="REVIEW_WOKER" />
+		<result property="reviewScore" column="REVIEW_SCORE" />
+		<result property="reviewCategory" column="REVIEW_CATEGORY" />
+		<result property="reviewContent" column="REVIEW_CONTENT" />
+	</resultMap>
 
 
 	<!-- 마이페이지안에서 사용될 쿼리문 -->
@@ -156,8 +164,17 @@
 	<insert id="insertUser" parameterType="com.project.shuttle.model.dto.TBUserDto">
 	INSERT INTO TB_USER VALUES
 	<!-- USER_ID, USER_NAME, USER_PW,USER_PHONE, USER_ADDR, USER_COIN, USER_STATUS, USER_ACCOUNT, USER_BLOCK_DATE -->
-	(#{userId},#{userName},#{userPw},#{userPhone},#{userAddr}, 0, 'USER', 'www', 'empty',0)
+	(#{userId},#{userName},#{userPw},#{userPhone},#{userAddr}, 0, 'USER', 'imgSample.png', 'empty',0)
 	</insert>	
 	
-
+	<!-- 보드 디테일에서 쓸 유저정보(apply한 유저의 정보) -->
+	<select id="userDetail" parameterType="String" resultMap="userDto" >
+		SELECT * FROM TB_USER
+		WHERE USER_ID = #{userId}
+	</select>
+	
+	<select id="countReview" parameterType="String" resultMap="reviewDto">
+		SELECT TRUNC(SUM(REVIEW_SCORE/(SELECT COUNT(*) FROM TB_REVIEW WHERE REVIEW_WORKER = #{userId})),1) as REVIEW_SCORE FROM TB_REVIEW
+		WHERE REVIEW_WORKER = #{userId}
+	</select>
 </mapper>

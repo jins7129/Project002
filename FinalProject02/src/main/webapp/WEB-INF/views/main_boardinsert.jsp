@@ -49,13 +49,40 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote-lite.min.js"></script>
 <script type="text/javascript">
-   $(function() {
-     $('#summernote').summernote({
-       height: 500,
-       witdh : 200
-       //lang: 'ko-KR' // 언어 세팅
-     });
-   });
+$(function() {
+    $('#summernote').summernote({
+      height: 500,
+      witdh : 200,
+      focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+	  placeholder: '내용을 작성해주세요',
+      //callback
+      callbacks: {
+			onImageUpload: function(files, editor, welEditable) {
+	            for (var i = files.length - 1; i >= 0; i--) {
+	            	sendFile(files[i], this);
+	            }
+	        }
+		}
+    });
+    
+    //upload function
+    function sendFile(file, el) {
+		var form_data = new FormData();
+      	form_data.append('file', file);
+      	$.ajax({
+        	data: form_data,
+        	type: "POST",
+        	url: 'insertTest.do',
+        	cache: false,
+        	contentType: false,
+        	enctype: 'multipart/form-data',
+        	processData: false,
+        	success: function(img_name) {
+          		$(el).summernote('editor.insertImage', img_name);
+        	}
+      	});
+    }
+  });
 </script>
 </head>
 <body>
@@ -78,8 +105,11 @@
 			
 			<label>Location : </label>
 			<input type="text" class="inputText" placeholder="please insert address" name="jobAddr"><br><br>
+			<div style="width:800px; text-align:left;" >
+			<textarea id="summernote" name="editordata" >
+			</textarea>
+			</div>
 			
-			<textarea id="summernote" name="editordata"></textarea>
 			<br><br>
 			<label>Category</label>
 				<select name="jobCategory">

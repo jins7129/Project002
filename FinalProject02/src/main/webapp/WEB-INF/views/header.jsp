@@ -13,15 +13,9 @@
 <meta charset="UTF-8">
 <title>헤더</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
-<link rel="icon" href="#">
-
 <link href="<c:url value = '/resources/css/header.css'/>" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300&display=swap" rel="stylesheet">
-
-
-<script type="text/javascript"
-	src="<c:url value = '/resources/js/header.js'/>"></script>
+<script type="text/javascript" src="<c:url value = '/resources/js/header.js'/>"></script>
 
 </head>
 <body>

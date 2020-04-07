@@ -83,4 +83,21 @@ UPDATE TB_JOB SET JOB_VIEW = (SELECT JOB_VIEW FROM TB_JOB WHERE JOB_SEQ = 25) + 
 --컬럼 타입 변경
 ALTER TABLE TB_JOB MODIFY (JOB_CONTENT LONG());
 =======
->>>>>>> 91c12e657deab38ff5f6663ca685fefeb0c4ccaa
+
+
+
+SELECT * FROM TB_APPLY
+
+INSERT INTO TB_APPLY VALUES('user3@naver.com','user@naver.com',62)
+
+INSERT INTO TB_REVIEW VALUES('user@naver.com','user2@naver.com',4,'test','test');
+
+SELECT TRUNC(SUM(REVIEW_SCORE/(SELECT COUNT(*) FROM TB_REVIEW WHERE REVIEW_WORKER = 'user2@naver.com')), 1) as REVIEW_SCORE FROM TB_REVIEW
+		WHERE REVIEW_WORKER = 'user2@naver.com'
+		
+		
+SELECT SUM(REVIEW_SCORE) FROM TB_REVIEW WHERE REVIEW_WORKER = 'user2@naver.com'
+
+UPDATE TB_USER SET USER_IMGPATH = 'user2@naver.com.jpg' WHERE USER_ID = 'user2@naver.com'
+
+DELETE TB_APPLY WHERE APPLY_WOKER = 'user3@naver.com'
