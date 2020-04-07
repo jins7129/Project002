@@ -157,7 +157,6 @@
 	</div>
 	
 	<input type = "button" value = "리뷰" onclick = "location.href = '/review_write.do'"/>
-	<input type = "button" value = "맵" onclick = "location.href = '/map.do'"/>
 	
 	
 <%@ include file="/WEB-INF/views/footer.jsp"%>

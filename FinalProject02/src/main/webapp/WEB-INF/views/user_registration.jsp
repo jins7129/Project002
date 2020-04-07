@@ -19,9 +19,6 @@
    box-shadow: 5px 10px 30px 10px black;
    margin-left: 28%;
 }
-<<<<<<< HEAD
-</style>
-=======
 
 .inputBtn{
 	display: -moz-box;
@@ -59,7 +56,6 @@
 	}
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
->>>>>>> 0eac8dd153db9146f16cd12461c9b0c0085417b4
 <script type="text/javascript">
 
 $(function() {
@@ -94,18 +90,15 @@ function readURL(flag, input) {
 	}
 
 	//ID 중복 검사
-<<<<<<< HEAD
 	var idkChk="N";  //REGISTER에서 검사할 항목
 	function idChked(check) {
 		var doc = document.getElementsByName("id")[0];
 		if (doc.value.trim() == "" || doc.value == null
 				|| doc.value == "undefined") {
-=======
 	var idkChk = "N"; //REGISTER에서 검사할 항목
 	function idChked() {
 		var doc = $("input[name=userId]").val();
 		if (doc.trim() == "" || doc == null || doc == "undefined") {
->>>>>>> 0eac8dd153db9146f16cd12461c9b0c0085417b4
 			alert("아이디를 입력해주세요");
 		} else {
 			$.ajax({
@@ -124,7 +117,6 @@ function readURL(flag, input) {
 					}
 				},
 				error : function(err) {
-<<<<<<< HEAD
 					var res = confirm("이 아이디를 사용하실수 있습니다.");
 					if(res == true){
 						$("#Email_id").prop("disabled",true);
@@ -133,9 +125,7 @@ function readURL(flag, input) {
 					if(check == "Y"){
 						emailChk1 = "Y";
 					}
-=======
 					alert("기능 오류가 발생했습니다. 브라우저 콘솔을 확인해 주세요")
->>>>>>> 0eac8dd153db9146f16cd12461c9b0c0085417b4
 				}
 			});
 		}
@@ -219,7 +209,6 @@ function readURL(flag, input) {
 			$("#insertForm").submit();
 		}
 	}
-<<<<<<< HEAD
 	
 	// 카카오 로그인
 	function kakaoLogin() {
@@ -275,8 +264,6 @@ function readURL(flag, input) {
 		
 	}
 
-=======
->>>>>>> 0eac8dd153db9146f16cd12461c9b0c0085417b4
 </script>
 </head>
 
@@ -302,25 +289,19 @@ function readURL(flag, input) {
 -->
 			<!-- 로그인하기 -->
 			<label id="registerID"> user id : </label> 
-<<<<<<< HEAD
 				<input type="text" placeholder="please insert your id" name="id" id="Email_id" required="required" /> 
 				<input type="button" value="id-check" onclick="idChked('N');" id="idChk">
 			<hr id="idLine" />
 		</div>
-=======
 				<input type="text" class="inputText" placeholder="please insert your id" required="required" name="userId" /> 
 				<input type="button" class="inputBtn"  value="id-check" onclick="idChked();" id="idChk"> <br> <br>
->>>>>>> 0eac8dd153db9146f16cd12461c9b0c0085417b4
 
 			<!-- 패스워드하기 -->
 			<label id="registerPW"> password : </label> 
-<<<<<<< HEAD
 				<input type="password" placeholder="please insert your password" name="pw" id = "pw" onclick="idChkConfirm();" required="required" />
 			<hr id="pwLine" />
 		</div>
-=======
 				<input type="password" placeholder="please insert your password" class="inputText" name="pw" onclick="idChkConfirm();" required="required" /> <br> <br>
->>>>>>> 0eac8dd153db9146f16cd12461c9b0c0085417b4
 
 			<!-- 이름 하기 -->
 			<label id="registerName">name : </label> 
@@ -338,7 +319,6 @@ function readURL(flag, input) {
 			<label>Email Verify</label> 
 				<input type="button" value="Verify" class="inputBtn" onclick="verifyEmail();" id="verifyBtn"><br> <br>
 			인증번호: 
-<<<<<<< HEAD
 			<input type="text" value="" id="VerifyNum" >	
 			<input type="button" value="확인" onclick="emailChk();" id="verifyChk">
 			
@@ -379,7 +359,6 @@ function readURL(flag, input) {
 	<label>비밀번호</label>
 	<input type="text" value="" placeholder="비밀번호를 입력하세요"><br>
  -->
-=======
 				<input type="text" value="" class="inputText" id="VerifyNum"> 
 				<input type="button" class="inputBtn" value="확인" onclick="emailChk();" id="verifyChk">
 				<br> <br>
@@ -391,7 +370,6 @@ function readURL(flag, input) {
 	</div>
 	<!-- footer -->
  	<div id = "footer"><%@ include file="/WEB-INF/views/footer.jsp" %></div>
->>>>>>> 0eac8dd153db9146f16cd12461c9b0c0085417b4
 
 <!-- 알림테스트 코드 -->
 <!-- 

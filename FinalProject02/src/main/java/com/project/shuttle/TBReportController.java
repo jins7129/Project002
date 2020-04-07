@@ -165,7 +165,7 @@ public class TBReportController {
 		return "review_write";
 	}
 	
-	// 마이페이지 작성 완료
+	// 리뷰 작성 완료
 	@RequestMapping(value = "/review_writeres.do",method=RequestMethod.GET)
 	public String review_writeres(Model model, HttpSession session, String review_id, String score, String title, String content) {
 		
@@ -188,11 +188,5 @@ public class TBReportController {
 			logger.info("review_write 실패");
 			return "";
 		}
-	}
-	
-	//카카오맵 테스트
-	@RequestMapping(value = "/map.do")
-	public String map() {
-		return "kakaoMap";
 	}
 }

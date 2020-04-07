@@ -8,7 +8,6 @@
 <title>Shuttle</title>
 
 <link rel="icon" href="#">
-<<<<<<< HEAD
 <link
 	href="https://fonts.googleapis.com/css?family=Fira+Sans:300&display=swap"
 	rel="stylesheet">
@@ -20,10 +19,8 @@
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-=======
 <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300&display=swap" rel="stylesheet">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
->>>>>>> 0eac8dd153db9146f16cd12461c9b0c0085417b4
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png"
 	href="<c:url value = '/resources/Login/images/icons/favicon.ico'/>">
@@ -88,14 +85,11 @@
 				dataType : "json", // 명시해줘야함
 				success : function(msg) {
 					if (msg.check == true) {
-<<<<<<< HEAD
 						alert("성공");
 						location.href = 'main.do';
-=======
 						//window.location.reload();
 						history.go(0);			// 페이지 새로고침 
 						back();
->>>>>>> 0eac8dd153db9146f16cd12461c9b0c0085417b4
 					} else {
 						$("#loginChk").show();
 					}
