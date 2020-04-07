@@ -28,19 +28,9 @@ public class TBJobBizImpl implements TBJobBiz {
 	public List<TBJobDto> selectList() {
 		return dao.selectList();
 	}
-
-<<<<<<< HEAD
-	@Override
-	public TBJobDto selectOne(int jobSeq) {
-		return dao.selectOne(jobSeq);
-	}
-
 	@Override
 	public void addView(int jobSeq) {
 		dao.addView(jobSeq);
 	}
-=======
-	
->>>>>>> 91c12e657deab38ff5f6663ca685fefeb0c4ccaa
 
 }
