@@ -6,6 +6,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.detail{
+	font-size: 25px;
+	margin: 0px auto;
+	margin-bottom: 100px;
+	margin-top: 50px;
+	width: 20%;
+}
+
+.end_button{
+	margin: 0px auto;
+	width: 20%;
+}
+</style>
 <title>Shuttle</title>
 <link rel="icon" href="/resources/images/icon.png" type="image/x-icon">
 <script type="text/javascript">
@@ -24,7 +39,7 @@
 <body>
 <%@ include file="/WEB-INF/views/header.jsp"%>
 
-	<table>
+	<table class = "detail">
 		<tr>
 			<td>신고번호 : ${dto.reportSeq }</td>
 		</tr>
@@ -43,15 +58,15 @@
 		<tr>	
 			<td>내용 : ${dto.reportContent }</td>
 		</tr>
-		
 	</table>
 	
-	<input type = "button" value = "뒤로가기" onclick = "location.href = '/report_admin.do'"/>
-	<input type = "button" value = "접수하기" onclick = "dayshow();"/>
-	<br/>
-	<input type = "text" id = "day" style = "display: none"/>
-	<input type = "button" id = "report" value = "확인" style = "display: none" onclick = "reportres('${dto.jobSeq }','${dto.userId }');"/>
-
+	<div class = "end_button">
+		<input type = "button" value = "뒤로가기" onclick = "location.href = '/report_admin.do'"/>
+		<input type = "button" value = "접수하기" onclick = "dayshow();"/>
+		<br/>
+		<input type = "text" id = "day" style = "display: none"/>
+		<input type = "button" id = "report" value = "확인" style = "display: none" onclick = "reportres('${dto.jobSeq }','${dto.userId }');"/>
+	</div>
 <%@ include file="/WEB-INF/views/footer.jsp"%>
 </body>
 </html>

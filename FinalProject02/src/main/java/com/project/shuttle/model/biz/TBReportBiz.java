@@ -26,4 +26,6 @@ public interface TBReportBiz {
 	public int report_2nd_done(Map<String, String> map);
 	
 	public int search_Repory_Day(String id);
+	
+	public int review_write(Map<String, String> map);
 }

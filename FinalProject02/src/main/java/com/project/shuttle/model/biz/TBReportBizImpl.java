@@ -65,4 +65,9 @@ public class TBReportBizImpl implements TBReportBiz{
 		return dao.search_Repory_Day(id);
 	}
 
+	@Override
+	public int review_write(Map<String, String> map) {
+		return dao.review_write(map);
+	}
+
 }
