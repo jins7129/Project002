@@ -13,4 +13,7 @@ public interface TBApplyDao {
 	
 	public int boardApplyCancel(TBApplyDto dto);
 
+	public int jobApplyChoiceUpdateBoard(int jobSeq);
+	public int jobApplyChoiceUpdateApply(int applySeq);
+
 }

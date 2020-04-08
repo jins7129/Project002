@@ -408,27 +408,73 @@ public class MypageController {
 		return map;
 	}
 
+	// 아르바이트 신청, 취소
 	@RequestMapping("/jobApplyUpdate.do")
 	public RedirectView jobApplyUpdate(ModelAndView mav, int jobSeq, String userId, String jobUserId) {
+	public RedirectView jobApplyUpdate(int jobSeq, String userId, String jobUserId) {
+		
 		TBApplyDto dto = new TBApplyDto();
 		dto.setApplySeq(jobSeq);
 		dto.setApplyWoker(userId);
 		dto.setApplyOwner(jobUserId);
+		applyBiz.boardApplyUpdate(dto);
 		RedirectView review = new RedirectView("/main_jobDetail.do?jobSeq="+jobSeq);
-		int res =applyBiz.boardApplyUpdate(dto);
+		
 		return review;
 	}
 	
 	@RequestMapping("/jobApplyCancel.do")
-	public RedirectView jobApplyCancelUpdate(ModelAndView mav, int jobSeq, String userId) {
+	public RedirectView jobApplyCancelUpdate(int jobSeq, String userId) {
 		
 		TBApplyDto dto = new TBApplyDto();
 		dto.setApplySeq(jobSeq);
 		dto.setApplyWoker(userId);
-		RedirectView review = new RedirectView("/main_jobDetail.do?jobSeq="+jobSeq);
 		applyBiz.boardApplyCancel(dto);
+		RedirectView review = new RedirectView("/main_jobDetail.do?jobSeq="+jobSeq);
 		
 		return review;
 	}
 	
+	// 글삭제, 수정
+	@RequestMapping("/jobDelete.do")
+	public RedirectView jobDelete(int jobSeq, String userId) {
+		
+		jobBiz.delete(jobSeq);
+		
+		RedirectView review = new RedirectView("/main.do");
+		
+		return review;
+	}
+	@RequestMapping("/jobUpdate.do")
+	public ModelAndView jobUpdate(ModelAndView mav, int jobSeq, String userId) {
+		
+		TBJobDto dto = jobBiz.selectOne(jobSeq);
+		// 게시글 정보
+		
+		mav.addObject("jobInfo",dto);
+		mav.setViewName("main_jobUpdate");
+		
+		return mav;
+	}
+	
+	@RequestMapping("/main_updateres.do")
+	public RedirectView jobUpdateRes(TBJobDto dto) {
+		
+		int res = jobBiz.update(dto);
+//		System.out.println("updateres.do : update 성공 여부"+ res);
+		RedirectView reView = new RedirectView("/main_jobDetail.do?jobSeq="+dto.getJobSeq());
+		
+		return reView;
+	}
+	
+	@RequestMapping("/jobApplyChoice.do")
+	public RedirectView jobApplyChoice(TBApplyDto dto) {
+		
+		int res = applyBiz.jobApplyChoiceUpdateBoard(dto);
+		System.out.println("jobAPplyChoiceUpdateBoard 결과 값"+res);
+		
+		RedirectView reView = new RedirectView("/main_jobDetail.do?jobSeq="+dto.getApplySeq());
+		
+		return reView;
+	}
 }

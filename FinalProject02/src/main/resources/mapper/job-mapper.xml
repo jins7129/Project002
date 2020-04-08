@@ -37,6 +37,28 @@
 	SET JOB_VIEW = (SELECT JOB_VIEW FROM TB_JOB WHERE JOB_SEQ = #{jobSeq}) + 1 
 	WHERE JOB_SEQ = #{jobSeq}
 	</update>
+	
+	<update id="update" parameterType="com.project.shuttle.model.dto.TBJobDto" >
+		UPDATE TB_JOB
+		SET JOB_TITLE = #{jobTitle},
+		JOB_REWARD = #{jobReward},
+		JOB_START = #{jobStart},
+		JOB_DONE = #{jobDone},
+		JOB_ADDR = #{jobAddr},
+		JOB_CONTENT = #{jobContent},
+		JOB_CATEGORY = #{jobCategory}
+		WHERE JOB_SEQ = #{jobSeq}
+	</update>
+	
+	<delete id="delete" parameterType="int" >
+		DELETE TB_JOB
+		WHERE JOB_SEQ = #{jobSeq}
+	</delete>
+	
+	<delete id="applyDelete">
+		DELETE TB_APPLY
+		WHERE APPLY_SEQ = #{applySeq}
+	</delete>
 
 
 </mapper>

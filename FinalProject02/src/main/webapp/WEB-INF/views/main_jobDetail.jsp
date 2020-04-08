@@ -11,7 +11,12 @@
 <script type="text/javascript">
 
 $(function(){
-	
+	$(document).on('click','input[name=choice]', function() {
+		// $(document).on('click','태그',function(){})
+		var choiceId = $("input[name=choiceId]").val();
+		applyChoice(choiceId);
+		//console.log(writtenEndPageNum);
+	});
 	
 	$(".applyInfo").hover(function(){
 		var userInfoTAG = $(this);
@@ -28,7 +33,7 @@ $(function(){
 								+userInfo.userImgpath+"'><br/>"
 								+userInfo.userId+"<br/>이름 : "
 								+userInfo.userName+"<br/>평점 : "
-								+userScore+"<br/></div></div>");
+								+userScore+"<br/></div><input type='button' name='choice' class='btnDetail' value='CHOICE'/><input type='hidden' name='choiceId' value='"+userInfo.userId+"' /></div>");
 			},
 			
 			error:function(){
@@ -44,19 +49,35 @@ $(function(){
 	
 });
 
-
-function apply(){
+function apply(){	// 사용자의 신청
 	var loginUserId = $("#loginInfo").val();
 	var jobUserId = $("#jobInfoUserId").val();
 	var jobSeq = $("#jobInfoJobSeq").val();
 	location.href="jobApplyUpdate.do?jobSeq="+jobSeq+"&userId="+loginUserId+"&jobUserId="+jobUserId;
 };
 
-function applyCancel(){
+function applyCancel(){ // 사용자의 신청 취소
 	var loginUserId = $("#loginInfo").val();
 	var jobSeq = $("#jobInfoJobSeq").val();
 	location.href="jobApplyCancel.do?jobSeq="+jobSeq+"&userId="+loginUserId;
 };
+
+function jobDelete(){	// 작성자의 글 삭제
+	var loginUserId = $("#loginInfo").val(); // 로그인한 회원 == 글작성자
+	var jobSeq = $("#jobInfoJobSeq").val();
+	location.href="jobDelete.do?jobSeq="+jobSeq+"&userId="+loginUserId;
+}
+function jobUpdate(){	// 작성자의 글 수정
+	var loginUserId = $("#loginInfo").val(); // 로그인한 회원 == 글작성자
+	var jobSeq = $("#jobInfoJobSeq").val();
+	location.href="jobUpdate.do?jobSeq="+jobSeq+"&userId="+loginUserId;
+}
+function applyChoice(choiceId){ // 작성자의 사용자 선택
+	var loginUserId = $("#loginInfo").val();
+	var jobSeq = $("#jobInfoJobSeq").val();
+	//console.log(choiceId);	// 선택한 사용자
+	location.href="jobApplyChoice.do?applySeq="+jobSeq+"&applyOwner="+loginUserId+"&applyWoker="+choiceId;
+}
 
 </script>
 <style type="text/css">
@@ -69,7 +90,7 @@ function applyCancel(){
 }
 .board{
 	background: white;
-	width:700px;
+	width:740px;
 	padding : 10px;
 	margin : 8px;
 }
@@ -77,9 +98,12 @@ function applyCancel(){
 	border-radius: 50px 50px 0px 0px;
 	height: 300px;
 }
-#boardHeaderLine1{
+#boardHeaderLine1{	/*not completed, completed*/
 	height: 30px;
 	color:white;
+	padding : 10px;
+	font-size: 18px;
+	font-weight: bold;
 }
 #boardHeaderLine2{
 	text-align: left;
@@ -92,7 +116,7 @@ function applyCancel(){
 		left: 20px;
 		background : #32506d;
 		text-align: center;
-		width : 450px;
+		width : 380px;
 		padding : 5px;
 		border-radius: 30px;
 }
@@ -105,14 +129,10 @@ function applyCancel(){
 }
 .btnDetail {
 	/*버튼 css*/
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: flex;
 	justify-content: center;
 	align-items: center;
 	padding: 0 20px;
+	margin : 5px;
 	width: 100px;
 	height: 35px;
 	border-radius: 10px;
@@ -129,14 +149,24 @@ function applyCancel(){
 	-moz-transition: all 0.4s;
 	transition: all 0.4s;
 }
+#deleteBtn{
+	background: rgb(248, 112, 97);
+}
 
-.btnDetail:hover {
+.btnDetail:hover, #deleteBtn:hover {
 	background: black;
 }
 
 .img{
 	border-radius: 40px;
-}	
+}
+#boardFooter{
+	border-radius: 0px 0px 50px 50px;
+}
+.applyInfo:hover{
+	cursor: pointer;
+}
+
 
 </style>
 </head>
@@ -161,7 +191,10 @@ function applyCancel(){
 	
 </div>
 <c:choose>
-	<c:when test="${jobInfo.jobComplete == 'N' }">
+	<c:when test="${jobInfo.jobComplete == 'Y' }">
+		<div id="boardHeaderLine1" class="board" style="background:#00bf8f;" >COMPLETED</div>
+	</c:when>
+	<c:otherwise>
 		<div id="boardHeaderLine1" class="board" style="background:#F87061;" >NOT COMPLETED</div>
 		<div id="boardHeaderLine2" class="board" >
 		<div>신청 현황<br/>
@@ -170,10 +203,7 @@ function applyCancel(){
 			</c:forEach>
 		</div>
 		</div>
-	</c:when>
-	<c:when test="${jobInfo.jobComplete == 'Y' }">
-		<div id="boardHeaderLine1" class="board" style="background:#00bf8f;" >COMPLETED</div>
-	</c:when>
+	</c:otherwise>
 </c:choose>
 <div id="boardBody" class="board" align="justify" >
 ${jobInfo.jobContent }
@@ -188,7 +218,25 @@ ${jobInfo.jobContent }
 			<c:if test="${check.writer =='false' }">
 				<input type="button" class="btnDetail" value="APPLY" onclick="apply();" />
 			</c:if>
+			<c:if test="${check.writer =='true' }">
+				<input type="button" class="btnDetail" value="UPDATE" onclick="jobUpdate();" />
+				<input type="button" class="btnDetail" id="deleteBtn" value="DELETE" onclick="jobDelete();" />
+			</c:if>
 		</c:otherwise>
+</c:choose>
+
+<c:choose>
+	<c:when test="${check.writer =='true' }"> <!-- 작성자인경우 -->
+		<input type="button" class="btnDetail" value="UPDATE" onclick="jobUpdate();" />
+		<input type="button" class="btnDetail" id="deleteBtn" value="DELETE" onclick="jobDelete();" />
+	</c:when>
+	<c:when test="${check.writer =='false' }"> <!-- 작성자가 아닌경우 -->
+		<c:choose>
+			<c:when test="${check.apply == 'true' }"> <!-- 지원자인 경우 -->
+				<input type="button" class="btnDetail" value="CANCEL" onclick="applyCancel();"/>
+			</c:when>
+		</c:choose>
+	</c:when>
 </c:choose>
 <input type="button" class="btnDetail" value="BACK" onclick="history.back();" />
 </div>
