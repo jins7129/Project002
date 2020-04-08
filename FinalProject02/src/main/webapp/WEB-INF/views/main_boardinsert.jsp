@@ -83,6 +83,19 @@ $(function() {
       	});
     }
   });
+  
+//도로명주소 팝업 함수
+function openPop_juso() {
+   var pop = window.open("jusoPopup.do", "juso",
+         "width=570,height=420, scrollbars=yes, resizable=yes");
+}
+
+//도로명주소 팝업에서 서브밋했을 시 들어와야되는 함수
+function jusoCallBack(roadAddrPart1, addrDetail, zipNo) {
+   // 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+   $("#registerAddr").val(roadAddrPart1);
+   $("#registerAddr1").val(addrDetail + " " + zipNo);
+}
 </script>
 </head>
 <body>
@@ -103,8 +116,11 @@ $(function() {
 				<input type="date" class="inputText" name="jobStart" value="" style="border: 1px solid black;	"> ~
 				<input type="date" class="inputText" name="jobDone" value="" style="border: 1px solid black;"><br><br>
 			
+			  <!-- 도로명 주소 검색하기 -->
 			<label>Location : </label>
-			<input type="text" class="inputText" placeholder="please insert address" name="jobAddr"><br><br>
+            <input id="registerAddr" type="text" class="inputText" value="" onclick="openPop_juso();" required="required" name="addr1" placeholder="Click to here"> 
+            <input id="registerAddr1" class="inputText" type="text" value="" required="required" name="addr2" placeholder="please more details"> <br> <br>
+<br><br>
 			<div style="width:800px; text-align:left;" >
 			<textarea id="summernote" name="editordata" >
 			</textarea>

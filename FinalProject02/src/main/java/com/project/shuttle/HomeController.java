@@ -179,7 +179,8 @@ public class HomeController {
 	// 의뢰하기 글 작성 기능
 	@RequestMapping(value = "/main_insertRes.do")
 	public String main_boardInsertRes(String userId, String jobTitle, int jobReward, Date jobStart, Date jobDone,
-			String jobAddr, String editordata, String jobCategory) {
+			String addr1, String addr2, String editordata, String jobCategory) {
+		String jobAddr = addr1 + ", "+ addr2;
 		TBJobDto dto = new TBJobDto(userId, jobTitle, editordata, jobReward, jobAddr, jobCategory, jobStart, jobDone);
 		if (JobBiz.insert(dto) > 0) {
 			return "redirect:main.do";
@@ -199,4 +200,14 @@ public class HomeController {
 
 	// Job 게시판 내 글 클릭 시, 상세보기 (모아보기 - 글 클릭)
 
+	
+	@RequestMapping(value = "/map.do")
+	public ModelAndView mapSample(ModelAndView mav) {
+		TBJobDto dto = JobBiz.selectOne(68);
+		
+		mav.addObject("jobInfo",dto);
+		mav.setViewName("mapSample");
+
+		return mav;
+	}
 }
