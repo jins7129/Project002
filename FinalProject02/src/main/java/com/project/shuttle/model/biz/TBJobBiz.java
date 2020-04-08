@@ -13,6 +13,5 @@ public interface TBJobBiz {
 
 	public void addView(int jobSeq);
 	
-	public TBJobDto selectOne(int jobSeq);
 	
 }
