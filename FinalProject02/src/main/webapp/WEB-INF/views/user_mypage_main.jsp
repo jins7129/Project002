@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Shuttle</title>
+	<%@ include file="/WEB-INF/views/header.jsp"%>
 <link rel="icon" href="/resources/images/icon.png" type="image/x-icon">
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <style type="text/css">
 #btnUpdate {
 	/*버튼 css*/
@@ -74,7 +74,6 @@
 
 }
 
-
 </style>
 <script type="text/javascript">
 
@@ -94,7 +93,7 @@
 		} else {
 			return value;
 		}
-	}
+	};
 	
 	
 	$(function() {
@@ -229,7 +228,6 @@
 			url : "getDoingBoard.do?pageNum=" + pageNum,
 			dataType : 'json',
 			success : function(data) {
-				console.log(data); // 들어온 json 값 확인
 				var list = data.list; // 글 목록을 담음
 				var pageMaker = data.pageMaker; // 페이징 정보를 담음
 				var doingBoard = $("#doingBoard");	// 페이지뿌려줄 테이블 태그
@@ -276,10 +274,10 @@
 					var val = list[i];
 					doneBoard.append("<div>번호 : "+val.jobSeq+ "<br/><a class='boardTitle' href='main.do' >제목 : "+ val.jobTitle+"</a><br/>보상 : "+val.jobReward+"<br/>작성일 : "+val.jobDate+"</div>");
 					
+				}
 				var pageCount = (pageMaker.endPage - pageMaker.startPage) + 1;
 				for (var i = 1; i < pageCount + 1; i++) {
 					donePaging.append("<input style='width:30px; float:none;'  type='button' name='doneBoardPaging' class='doneBoardNum' value='"+i+"'> ");
-				}
 				}
 			},
 			error : function() {
@@ -295,7 +293,6 @@
 			url : "getReviewBoard.do?pageNum=" + pageNum,
 			dataType : 'json',
 			success : function(data) {
-				console.log(data); // 들어온 json 값 확인
 				var list = data.list; // 글 목록을 담음
 				var pageMaker = data.pageMaker; // 페이징 정보를 담음
 				var reviewBoard = $("#reviewBoard");	// 페이지뿌려줄 테이블 태그
@@ -339,13 +336,10 @@
 </style>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/header.jsp"%>
 
 	<div align="center">
 		<img style="width: 30%; height: 30%;" src="resources/file/profilePhoto/${loginInfo.userImgpath}" />
 		<table>
-		
-		
 			<tr>
 				<td>이름 :</td>
 				<td>${loginInfo.userName }</td>

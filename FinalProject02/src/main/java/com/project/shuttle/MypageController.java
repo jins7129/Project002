@@ -188,7 +188,6 @@ public class MypageController {
 		
 		map.put("list", boardList);	
 		map.put("pageMaker", pageMaker);
-		
 		return map;
 	}
 	
