@@ -70,6 +70,17 @@
 		WHERE APPLY_SEQ = #{applySeq}
 	</delete>
 	
+	<!-- 보상주기와 함께 보드 정보 바꾸기, 사용자 돈 뺐기 -->
+	<update id="jobApplyGiveReward" parameterType="int" >
+		UPDATE TB_JOB SET
+		JOB_COMPLETE = 'Y'
+		WHERE JOB_SEQ = #{jobSeq}
+	</update>
 	
+	<update id="jobApplyMinusReward" parameterType="com.project.shuttle.model.dto.TBUserDto" >
+		UPDATE TB_USER SET
+		USER_COIN = USER_COIN - #{userCoin}
+		WHERE USER_ID = #{userId}
+	</update>
 	
 </mapper>

@@ -14,5 +14,6 @@ public interface TBApplyBiz {
 	public int boardApplyCancel(TBApplyDto dto);
 	
 	public int jobApplyChoiceUpdateBoard(TBApplyDto dto);
+	public int jobApplyGiveReward(int jobSeq, TBUserDto dto, TBUserDto writer);
 
 }

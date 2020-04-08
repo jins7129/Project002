@@ -15,5 +15,7 @@ public interface TBApplyDao {
 
 	public int jobApplyChoiceUpdateBoard(int jobSeq);
 	public int jobApplyChoiceUpdateApply(int applySeq);
+	public int jobApplyGiveReward(int jobSeq);
+	public int jobApplyMinusReward(TBUserDto dto);
 
 }
