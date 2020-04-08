@@ -78,6 +78,13 @@ function applyChoice(choiceId){ // 작성자의 사용자 선택
 	//console.log(choiceId);	// 선택한 사용자
 	location.href="jobApplyChoice.do?applySeq="+jobSeq+"&applyOwner="+loginUserId+"&applyWoker="+choiceId;
 }
+function jobGiveReward(){
+	var jobReward = $("#jobReward").val();
+	var jobSeq = $("#jobInfoJobSeq").val();
+	var applyWoker = $("#userId").val();
+	var applyOwner = $("#jobInfoUserId").val();
+	location.href="jobGiveReward.do?jobSeq="+jobSeq+"&jobReward="+jobReward+"&applyWoker="+applyWoker+"&applyOwner="+applyOwner;
+}
 
 </script>
 <style type="text/css">
@@ -174,6 +181,7 @@ function applyChoice(choiceId){ // 작성자의 사용자 선택
 <input type="hidden" id="loginInfo" value="${loginInfo.userId}"/>
 <input type="hidden" id="jobInfoJobSeq" value="${jobInfo.jobSeq}"/>
 <input type="hidden" id="jobInfoUserId" value="${jobInfo.userId}"/>
+<input type="hidden" id="jobReward" value="${jobInfo.jobReward }"/>
 
 <div align="center">
 <div id="board">
@@ -194,47 +202,63 @@ function applyChoice(choiceId){ // 작성자의 사용자 선택
 	<c:when test="${jobInfo.jobComplete == 'Y' }">
 		<div id="boardHeaderLine1" class="board" style="background:#00bf8f;" >COMPLETED</div>
 	</c:when>
+	<c:when test="${jobInfo.jobComplete == 'D' }">
+		<div id="boardHeaderLine1" class="board" style="background:#FF7F50;" >IN PROGRESS</div>
+		<div id="boardHeaderLine2" class="board" >
+		<div>진행 현황<br/>
+			<c:forEach items="${applyInfo }" var="userDto" >
+				아이디 : <span class="applyChoiceInfo">${userDto.userId }</span><br/>
+			</c:forEach>
+		</div>
+		</div>
+	</c:when>
 	<c:otherwise>
 		<div id="boardHeaderLine1" class="board" style="background:#F87061;" >NOT COMPLETED</div>
 		<div id="boardHeaderLine2" class="board" >
 		<div>신청 현황<br/>
 			<c:forEach items="${applyInfo }" var="userDto" >
 				아이디 : <span class="applyInfo">${userDto.userId }</span><br/>
+				<input type="hidden" name="userId" value="${userDto.userId }"/>
 			</c:forEach>
 		</div>
 		</div>
 	</c:otherwise>
 </c:choose>
-<div id="boardBody" class="board" align="justify" >
+<div id="boardBody" class="board" align="justify">
 ${jobInfo.jobContent }
 </div>
 <div id="boardFooter" class="board">
 
 <c:choose>
-	<c:when test="${check.apply == 'true' }">
-		<input type="button" class="btnDetail" value="CANCEL" onclick="applyCancel();"/>
-	</c:when>
-		<c:otherwise>
-			<c:if test="${check.writer =='false' }">
-				<input type="button" class="btnDetail" value="APPLY" onclick="apply();" />
-			</c:if>
-			<c:if test="${check.writer =='true' }">
+	<c:when test="${check.writer =='true' }"> <!-- 작성자인경우 -->
+		<c:choose>
+			<c:when test="${jobInfo.jobComplete == 'N'  }">	<!-- 글 상태가 완료가 아닌경우 -->
 				<input type="button" class="btnDetail" value="UPDATE" onclick="jobUpdate();" />
 				<input type="button" class="btnDetail" id="deleteBtn" value="DELETE" onclick="jobDelete();" />
-			</c:if>
-		</c:otherwise>
-</c:choose>
-
-<c:choose>
-	<c:when test="${check.writer =='true' }"> <!-- 작성자인경우 -->
-		<input type="button" class="btnDetail" value="UPDATE" onclick="jobUpdate();" />
-		<input type="button" class="btnDetail" id="deleteBtn" value="DELETE" onclick="jobDelete();" />
+			</c:when>
+			<c:when test="${jobInfo.jobComplete == 'D'  }">	<!-- 글 상태가 진행중인 경우 -->
+				<input type="button" class="btnDetail" style="width: 140px;" value="GIVE REWARD" onclick="jobGiveReward();" />
+			</c:when>
+			<c:otherwise>
+			</c:otherwise>
+		</c:choose>
+		
 	</c:when>
 	<c:when test="${check.writer =='false' }"> <!-- 작성자가 아닌경우 -->
 		<c:choose>
 			<c:when test="${check.apply == 'true' }"> <!-- 지원자인 경우 -->
-				<input type="button" class="btnDetail" value="CANCEL" onclick="applyCancel();"/>
+				<c:choose>
+					<c:when test="${jobInfo.jobComplete !='D' }"> <!-- 글이 진행중이 아닌 경우 -->
+						<input type="button" class="btnDetail" value="CANCEL" onclick="applyCancel();"/>
+					</c:when>
+					<c:otherwise>
+						<input type="button" class="btnDetail" style="width: 140px;" value="YOUR WORK"/>
+					</c:otherwise>
+				</c:choose>
 			</c:when>
+			<c:otherwise>
+				<input type="button" class="btnDetail" value="APPLY" onclick="apply();" />
+			</c:otherwise>
 		</c:choose>
 	</c:when>
 </c:choose>

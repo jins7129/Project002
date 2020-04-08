@@ -28,6 +28,7 @@ import com.project.shuttle.model.biz.KakaoPayBiz;
 import com.project.shuttle.model.biz.TBApplyBiz;
 import com.project.shuttle.model.biz.TBJobBiz;
 import com.project.shuttle.model.biz.TBUserBiz;
+import com.project.shuttle.model.dao.TBUserDao;
 import com.project.shuttle.model.dto.Criteria;
 import com.project.shuttle.model.dto.PageMaker;
 import com.project.shuttle.model.dto.TBApplyDto;
@@ -473,6 +474,28 @@ public class MypageController {
 		System.out.println("jobAPplyChoiceUpdateBoard 결과 값"+res);
 		
 		RedirectView reView = new RedirectView("/main_jobDetail.do?jobSeq="+dto.getApplySeq());
+		
+		return reView;
+	}
+	
+	@RequestMapping("/jobGiveReward.do")
+	public RedirectView jobApplyReward(int jobSeq, int jobReward, String applyWoker, String applyOwner) {
+		
+		TBUserDto dto = new TBUserDto();
+		dto.setUserCoin(jobReward);
+		dto.setUserId(applyWoker);
+		// 일한 사람 돈주기 dto
+		
+		TBUserDto writer = new TBUserDto();
+		writer.setUserId(applyOwner);
+		writer.setUserCoin(jobReward);
+		// 줄사람 돈 뺐기
+		
+		System.out.println("applyOwner : "+writer.getUserId()+"// jobReward : "+writer.getUserCoin());
+		
+		applyBiz.jobApplyGiveReward(jobSeq, dto, writer);
+		
+		RedirectView reView = new RedirectView("/main_jobDetail.do?jobSeq="+jobSeq);
 		
 		return reView;
 	}
