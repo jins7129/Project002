@@ -68,7 +68,6 @@ body {
 	top: 300px;
 	left: -300px;
 	position: fixed;
-	border: 1px solid rgb(248, 112, 97);
 	border-radius: 10px;
 }
 
