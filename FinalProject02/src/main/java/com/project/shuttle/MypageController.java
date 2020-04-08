@@ -5,11 +5,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +23,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-import org.springframework.web.util.WebUtils;
 
 import com.project.shuttle.model.biz.KakaoPayBiz;
+import com.project.shuttle.model.biz.TBApplyBiz;
 import com.project.shuttle.model.biz.TBJobBiz;
 import com.project.shuttle.model.biz.TBUserBiz;
 import com.project.shuttle.model.dto.Criteria;
 import com.project.shuttle.model.dto.PageMaker;
+import com.project.shuttle.model.dto.TBApplyDto;
 import com.project.shuttle.model.dto.TBJobDto;
+import com.project.shuttle.model.dto.TBReviewDto;
 import com.project.shuttle.model.dto.TBUserDto;
 import com.project.shuttle.model.dto.UploadDto;
 
@@ -39,6 +44,9 @@ public class MypageController {
 	
 	@Autowired
 	private TBJobBiz jobBiz;
+	
+	@Autowired
+	private TBApplyBiz applyBiz;
 	
 	@Autowired
 	private KakaoPayBiz kakaopay;
@@ -265,7 +273,7 @@ public class MypageController {
 		
 		try {
 			inStream = file.getInputStream();
-			String path = WebUtils.getRealPath(request.getSession().getServletContext(),"/resources/file/profilePhoto");
+			String path = request.getSession().getServletContext().getRealPath("/resources/file/profilePhoto");
 			System.out.println("upload path: " +path);
 		
 			File storage = new File(path);
@@ -298,15 +306,130 @@ public class MypageController {
 		return "user_mypage_main";
 	}
 	
+	
+	// 해당 부분은 summernote 콜백으로 들어오는 아작스 부분,
+	// 어째서 @RequestBodt와 @ResponseBody나 @RestController를 사용하지 않았는데 되는지는 의문.. 
+	
+	@RequestMapping("/insertTest.do")
+	public void profileUpload(MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		// 업로드할 폴더 경로
+		String realFolder = request.getSession().getServletContext().getRealPath("/resources/file/boardPhoto");
+		UUID uuid = UUID.randomUUID();
+		//범용 고유 식별자 UUID
+
+		// 업로드할 파일 이름
+		String org_filename = file.getOriginalFilename();
+		String str_filename = uuid.toString() + org_filename;
+
+//		System.out.println("원본 파일명 : " + org_filename);
+//		System.out.println("저장할 파일명 : " + str_filename);
+
+		String filepath = realFolder + "\\" + str_filename;
+//		System.out.println("파일경로 : " + filepath);
+
+		File f = new File(filepath);
+		if (!f.exists()) {
+			f.mkdirs();
+		}
+		file.transferTo(f);
+		out.println("resources\\file\\boardPhoto\\"+str_filename);
+		// 아작스로 보내줄 사진경로값
+		out.close();
+	}
+
 	@RequestMapping("/main_jobDetail.do")
-	public ModelAndView boardDetail(ModelAndView mav, int jobSeq) {
+	public ModelAndView boardDetail(ModelAndView mav, int jobSeq, HttpSession session) {
 		
+		TBUserDto userInfo = (TBUserDto)session.getAttribute("loginInfo");
+		// 로그인유저정보
 		TBJobDto dto = jobBiz.selectOne(jobSeq);
+		// 게시글 정보
+		List<TBUserDto> applyInfo = applyBiz.selectApply(jobSeq);
+		// 해당 게시글의 지원자 정보
+		jobBiz.addView(jobSeq);
+		// 조회수 증가
+		TBUserDto writerInfo = userBiz.userDetail(dto.getUserId());
+		// 게시글 작성자 정보
+		TBReviewDto reviewDto = userBiz.countReview(dto.getUserId());
+		// 게시글 작성자 별점
+		String userScore = "평가가 없습니다.";
 		
+		if(reviewDto != null) {
+			userScore = reviewDto.getReviewScore();
+		}
+		Map<String,String> map = new HashMap<String, String>();
+		String apply = "false";
+		String writer = "false";
+		
+		for(int i = 0; i < applyInfo.size(); i++) {
+			if(userInfo.getUserId().equals(applyInfo.get(i).getUserId())) {
+				// 유저아이디와 지원자 정보 중의 아이디가 같다면
+				apply = "true";
+			}
+		}
+		
+		if(userInfo.getUserId().equals(dto.getUserId())) {
+			writer = "true";
+		}
+		
+		map.put("apply", apply);
+		map.put("writer", writer);
+		map.put("userScore", userScore);
+		
+		
+		mav.addObject("check",map);
+		mav.addObject("applyInfo",applyInfo);
 		mav.addObject("jobInfo",dto);
+		mav.addObject("writerInfo",writerInfo);
+		
 		mav.setViewName("main_jobDetail");
 		
 		return mav;
+	}
+	
+	// 비동기 통신, 유저 정보
+	@RequestMapping(value="/userDetail.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<Object,Object> userDetail(String userId) {
+		TBUserDto userInfo = userBiz.userDetail(userId);
+		TBReviewDto reviewInfo = userBiz.countReview(userId);
+		String userScore = "평가가 없습니다.";
+		
+		if(reviewInfo != null) {
+			userScore = reviewInfo.getReviewScore();
+		}
+		
+		Map<Object,Object> map = new HashMap<Object, Object>();
+		map.put("userInfo", userInfo);
+		map.put("userScore", userScore);
+		
+		return map;
+	}
+
+	@RequestMapping("/jobApplyUpdate.do")
+	public RedirectView jobApplyUpdate(ModelAndView mav, int jobSeq, String userId, String jobUserId) {
+		
+		TBApplyDto dto = new TBApplyDto();
+		dto.setApplySeq(jobSeq);
+		dto.setApplyWoker(userId);
+		dto.setApplyOwner(jobUserId);
+		RedirectView review = new RedirectView("/main_jobDetail.do?jobSeq="+jobSeq);
+		int res =applyBiz.boardApplyUpdate(dto);
+		return review;
+	}
+	
+	@RequestMapping("/jobApplyCancel.do")
+	public RedirectView jobApplyCancelUpdate(ModelAndView mav, int jobSeq, String userId) {
+		
+		TBApplyDto dto = new TBApplyDto();
+		dto.setApplySeq(jobSeq);
+		dto.setApplyWoker(userId);
+		RedirectView review = new RedirectView("/main_jobDetail.do?jobSeq="+jobSeq);
+		applyBiz.boardApplyCancel(dto);
+		
+		return review;
 	}
 	
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.shuttle.model.dao.TBUserDao;
 import com.project.shuttle.model.dto.TBJobDto;
+import com.project.shuttle.model.dto.TBReviewDto;
 import com.project.shuttle.model.dto.TBUserDto;
 
 @Service
@@ -144,6 +145,17 @@ public class TBUserBizImpl implements TBUserBiz {
 	@Override
 	public String idchk(String id) {
 		return userDao.idchk(id);
+	}
+
+	// 글 상세보기에서 사용될 유저 정보(APPLY한 유저)
+	@Override
+	public TBUserDto userDetail(String userId) {
+		return userDao.userDetail(userId);
+	}
+
+	@Override
+	public TBReviewDto countReview(String userId) {
+		return userDao.countReview(userId);
 	}
 
 

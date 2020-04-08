@@ -198,11 +198,5 @@ public class HomeController {
 	}
 
 	// Job 게시판 내 글 클릭 시, 상세보기 (모아보기 - 글 클릭)
-	@RequestMapping(value = "/main_jobDetail.do")
-	public String jobDetail(Model model, int jobSeq) {
-		JobBiz.addView(jobSeq);
-		model.addAttribute("dto", JobBiz.selectOne(jobSeq));
-		return "main_jobDetail";
-	}
 
 }
