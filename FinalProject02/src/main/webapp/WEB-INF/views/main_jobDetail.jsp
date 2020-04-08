@@ -210,34 +210,6 @@ ${jobInfo.jobContent }
 </div>
 <div id="boardFooter" class="board">
 
-<c:choose>
-	<c:when test="${check.apply == 'true' }">
-		<input type="button" class="btnDetail" value="CANCEL" onclick="applyCancel();"/>
-	</c:when>
-		<c:otherwise>
-			<c:if test="${check.writer =='false' }">
-				<input type="button" class="btnDetail" value="APPLY" onclick="apply();" />
-			</c:if>
-			<c:if test="${check.writer =='true' }">
-				<input type="button" class="btnDetail" value="UPDATE" onclick="jobUpdate();" />
-				<input type="button" class="btnDetail" id="deleteBtn" value="DELETE" onclick="jobDelete();" />
-			</c:if>
-		</c:otherwise>
-</c:choose>
-
-<c:choose>
-	<c:when test="${check.writer =='true' }"> <!-- 작성자인경우 -->
-		<input type="button" class="btnDetail" value="UPDATE" onclick="jobUpdate();" />
-		<input type="button" class="btnDetail" id="deleteBtn" value="DELETE" onclick="jobDelete();" />
-	</c:when>
-	<c:when test="${check.writer =='false' }"> <!-- 작성자가 아닌경우 -->
-		<c:choose>
-			<c:when test="${check.apply == 'true' }"> <!-- 지원자인 경우 -->
-				<input type="button" class="btnDetail" value="CANCEL" onclick="applyCancel();"/>
-			</c:when>
-		</c:choose>
-	</c:when>
-</c:choose>
 <input type="button" class="btnDetail" value="BACK" onclick="history.back();" />
 </div>
 </div>

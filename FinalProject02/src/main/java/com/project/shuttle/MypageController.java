@@ -410,7 +410,6 @@ public class MypageController {
 
 	// 아르바이트 신청, 취소
 	@RequestMapping("/jobApplyUpdate.do")
-	public RedirectView jobApplyUpdate(ModelAndView mav, int jobSeq, String userId, String jobUserId) {
 	public RedirectView jobApplyUpdate(int jobSeq, String userId, String jobUserId) {
 		
 		TBApplyDto dto = new TBApplyDto();
