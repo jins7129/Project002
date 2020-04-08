@@ -15,6 +15,7 @@
 	cursor: pointer;
 	width: 280px;
 	height: 160px;
+	border-radius: 50px;
 }
 
 .payCheckbox{
@@ -24,13 +25,26 @@
 .bread{
 	border-radius: 50px 10px 10px 50px;
 	font-size: 20pt;
-	
 	color : #F87061;
+	
 }
 .kakaoForm{
 font-family: 'Fira Sans';
 }
-
+#board{
+	border: 3px solid #F87061;
+	border-radius: 50px;
+	padding: 10px;
+	width: 600px;
+	height: 500px;
+	
+}
+.boardChild{
+	margin : 10px;
+	font-weight : bold;
+	border-radius: 15px;
+	padding-left: 50px;
+}
 </style>
 <script type="text/javascript">
 	function chargeKakao(){
@@ -48,13 +62,14 @@ font-family: 'Fira Sans';
 </head>
 <body>
 
-<div align="center" style="margin:50px;" >
+<div align="center" >
+<div align="left" id="board" >
 <form action="/main_pay_first.do" method="post" class="kakaoForm">
-	<div><img src="/resources/images/bread64.png"/><br/><input type="text" class="bread" readonly="readonly" value="빵집" /></div>
+	<div><img src="/resources/images/bread64.png"/><br/></div>
 	<table>
 		<tr>
 			<td>
-				<div class="custom-control custom-radio">
+				<div class="custom-control custom-radio boardChild">
 						<input checked="checked" type="radio" id="jb-radio1" name="quantity" class="custom-control-input" value="100">
 						<label class="custom-control-label" for="jb-radio1">bread 100개</label>
 					</div>
@@ -62,7 +77,7 @@ font-family: 'Fira Sans';
 		</tr>
 		<tr>
 			<td>
-				<div class="custom-control custom-radio">
+				<div class="custom-control custom-radio boardChild">
 						<input type="radio" id="jb-radio2" name="quantity" class="custom-control-input" value="200">
 						<label class="custom-control-label" for="jb-radio2">bread 200개</label>
 					</div>
@@ -70,7 +85,7 @@ font-family: 'Fira Sans';
 		</tr>
 		<tr>
 			<td>
-				<div class="custom-control custom-radio">
+				<div class="custom-control custom-radio boardChild">
 						<input type="radio" id="jb-radio3" name="quantity" class="custom-control-input" value="500">
 						<label class="custom-control-label" for="jb-radio3">bread 500개</label>
 					</div>
@@ -78,7 +93,7 @@ font-family: 'Fira Sans';
 		</tr>
 		<tr>
 			<td>
-				<div class="custom-control custom-radio">
+				<div class="custom-control custom-radio boardChild">
 						<input type="radio" id="jb-radio4" name="quantity" class="custom-control-input" value="1000">
 						<label class="custom-control-label" for="jb-radio4">bread 1000개</label>
 					</div>
@@ -86,7 +101,7 @@ font-family: 'Fira Sans';
 		</tr>
 		<tr>
 			<td>
-				<div class="custom-control custom-radio">
+				<div class="custom-control custom-radio boardChild">
 						<input type="radio" id="jb-radio5" name="quantity" class="custom-control-input" value="2000">
 						<label class="custom-control-label" for="jb-radio5">bread 2000개</label>
 					</div>
@@ -95,10 +110,12 @@ font-family: 'Fira Sans';
 	
 	</table>
 	<br/>
-	<img  id="kakaoPayImg" src="/resources/Login/images/icons/kakaoPay.png" onclick="chargeKakao();"/>
-	
+	<div align="center">
+	<img id="kakaoPayImg" src="/resources/Login/images/icons/kakaoPay.png" onclick="chargeKakao();"/>
+	</div>
 
 </form>
+</div>
 </div>
 <%@ include file="/WEB-INF/views/footer.jsp" %>
 </body>

@@ -221,11 +221,11 @@ function jobGiveReward(){
 		</div>
 	</c:when>
 	<c:otherwise>
-		<div id="boardHeaderLine1" class="board" style="background:#F87061;" >NOT COMPLETED</div>
-		<div id="boardHeaderLine2" class="board" >
+		<div id="boardHeaderLine2" class="board" style="background:#dd4b39;" >NOT COMPLETED</div>
+		<div id="boardHeaderLine3" class="board" >
 		<div>신청 현황<br/>
 			<c:forEach items="${applyInfo }" var="userDto" >
-				아이디 : <span class="applyInfo">${userDto.userId }</span><br/>
+				아이디 : <span class="${loginInfo.userId == jobInfo.userId ? 'applyInfo' : 'applyChoiceInfo' }">${userDto.userId }</span><br/>
 				<input type="hidden" name="userId" value="${userDto.userId }"/>
 			</c:forEach>
 		</div>
@@ -271,7 +271,7 @@ ${jobInfo.jobContent }
 		</c:choose>
 	</c:when>
 </c:choose>
-<input type="button" class="btnDetail" value="BACK" onclick="history.back();" />
+<input type="button" class="btnDetail" value="BACK" onclick="location.href='main_jobList.do'" />
 </div>
 </div>
 </div>
