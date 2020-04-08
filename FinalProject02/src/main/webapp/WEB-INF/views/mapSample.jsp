@@ -11,8 +11,6 @@
 <h2>addr 입니다. ${jobInfo.jobAddr }</h2>
 <input type="hidden" id="addr" value="${jobInfo.jobAddr }">
 <div id="map" style="width:60%;height:350px;" align="center"></div>
-
-
 <!-- map js -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6ec42265dc32cf44f988802fbe8d3446&libraries=services"></script>
