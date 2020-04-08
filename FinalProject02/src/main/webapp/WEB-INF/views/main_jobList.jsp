@@ -101,6 +101,9 @@ body {
 	color: white;
 	border-radius: 10px;
 }
+
+.sideMenu{
+margin-bottom: 10px;}
 </style>
 </head>
 <body>
@@ -127,12 +130,46 @@ body {
 		});
 	});
 </script>
+	
+	<!-- 드래그앤드랍 JS -->
+	<script type="text/javascript">
+	function dragEnter(ev) {
+		ev.preventDefault();
 
+	}
+
+	function drag(ev) {
+		ev.dataTransfer.setData("info", ev.target.id);
+		
+	}
+
+	function drop(ev) {
+		var arr = ev.dataTransfer.getData("info").split(" ");
+		ev.preventDefault();
+		
+		var jobSeq = arr[0];
+		var jobUserId = arr[1];
+		var userId = arr[2];
+		$.ajax({
+
+		    url: "jobApplyUpdate.do?jobSeq="+jobSeq+"&userId="+userId+"&jobUserId="+jobUserId,
+
+		    success: function(data){
+		    	alert("장바구니에 담겼습니다.");
+		    },
+
+		    error: function (request, status, error){        
+		    	alert("오류가 발생했습니다. 다시 시도해주세요.");
+		    }
+		  });
+	}
+	</script>
 
 	<h1>모아보기</h1><br>
 	<div class="wrapper">
 		<c:forEach items="${list}" var="JobDto">
-			<div class="dragInner" onclick="location.href='main_jobDetail.do?jobSeq=${JobDto.jobSeq}'" draggable="true" ondragstart="dragStart_(event)" ondrag="drag_(envent)">
+			<div class="dragInner" id="${JobDto.jobSeq} ${JobDto.userId} ${loginInfo.userId}" onclick="location.href='main_jobDetail.do?jobSeq=${JobDto.jobSeq}'" draggable="true" ondragstart="drag(event)">
+				<span id="drag" >${JobDto.jobSeq}</span>
 				<span>${JobDto.jobTitle}</span>
 				<span>${JobDto.userId}</span>
 				<span>${JobDto.jobDate}</span>
@@ -145,11 +182,9 @@ body {
 	<div id="wrap">
 		<aside id="sidebar">
 			<br><br>
-			<ul>
-				<li><img src="/resources/images/icon_bag.svg" width="150" height="100" onclick="location.href='mypage_main.do'"></li>
-				<li><img src="/resources/images/icon_search_image.svg" width="150" height="100" onclick="location.href='editor.do;'"></li>
-				<li><img src="/resources/images/icon_search.svg" width="150" height="100" ></li>
-			</ul>
+				<div class="sideMenu" ondrop="drop(event)" ondragover="dragEnter(event)" align="center"><img src="/resources/images/icon_bag.svg" width="150" height="100" onclick="location.href='mypage_main.do'"   ></div>
+				<div class="sideMenu" align="center"><img src="/resources/images/icon_search_image.svg" width="150" height="100" onclick="location.href='editor.do;'"></div>
+				<div class="sideMenu" align="center"><img src="/resources/images/icon_search.svg" width="150" height="100" ></div>
 			<button><span class="btn_t">OPEN</span></button>
 		</aside>
 	</div>

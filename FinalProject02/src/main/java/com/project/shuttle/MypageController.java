@@ -410,7 +410,6 @@ public class MypageController {
 
 	@RequestMapping("/jobApplyUpdate.do")
 	public RedirectView jobApplyUpdate(ModelAndView mav, int jobSeq, String userId, String jobUserId) {
-		
 		TBApplyDto dto = new TBApplyDto();
 		dto.setApplySeq(jobSeq);
 		dto.setApplyWoker(userId);
