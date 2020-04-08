@@ -64,7 +64,7 @@ body {
 #sidebar {
 	background: white;
 	width: 300px;
-	height: 100%;
+	height: 350px;
 	top: 300px;
 	left: -300px;
 	position: fixed;
@@ -72,21 +72,22 @@ body {
 	border-radius: 10px;
 }
 
-#sidebar>ul {
-	margin: 0;
-	padding: 0;
-	top: 50px;
-	left: 70px;
-	position: absolute;
-}
-
-#sidebar li {
+#sidebar div {
 	border-radius : 10px;
 	margin: 0 0 20px;
 	list-style: none;
 }
-#sidebar li:hover {
+#sidebar div:hover {
 	background-color: gray;
+	font-size: 15px;
+	color: black;
+	line-height: 1.1;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	-webkit-transition: all 0.4s;
+	-o-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	transition: all 0.4s;
 
 }
 
@@ -169,7 +170,7 @@ margin-bottom: 10px;}
 	<div class="wrapper">
 		<c:forEach items="${list}" var="JobDto">
 			<div class="dragInner" id="${JobDto.jobSeq} ${JobDto.userId} ${loginInfo.userId}" onclick="location.href='main_jobDetail.do?jobSeq=${JobDto.jobSeq}'" draggable="true" ondragstart="drag(event)">
-				<span id="drag" >${JobDto.jobSeq}</span>
+				<span>${JobDto.jobSeq}</span>
 				<span>${JobDto.jobTitle}</span>
 				<span>${JobDto.userId}</span>
 				<span>${JobDto.jobDate}</span>
@@ -182,9 +183,8 @@ margin-bottom: 10px;}
 	<div id="wrap">
 		<aside id="sidebar">
 			<br><br>
-				<div class="sideMenu" ondrop="drop(event)" ondragover="dragEnter(event)" align="center"><img src="/resources/images/icon_bag.svg" width="150" height="100" onclick="location.href='mypage_main.do'"   ></div>
+				<div class="sideMenu" ondrop="drop(event)" ondragover="dragEnter(event)" align="center"><img src="/resources/images/icon_bag.svg" width="150" height="100" onclick="location.href='mypage_main.do'" ></div><br><br>
 				<div class="sideMenu" align="center"><img src="/resources/images/icon_search_image.svg" width="150" height="100" onclick="location.href='editor.do;'"></div>
-				<div class="sideMenu" align="center"><img src="/resources/images/icon_search.svg" width="150" height="100" ></div>
 			<button><span class="btn_t">OPEN</span></button>
 		</aside>
 	</div>
