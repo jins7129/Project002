@@ -13,8 +13,4 @@ public interface TBJobBiz {
 
 	public void addView(int jobSeq);
 	
-<<<<<<< HEAD
-	
-=======
->>>>>>> 97b8b48a38ebf729d694fd766d3965841023f9ea
 }
