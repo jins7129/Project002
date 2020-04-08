@@ -311,7 +311,7 @@ input:focus {
 /* 스크롤할때 헤더 효과 */
 header, .div {
 	position: sticky;
-	z-index: 1;
+	z-index: 5;
 	top: 0;
 }
 

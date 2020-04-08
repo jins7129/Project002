@@ -5,6 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>REGISTER</title>
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="1086121226988-79i2g3qsvsr85hmu6kh2i5jkelnofqrm.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link rel="icon" href="resources/images/icon.png" type="image/x-icon">
 <style>
 .img_profile {
@@ -50,7 +55,6 @@
 	height: 40px;
 	}
 </style>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 
 $(function() {
@@ -191,6 +195,59 @@ function readURL(flag, input) {
 			$("#insertForm").submit();
 		}
 	}
+	// 카카오 로그인
+	function kakaoLogin() {
+        Kakao.init('cf755a94afb6a149564276600dcd27ed');
+         // 카카오 로그인 버튼을 생성합니다.
+         Kakao.Auth.loginForm({
+         	success: function(authObj) {
+            	Kakao.API.request({
+                	url: '/v2/user/me',
+                    success: function(res) {
+                    	console.log(res);
+                        console.log(res.id);   
+                        var userID = res.id;      //유저의 카카오톡 고유 id
+                        var userEmail = res.kakao_account.email;   //유저의 이메일
+                        document.getElementById('Email_id').value = userEmail;
+                        document.getElementById('pw').value = userID;
+                        
+                        idChked('Y');	// 이메일 아이디 중복검사 ajax
+                                
+                        Kakao.Auth.logout();
+                                
+                        },
+                        fail: function(error) {
+                        alert(JSON.stringify(error));
+                        }
+                    });
+                          
+                    },
+                    fail: function(err) {
+                    	alert(JSON.stringify(err));
+                    }
+		});
+	}
+	
+	function onSignIn(googleUser) {
+		// 정보
+		var profile = googleUser.getBasicProfile();
+		// 이메일
+		document.getElementById('Email_id').value = profile.getEmail();
+		// 아이디 코드
+		document.getElementById('pw').value = profile.getId();
+
+		// 비동기로 이메일과 아이디코드를 확인하고 정보 넘기기
+		idChked('Y');
+	 	
+		// ??
+		var id_token = googleUser.getAuthResponse().id_token;
+
+		// 로그아웃
+		var auth2 = gapi.auth2.getAuthInstance();
+		auth2.disconnect();
+		
+	}
+	
 </script>
 </head>
 
@@ -198,6 +255,10 @@ function readURL(flag, input) {
 <body>
 	<!-- header -->
 	<%@ include file="/WEB-INF/views/header.jsp"%>
+	
+	
+	<input type = "button" value = "카카오 로그인" onclick = "kakaoLogin();"/>
+	<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" id="google"></div>
 	<div align="center">
 		<br>
 		<h1>REGISTER</h1>
@@ -216,12 +277,12 @@ function readURL(flag, input) {
 -->
 			<!-- 로그인하기 -->
 			<label id="registerID"> user id : </label> 
-				<input type="text" class="inputText" placeholder="please insert your id" required="required" name="userId" /> 
+				<input type="text" class="inputText" id="Email_id" placeholder="please insert your id" required="required" name="userId" /> 
 				<input type="button" class="inputBtn"  value="id-check" onclick="idChked();" id="idChk"> <br> <br>
 
 			<!-- 패스워드하기 -->
 			<label id="registerPW"> password : </label> 
-				<input type="password" placeholder="please insert your password" class="inputText" name="pw" onclick="idChkConfirm();" required="required" /> <br> <br>
+				<input type="password" placeholder="please insert your password" id="pw" class="inputText" name="pw" onclick="idChkConfirm();" required="required" /> <br> <br>
 
 			<!-- 이름 하기 -->
 			<label id="registerName">name : </label> 
@@ -250,7 +311,6 @@ function readURL(flag, input) {
 	</div>
 	<!-- footer -->
  	<div id = "footer"><%@ include file="/WEB-INF/views/footer.jsp" %></div>
-
 <!-- 알림테스트 코드 -->
 <!-- 
 <hr>

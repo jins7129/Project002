@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/header.jsp"%>
 <h1>맵입니다.</h1> 
 <h2>addr 입니다. ${jobInfo.jobAddr }</h2>
 <input type="hidden" id="addr" value="${jobInfo.jobAddr }">

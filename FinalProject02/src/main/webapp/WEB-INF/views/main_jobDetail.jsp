@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Shuttle</title>
 <%@ include file="/WEB-INF/views/header.jsp"%>
+<title>Shuttle</title>
 <link rel="icon" href="/resources/images/icon.png" type="image/x-icon">
 <script type="text/javascript">
 
@@ -15,7 +15,6 @@ $(function(){
 		// $(document).on('click','태그',function(){})
 		var choiceId = $("input[name=choiceId]").val();
 		applyChoice(choiceId);
-		//console.log(writtenEndPageNum);
 	});
 	
 	$(".applyInfo").hover(function(){
@@ -103,16 +102,19 @@ function jobGiveReward(){
 }
 #boardHeader{
 	border-radius: 50px 50px 0px 0px;
-	height: 300px;
+	height: 400px;
 }
-#boardHeaderLine1{	/*not completed, completed*/
+#boardHeaderLine1{
+
+}
+#boardHeaderLine2{	/*not completed, completed*/
 	height: 30px;
 	color:white;
 	padding : 10px;
 	font-size: 18px;
 	font-weight: bold;
 }
-#boardHeaderLine2{
+#boardHeaderLine3{
 	text-align: left;
 }
 
@@ -175,6 +177,7 @@ function jobGiveReward(){
 }
 
 
+
 </style>
 </head>
 <body>
@@ -195,16 +198,21 @@ function jobGiveReward(){
 	<div style="float:left; padding:10px; clear:both;"  >작성자 : ${jobInfo.userId }</div>
 	<div style="float:right; padding:10px;">보상 : ${jobInfo.jobReward }</div><br/>
 	<div style="float:right; padding:10px;">평점 : ${check.userScore }</div>
-	<div style="position: relative; top:15px; left:-230px; "  ><img class="img" style="width: 30%; height: 30%;" src="resources/file/profilePhoto/${writerInfo.userImgpath }"/></div>
+	<div style="float:left; padding:10px; clear:both;" ><img class="img" style="width: 200px; height: auto;" src="resources/file/profilePhoto/${writerInfo.userImgpath }"/></div>
 	
+</div>
+
+<div id="boardHeaderLine1" class="board" >
+<input type="button" class="btnDetail" style="width:600px; background:skyblue; cursor:default; " id="addr" value="${jobInfo.jobAddr }">
+<div id="map" style="width:60%;height:350px;" align="center"></div>
 </div>
 <c:choose>
 	<c:when test="${jobInfo.jobComplete == 'Y' }">
-		<div id="boardHeaderLine1" class="board" style="background:#00bf8f;" >COMPLETED</div>
+		<div id="boardHeaderLine2" class="board" style="background:#00bf8f;" >COMPLETED</div>
 	</c:when>
 	<c:when test="${jobInfo.jobComplete == 'D' }">
-		<div id="boardHeaderLine1" class="board" style="background:#FF7F50;" >IN PROGRESS</div>
-		<div id="boardHeaderLine2" class="board" >
+		<div id="boardHeaderLine2" class="board" style="background:#FF7F50;" >IN PROGRESS</div>
+		<div id="boardHeaderLine3" class="board" >
 		<div>진행 현황<br/>
 			<c:forEach items="${applyInfo }" var="userDto" >
 				아이디 : <span class="applyChoiceInfo">${userDto.userId }</span><br/>
@@ -248,12 +256,13 @@ ${jobInfo.jobContent }
 		<c:choose>
 			<c:when test="${check.apply == 'true' }"> <!-- 지원자인 경우 -->
 				<c:choose>
-					<c:when test="${jobInfo.jobComplete !='D' }"> <!-- 글이 진행중이 아닌 경우 -->
+					<c:when test="${jobInfo.jobComplete =='N'}"> <!-- 글이 진행중이 아닌 경우 -->
 						<input type="button" class="btnDetail" value="CANCEL" onclick="applyCancel();"/>
 					</c:when>
-					<c:otherwise>
+					<c:when test="${jobInfo.jobComplete =='D' && jobInfo.jobComplete !='N'}"> <!-- 지원자면서 글이 진행중(선택됨) -->
 						<input type="button" class="btnDetail" style="width: 140px;" value="YOUR WORK"/>
-					</c:otherwise>
+					</c:when>
+						
 				</c:choose>
 			</c:when>
 			<c:otherwise>
@@ -266,7 +275,45 @@ ${jobInfo.jobContent }
 </div>
 </div>
 </div>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6ec42265dc32cf44f988802fbe8d3446&libraries=services"></script>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
 
+// 지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+var addr = $("#addr").val().split(",");
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch(addr[0], function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div id="marker" style="width:150px;text-align:center;padding:6px 0;">'+addr[0]+'</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+});    
+</script>
 <%@ include file="/WEB-INF/views/footer.jsp" %>
 
 </body>

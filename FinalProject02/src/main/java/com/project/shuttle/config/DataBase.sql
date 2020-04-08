@@ -107,3 +107,6 @@ DELETE TB_APPLY WHERE APPLY_WOKER = 'user3@naver.com'
 UPDATE TB_USER SET
 		USER_COIN = USER_COIN - #{userCoin}
 		WHERE USER_ID = #{userId}
+		
+		
+SELECT * FROM TB_JOB
