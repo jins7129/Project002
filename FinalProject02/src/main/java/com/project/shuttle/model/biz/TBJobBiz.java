@@ -6,6 +6,10 @@ import com.project.shuttle.model.dto.TBJobDto;
 
 public interface TBJobBiz {
 	public int insert(TBJobDto dto);
+	
+	public int update(TBJobDto dto);
+	
+	public int delete(int jobSeq);
 
 	public List<TBJobDto> selectList();
 

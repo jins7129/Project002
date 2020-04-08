@@ -12,5 +12,7 @@ public interface TBApplyBiz {
 	public int boardApplyUpdate(TBApplyDto dto);
 	
 	public int boardApplyCancel(TBApplyDto dto);
+	
+	public int jobApplyChoiceUpdateBoard(TBApplyDto dto);
 
 }

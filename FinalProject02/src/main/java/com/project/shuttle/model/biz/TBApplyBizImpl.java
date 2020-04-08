@@ -30,4 +30,16 @@ public class TBApplyBizImpl implements TBApplyBiz {
 		return applyDao.boardApplyCancel(dto);
 	}
 
+	@Override
+	public int jobApplyChoiceUpdateBoard(TBApplyDto dto) {
+		int res = 0;
+		int boardRes = applyDao.jobApplyChoiceUpdateBoard(dto.getApplySeq());
+		int applyRes = applyDao.jobApplyChoiceUpdateApply(dto.getApplySeq());
+		int applyUpdateRes = applyDao.boardApplyUpdate(dto);
+		
+		res = boardRes+applyRes+applyUpdateRes;
+		
+		return res;
+	}
+
 }
