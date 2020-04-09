@@ -212,7 +212,7 @@ function readURL(flag, input) {
                         document.getElementById('pw').value = userID;
                         
                         idChked('Y');	// 이메일 아이디 중복검사 ajax
-                                
+                        emailChk1 = 'Y';
                         Kakao.Auth.logout();
                                 
                         },
@@ -238,7 +238,7 @@ function readURL(flag, input) {
 
 		// 비동기로 이메일과 아이디코드를 확인하고 정보 넘기기
 		idChked('Y');
-	 	
+		emailChk1 = 'Y';
 		// ??
 		var id_token = googleUser.getAuthResponse().id_token;
 
@@ -249,21 +249,36 @@ function readURL(flag, input) {
 	}
 	
 </script>
+<style type="text/css">
+#board{
+	position: relative;
+
+}
+#kakao{
+	cursor: pointer;
+}
+
+</style>
 </head>
-
-
 <body>
 	<!-- header -->
 	<%@ include file="/WEB-INF/views/header.jsp"%>
 	
-	
-	<input type = "button" value = "카카오 로그인" onclick = "kakaoLogin();"/>
-	<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" id="google"></div>
 	<div align="center">
 		<br>
 		<h1>REGISTER</h1>
-		<br> <br>
-
+		<br>
+		<div align="center">
+	<table>
+		<tr>
+			<td><div style="width:34px;" id="google" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" id="google"></div>
+	</td><td><img style="width:34px; height:34px;"id="kakao" src="/resources/Login/images/icons/kakaolink_btn_medium.png" onclick = "kakaoLogin();">
+	</td>
+		</tr>
+	
+	</table>
+	</div>
+ <br>
 		<form action="insert.do" method="post" id="insertForm">
 
 			<!--  
