@@ -138,10 +138,11 @@ public class HomeController {
 
 	// 회원가입 기능
 	@RequestMapping(value = "/insert.do")
-	public String insertBoard(String userId, String userId2, String userId3, String userId4, String pw, String name,
-			String phone, String addr1, String addr2) {
+	public String insertBoard(String userId, String pw, String name, String phone, String addr1, String addr2) {
+		System.out.println(userId);
+		
 		TBUserDto dto = new TBUserDto(userId, pw, name, phone, addr1 + " " + addr2, "1");
-
+		
 		if (biz.insertUser(dto) > 0) {
 			return "redirect:main.do";
 		} else {
