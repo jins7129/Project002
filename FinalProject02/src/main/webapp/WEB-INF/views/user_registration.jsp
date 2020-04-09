@@ -105,7 +105,7 @@ function readURL(flag, input) {
 					} else {
 						var res = confirm("이 아이디를 사용하실수 있습니다.");
 						if (res == true) {
-							$("#input[name=userId]").prop("disabled", true);
+							//$("input[name=userId]").prop("disabled", true);
 						}
 						idkChk = "Y";
 					}

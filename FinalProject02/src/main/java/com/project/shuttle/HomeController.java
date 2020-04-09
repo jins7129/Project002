@@ -138,10 +138,11 @@ public class HomeController {
 
 	// 회원가입 기능
 	@RequestMapping(value = "/insert.do")
-	public String insertBoard(String userId, String userId2, String userId3, String userId4, String pw, String name,
-			String phone, String addr1, String addr2) {
+	public String insertBoard(String userId, String pw, String name, String phone, String addr1, String addr2) {
+		System.out.println(userId);
+		
 		TBUserDto dto = new TBUserDto(userId, pw, name, phone, addr1 + " " + addr2, "1");
-
+		
 		if (biz.insertUser(dto) > 0) {
 			return "redirect:main.do";
 		} else {
@@ -200,14 +201,4 @@ public class HomeController {
 
 	// Job 게시판 내 글 클릭 시, 상세보기 (모아보기 - 글 클릭)
 
-	
-	@RequestMapping(value = "/map.do")
-	public ModelAndView mapSample(ModelAndView mav) {
-		TBJobDto dto = JobBiz.selectOne(68);
-		
-		mav.addObject("jobInfo",dto);
-		mav.setViewName("mapSample");
-
-		return mav;
-	}
 }
