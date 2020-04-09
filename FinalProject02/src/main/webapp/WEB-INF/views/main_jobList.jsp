@@ -7,30 +7,29 @@
 <title>모아보기</title>
 <style type="text/css">
 
-h1{
-	margin-left: 10%;
-}
-
 .wrapper {
 	align-content: center;
 	align-items: center;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-	width: 1200px;
-	margin-left: 10%;
+	margin-left: 3%;
 }
 
-.wrapper>div {
-	border: 1px solid rgb(248, 112, 97);
-	margin: 5px;
+
+.boardChild {
+	margin : 14px;
+	padding : 10px;
+	width: 270px;
+	height: 220px;
+	border-radius: 20px;
+	background : #32506d;
+	border : 3px solid #32506d;
+	
 	box-sizing: border-box;
-	width: 200px;
-	height: 180px;
 	display: -moz-box;
 	display: -ms-flexbox;
 	justify-content: center;
 	align-items: center;
-	border-radius: 10px;
 	cursor: pointer;
 	/* font-family: Montserrat-Bold; */
 	font-size: 15px;
@@ -45,8 +44,9 @@ h1{
 	float: none;
 }
 
-.wrapper>div:hover {
-	background-color: gray;
+.boardChild:hover {
+	color : black;
+	background-color: white;
 }
 /* 나중에 문제 있으면 추가할 것
 body {
@@ -59,6 +59,7 @@ body {
 	width: 100%;
 	height: 100px;
 	background: white;
+	
 }
 
 #sidebar {
@@ -101,9 +102,36 @@ body {
 	color: white;
 	border-radius: 10px;
 }
+#sidebar>button:hover{
+	cursor: pointer;
+	background: #00bf8f;
+}
 
 .sideMenu{
 margin-bottom: 10px;}
+
+.boardHeader{
+	margin-left : 5px;
+	margin-bottom : 7px;
+	width: 14px;
+	height: 14px;
+	border-radius: 8px;
+}
+.boardTitle{
+	background : white;
+	border-radius : 10px 10px 0px 0px;
+	padding: 3px;
+	margin : 5px;
+	height: 16px;
+}
+
+.boardContent{
+	background: white;
+	border-radius : 0px 0px 10px 10px;
+	padding: 3px;
+	margin : 5px;
+	height: 130px;
+}
 </style>
 </head>
 <body>
@@ -164,16 +192,19 @@ margin-bottom: 10px;}
 		  });
 	}
 	</script>
-
-	<h1>모아보기</h1><br>
-	<div class="wrapper">
+	<br/><br/>
+	<div class="wrapper" align="left">
 		<c:forEach items="${list}" var="JobDto">
-			<div class="dragInner" id="${JobDto.jobSeq} ${JobDto.userId} ${loginInfo.userId}" onclick="location.href='main_jobDetail.do?jobSeq=${JobDto.jobSeq}'" draggable="true" ondragstart="drag(event)">
-				<span>${JobDto.jobSeq}</span>
-				<span>${JobDto.jobTitle}</span>
-				<span>${JobDto.userId}</span>
-				<span>${JobDto.jobDate}</span>
-				<span>${JobDto.jobView}</span>
+			<div id="board" >
+			<div class="dragInner boardChild" id="${JobDto.jobSeq} ${JobDto.userId} ${loginInfo.userId}" onclick="location.href='main_jobDetail.do?jobSeq=${JobDto.jobSeq}'" draggable="true" ondragstart="drag(event)">
+				<div class="boardHeader" style="${JobDto.jobComplete == 'Y' ? 'background:#00bf8f;': JobDto.jobComplete == 'D' ? 'background:#FF7F50;' : 'background:#dd4b39;'}" ></div>
+				<div class="boardTitle">제목 : ${JobDto.jobTitle}</div>
+				<div class="boardContent">
+				글번호 : ${JobDto.jobSeq}<br/>
+				조회수 : ${JobDto.jobView}<br/>
+				작성자 : ${JobDto.userId}<br/>
+				작성날짜 : ${JobDto.jobDate}</div>
+			</div>
 			</div>
 		</c:forEach>
 	</div>

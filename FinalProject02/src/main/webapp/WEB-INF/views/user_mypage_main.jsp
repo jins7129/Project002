@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Shuttle</title>
-	<%@ include file="/WEB-INF/views/header.jsp"%>
 <link rel="icon" href="/resources/images/icon.png" type="image/x-icon">
+<%@ include file="/WEB-INF/views/header.jsp"%>
 <style type="text/css">
 #btnUpdate {
 	/*버튼 css*/
@@ -49,30 +49,65 @@
 	font-size: 12pt;
 }
 
-.writtenBoardNum:hover, .applyBoardNum:hover, .doingBoardNum:hover, .doneBoardNum:hover, .reviewBoardNum:hover{
-	/* 내가 쓴 게시물 페이징 호버 */
-	color:rgb(248, 112, 97);
+.boardHeader{
+	margin-left : 5px;
+	margin-bottom : 7px;
+	width: 14px;
+	height: 14px;
+	border-radius: 8px;
 }
-
-.writtenBoardTitle:hover, .applyBoardTitle:hover, .doingBoardTitle:hover, .doneBoardTitle:hover, .reviewBoardTitle:hover{
-	/* 내가 쓴 게시물 제목 호버 */	
-	color: rgb(248, 112, 97);
-	cursor: pointer;
-}
-
 .boardTitle{
-	text-decoration: none;
+	background : white;
+	border-radius : 10px 10px 0px 0px;
+	padding: 3px;
+	margin : 5px;
+	height: 16px;
+}
+
+.boardContent{
+	background: white;
+	border-radius : 0px 0px 10px 10px;
+	padding: 3px;
+	margin : 5px;
+	height: 130px;
+}
+
+.boardChild {
+	margin : 14px;
+	padding : 10px;
+	width: 270px;
+	height: 220px;
+	border-radius: 20px;
+	background : #32506d;
+	border : 3px solid #32506d;
+	
+	box-sizing: border-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	/* font-family: Montserrat-Bold; */
+	font-size: 15px;
+	color: black;
+	line-height: 1.1;
+	letter-spacing: 1px;
+	-webkit-transition: all 0.4s;
+	-o-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	transition: all 0.4s;
+}
+
+.boardChild:hover {
 	color : black;
+	background-color: white;
+}
+.wrapper {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	width: 800px;
 }
 
-.boardTitle:hover{
-	color: rgb(248, 112, 97);
-}
-
-.boardCss{
-	float:none;
-
-}
 
 </style>
 <script type="text/javascript">
@@ -82,7 +117,7 @@
 	var applyEndPageNum;
 	var doingEndPageNum;
 	var doneBoardPageNum;
-	var reviewBoardPageNum;
+	//var reviewBoardPageNum;
 	
 	function checkPageNum(value, endPageNum){
 		// pageNum 태그 들의 값 확인
@@ -102,7 +137,7 @@
 		applyBoard();	// 내가 신청한 글
 		doingBoard();	// 내가 하는 중인 글
 		doneBoard();	// 내가 완료한 글
-		reviewBoard();	// 내가 쓴 리뷰
+		//reviewBoard();	// 내가 쓴 리뷰
 		
 		// 동적쿼리로 생성된 태그들의 이벤트 걸어주기 
 		$(document).on('click','input[name=writtenBoardPaging]', function() {
@@ -131,11 +166,12 @@
 					doneBoard();
 		});
 		
-		////////////////////
+		///////////////////
+		/*
 		$(document).on('click','input[name=reviewBoardPaging]', function() {
 					pageNum = checkPageNum(this.value, reviewEndPageNum);
 					reviewBoard();
-		});
+		});*/
 		
 	});
 	
@@ -158,13 +194,11 @@
 				writtenEndPageNum = pageMaker.tempEndPage;
 				for (var i = 0; i < list.length; i++) {
 					var val = list[i];	// 게시글 뿌리기
-					if(val.jobComplete == "Y"){
-						val.jobComplete = "완료";
-					} else if (val.jobComplete == "N"){
-						val.jobComplete = "미완료"
-					}
-					writtenBoard.append("<div>번호 : "+val.jobSeq+ "<br/><a class='boardTitle' href='main.do' >제목 : "+ val.jobTitle+"</a><br/>보상 : "+val.jobReward+"<br/>작성일 : "+val.jobDate+"<br/>완료여부 : "+val.jobComplete+"</div>");
-								
+					var complete = val.jobComplete;
+					
+					var status = checkColor(complete);
+					
+					writtenBoard.append("<div class='boardChild' onclick='goDetail("+val.jobSeq+");'><div class='boardHeader' style='background:"+status+"' ></div><div class='boardTitle' >제목 : "+ val.jobTitle+"</div><div class='boardContent' >글번호 : "+val.jobSeq+"<br/>조회수 : "+val.jobView+"<br/>작성자 : "+val.userId+"<br/>작성날짜 : "+val.jobDate+"</div></div>");
 				}
 				var pageCount = (pageMaker.endPage - pageMaker.startPage) + 1;	// 페이지 수 띄우기 변수
 				
@@ -202,11 +236,13 @@
 				applyPaging.children().remove(); // 페이징 삭제
 				
 				applyEndPageNum = pageMaker.tempEndPage;
-				
 				for (var i = 0; i < list.length; i++) {
-					var val = list[i];
-					applyBoard.append("<div>번호 : "+val.jobSeq+ "<br/><a class='boardTitle' href='main.do' >제목 : "+ val.jobTitle+"</a><br/>보상 : "+val.jobReward+"<br/>작성일 : "+val.jobDate+"</div>");
+					var val = list[i];	// 게시글 뿌리기
+					var complete = val.jobComplete;
 					
+					var status = checkColor(complete);
+					
+					applyBoard.append("<div class='boardChild' onclick='goDetail("+val.jobSeq+");'><div class='boardHeader' style='background:"+status+"' ></div><div class='boardTitle' >제목 : "+ val.jobTitle+"</div><div class='boardContent' >글번호 : "+val.jobSeq+"<br/>조회수 : "+val.jobView+"<br/>작성자 : "+val.userId+"<br/>작성날짜 : "+val.jobDate+"</div></div>");
 				}
 				var pageCount = (pageMaker.endPage - pageMaker.startPage) + 1;
 				for (var i = 1; i < pageCount + 1; i++) {
@@ -238,9 +274,12 @@
 				doingEndPageNum = pageMaker.tempEndPage;
 				
 				for (var i = 0; i < list.length; i++) {
-					var val = list[i];
-					doingBoard.append("<div>번호 : "+val.jobSeq+ "<br/><a class='boardTitle' href='main.do' >제목 : "+ val.jobTitle+"</a><br/>보상 : "+val.jobReward+"<br/>작성일 : "+val.jobDate+"</div>");
+					var val = list[i];	// 게시글 뿌리기
+					var complete = val.jobComplete;
 					
+					var status = checkColor(complete);
+					
+					doingBoard.append("<div class='boardChild' onclick='goDetail("+val.jobSeq+");'><div class='boardHeader' style='background:"+status+"' ></div><div class='boardTitle' >제목 : "+ val.jobTitle+"</div><div class='boardContent' >글번호 : "+val.jobSeq+"<br/>조회수 : "+val.jobView+"<br/>작성자 : "+val.userId+"<br/>작성날짜 : "+val.jobDate+"</div></div>");
 				}
 				var pageCount = (pageMaker.endPage - pageMaker.startPage) + 1;
 				for (var i = 1; i < pageCount + 1; i++) {
@@ -271,9 +310,12 @@
 				doneEndPageNum = pageMaker.tempEndPage;
 				
 				for (var i = 0; i < list.length; i++) {
-					var val = list[i];
-					doneBoard.append("<div>번호 : "+val.jobSeq+ "<br/><a class='boardTitle' href='main.do' >제목 : "+ val.jobTitle+"</a><br/>보상 : "+val.jobReward+"<br/>작성일 : "+val.jobDate+"</div>");
+					var val = list[i];	// 게시글 뿌리기
+					var complete = val.jobComplete;
 					
+					var status = checkColor(complete);
+					
+					doneBoard.append("<div class='boardChild' onclick='goDetail("+val.jobSeq+");'><div class='boardHeader' style='background:"+status+"' ></div><div class='boardTitle' >제목 : "+ val.jobTitle+"</div><div class='boardContent' >글번호 : "+val.jobSeq+"<br/>조회수 : "+val.jobView+"<br/>작성자 : "+val.userId+"<br/>작성날짜 : "+val.jobDate+"</div></div>");
 				}
 				var pageCount = (pageMaker.endPage - pageMaker.startPage) + 1;
 				for (var i = 1; i < pageCount + 1; i++) {
@@ -285,7 +327,7 @@
 			}
 		});
 	}
-	
+	/*
 	function reviewBoard(){
 		$.ajax({
 			type : "post",
@@ -316,24 +358,27 @@
 				alert("통신 실패");
 			}
 		});
+	}*/
+	
+	function goDetail(jobSeq){
+		location.href="main_jobDetail.do?jobSeq="+jobSeq;
+	}
+	function checkColor(check){
+		var colorY = '#00bf8f';
+		var colorD = '#FF7F50';
+		var colorN = '#dd4b39';
+		var status = '';
+		if(check == 'Y'){
+			status = colorY;
+		} else if(check == 'D'){
+			status = colorD;
+		} else{
+			status = colorN;
+		}
+		return status;
 	}
 	
 </script>
-<style type="text/css">
-.wrapper > div{
-  border: 4px solid skyblue;
-  border-radius: 20px 20px 20px 20px;
-  margin : 5px;
-  padding: 15px;
-  font-size: 18px;
-}
- 
-.wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  width : 800px;
-}
-</style>
 </head>
 <body>
 
@@ -429,6 +474,7 @@
 	
 	</div>
 	<br/><hr/><br/>
+	<!-- 
 	<div align="center" >
 		<h3>내가 쓴 리뷰</h3>
 			<div id="reviewBoard" class="wrapper" align="left" >
@@ -443,7 +489,7 @@
 				</table>
 		</div>
 	
-	</div>
+	</div> -->
 
 	<%@ include file="/WEB-INF/views/footer.jsp"%>
 </body>
